@@ -1,0 +1,102 @@
+body>header {
+    background: #eee;
+    padding: 5px;
+    margin-bottom: 80px;
+}
+
+body>header>a>img, body>header a  {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0px 5px;
+    font-size: 1.2em;
+}
+
+body>footer {
+    background: #eee;
+    padding: 5px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+#logged-in-info {
+    float: right;
+    margin-top: 18px;
+}
+
+#logged-in-info form {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.FormError {
+    color : red;
+    font-style: italic;
+}
+
+.errLogin {
+    color : red;
+}
+
+input#subBut {
+    font-weight: bold;
+}
+
+img#site-logo {
+    width: 50px;
+    height: 50px;
+}
+
+div.left-side-navigation {
+    padding: 10px;
+    display: block;
+    width: 200px;
+    height: 100%;
+    position: fixed!important;
+    overflow-y: scroll;
+}
+
+div.left-side-navigation h3{
+    padding-bottom: 10px;
+}
+
+div.main {
+    margin-left: 200px;
+}
+
+div.main h1 {
+    padding : 20px;
+    text-align: center;
+}
+
+article.post {
+    margin: 20px;
+    margin-bottom: 40px;
+    border-style: ridge;
+    padding: 10px;
+    text-align: center;
+}
+
+div.right-side-header {
+    margin-left: 200px;
+}
+
+div#navbar {
+    text-align: center;
+}
+
+p.textInfo {
+    color: skyblue;
+    font-weight: bold;
+}
+
+div.imgGallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    width: 180px;
+    float: left;
+}
+
+div.imgGallery img {
+    width: 100%;
+    height: auto;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments/layout :: site-head">
+    <meta charset="UTF-8"/>
+    <title>Login</title>
+</head>
+<body>
+
+    <header th:replace="fragments/layout :: site-header"></header>
+
+    <main>
+
+        <h1>
+            Login Page
+        </h1>
+
+        <form method="post" th:object="${loginForm}">
+
+            <h3 th:if="${loginError}" class="errLogin">Username or Password is incorrect!</h3>
+
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>
+                        Username :
+                    </th>
+                    <th>
+                        <input type="text"  name="username" th:value="*{username}"/>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        Password :
+                    </th>
+                    <th>
+                        <input type="password" name="password"/>
+                    </th>
+                </tr>
+            </table>
+
+            <input type="submit" value="Login" id="subBut"/>
+
+        </form>
+
+    </main>
+
+    <footer th:replace="fragments/layout :: site-footer"></footer>
+
+</body>
+</html>

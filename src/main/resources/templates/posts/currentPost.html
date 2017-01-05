@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments/layout :: site-head">
+    <meta charset="UTF-8"/>
+    <title th:text="${post.title}">Tile of the Post</title>
+</head>
+<body>
+
+    <header th:replace="fragments/layout :: site-header"></header>
+
+    <main>
+
+        <h2><b th:text="${post.title}"></b></h2>
+        <p th:text="${post.body}"></p>
+        <p><span th:if="${post.author}" th:remove="tag">
+            <b><i>by </i><span th:text="${post.author.username}"></span></b>
+        </span></p>
+
+    </main>
+
+    <footer th:replace="fragments/layout :: site-footer"></footer>
+
+</body>
+</html>

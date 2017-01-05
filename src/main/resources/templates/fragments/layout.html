@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head th:fragment="site-head">
+    <meta charset="UTF-8" />
+
+    <link rel="icon" href="/img/small-logo.png"/>
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/jquery-3.1.0.min.js"></script>
+    <script src="/js/blog-scripts.js"></script>
+    <meta th:include="this :: head" th:remove="tag"/>
+</head>
+
+<body>
+<header th:fragment="site-header">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+
+        <div class="container-fluid">
+
+            <div id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="/"><img id="site-logo" src="/img/site-logo.png"/></a></li>
+                    <li sec:authorize="isAuthenticated()"><a href="/create-post">Create Post</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
+                    <li sec:authorize="isAnonymous()"><a href="/register">Register</a></li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a href="/myaccount">
+                            <span th:text="${#authentication.getName()}"></span>
+                        </a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+</header>
+
+<h1>Welcome</h1>
+<p>Welcome to the Spring MVC Blog.</p>
+
+<footer th:fragment="site-footer">
+    &copy; Spring MVC Blog System, 2016
+</footer>
+</body>
+
+</html>

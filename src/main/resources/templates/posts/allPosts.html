@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments/layout :: site-head">
+    <meta charset="UTF-8"/>
+    <title>All Posts</title>
+</head>
+<body>
+
+<header th:replace="fragments/layout :: site-header"></header>
+
+<main>
+    <table style="width:100%">
+        <tr>
+            <th>Title</th>
+            <th>Body</th>
+            <th>Author</th>
+        </tr>
+
+        <tr th:each="p : ${posts}">
+            <td th:text="${p.title}">No title</td>
+            <td th:text="${p.body}">No Body</td>
+            <td th:if="${p.author}" th:text="${p.author.username}"></td>
+            <td th:unless="${p.author}">Anonymous</td>
+            <td><a th:href="@{/post/edit/} + ${p.id}">Edit Post</a></td>
+            <td><a>Delete Post</a></td>
+        </tr>
+    </table>
+</main>
+
+<footer th:replace="fragments/layout :: site-footer"></footer>
+
+</body>
+</html>

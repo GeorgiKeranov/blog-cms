@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments/layout :: site-head">
+    <title>Blog</title>
+</head>
+
+<body>
+    <header th:replace="fragments/layout :: site-header"></header>
+
+    <main>
+        <div class="left-side-navigation">
+            <h3>Latest 5 posts :</h3>
+            <aside>
+                <a th:each="p : ${last5Posts}" th:href="@{/posts/} + ${p.id}">
+                    <p th:text="${p.summaryTitle}"></p>
+                </a>
+            </aside>
+        </div>
+
+        <div class="main">
+
+            <h1>Posts :</h1>
+
+            <article class="post" th:each="post : ${allPosts}">
+                <a th:href="@{/posts/} + ${post.id}"><h2 th:text="${post.title}">Title</h2></a>
+                <p th:text="${post.body}">Body</p>
+            </article>
+
+        </div>
+
+    </main>
+
+    <footer th:replace="fragments/layout :: site-footer"></footer>
+</body>
+
+
+
+</html>

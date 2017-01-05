@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments/layout :: site-head">
+    <meta charset="UTF-8"/>
+    <title>Edit Post</title>
+</head>
+<body>
+
+<header th:replace="fragments/layout :: site-header"></header>
+
+<main>
+
+    <form method="post" th:object="${postForm}">
+        <p>Title</p>
+        <p><input type="text" name="title" value="No Title" th:value="*{title}"/></p>
+        <p>Body</p>
+        <p><input type="text" name="body" value="No Body" th:value="*{body}"/></p>
+        <p>Author</p>
+        <p>
+            <span th:if="${postForm.author}">
+                <input type="text" name="author" th:value="${postForm.author.username}"/>
+            </span>
+
+            <span th:unless="${postForm.author}">
+                <input type="text" name="author"/>
+            </span>
+        </p>
+        <p><input type="submit" value="Apply Editing"/></p>
+    </form>
+
+</main>
+
+<footer th:replace="fragments/layout :: site-footer"></footer>
+
+</body>
+</html>

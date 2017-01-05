@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments/layout :: site-head">
+    <title>Create Post</title>
+</head>
+<body>
+
+    <header th:replace="fragments/layout :: site-header"></header>
+
+    <main>
+
+        <h1>Create Post : </h1>
+
+        <form method="post" th:object="${postForm}">
+
+            <table>
+
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        <input type="text" name="title" placeholder="Title" th:value="*{title}"/>
+                        <span class="FormError" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        Body
+                    </th>
+                    <th>
+                        <input type="text" name="body" placeholder="Body" th:value="*{body}"/>
+                        <span class="FormError" th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></span>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <input type="submit" value="Create Post"/>
+                    </th>
+                </tr>
+
+            </table>
+        </form>
+
+    </main>
+
+    <footer th:replace="fragments/layout :: site-footer"></footer>
+
+</body>
+</html>
