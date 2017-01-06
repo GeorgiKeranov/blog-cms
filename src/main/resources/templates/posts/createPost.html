@@ -11,11 +11,22 @@
 
         <h1>Create Post : </h1>
 
-        <form method="post" th:object="${postForm}">
+        <form method="post" enctype="multipart/form-data" th:object="${postForm}">
+
+            <p class="textInfo" th:if="${msg}" th:text="${msg}"></p>
 
             <table>
+                <tr>
+                    <th>
+                        Article Image
+                    </th>
+                    <th>
+                        <input type="file" name="picture"/>
+                    </th>
+                </tr>
 
                 <tr>
+
                     <th>
                         Title
                     </th>

@@ -31,7 +31,7 @@
                     <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
                     <li sec:authorize="isAnonymous()"><a href="/register">Register</a></li>
                     <li sec:authorize="isAuthenticated()">
-                        <a href="/myaccount">
+                        <a href="/account">
                             <span th:text="${#authentication.getName()}"></span>
                         </a>
                     </li>

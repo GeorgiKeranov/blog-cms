@@ -12,12 +12,7 @@
     <main>
         <h1>Your profile : <span th:text="${#authentication.getName()}"></span></h1>
 
-        <p class="textInfo" th:if="${msg}" th:text="${msg}"></p>
 
-        <form method="post" enctype="multipart/form-data">
-            <input type="file" name="picture"/>
-            <input type="submit" value="Upload"/>
-        </form>
     </main>
 
     <footer th:replace="/fragments/layout :: site-footer"></footer>

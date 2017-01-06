@@ -3,6 +3,7 @@ package blog.services.implementations;
 import blog.models.Image;
 import blog.models.User;
 import blog.repositories.ImageRepository;
+import blog.repositories.PostRepository;
 import blog.services.interfaces.StorageService;
 import blog.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +26,45 @@ public class StorageServiceImpl implements StorageService {
     ImageRepository imageRepo;
 
     @Override
-    public String saveFile(MultipartFile file) {
-        if(file.isEmpty()) return "Please choice an image";
+    public String savePostImage(MultipartFile file) {
+        if(file.isEmpty()) return null;
 
         try {
             Long KB = file.getSize()/1024;
             Long MB = KB/1024;
 
-            if(MB > 4) return "Image is more than 2 MB";
+            if(MB > 5) return null;
+
+            // Creating unique name for the image.
+            String nameOfImage = new Date() + file.getOriginalFilename();
+
+            Path location = Paths.get(postsImgsDirectory);
+            Files.copy(file.getInputStream(), location.resolve(nameOfImage));
+
+            return nameOfImage;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public String saveUserImage(MultipartFile file) {
+        if(file.isEmpty()) return "Image is empty.";
+
+        try {
+            Long KB = file.getSize()/1024;
+            Long MB = KB/1024;
+
+            if(MB > 5) return "Size of the picture cannot be more than 5 MB";
 
             // Getting the authenticated user.
             User authUser = userService.getAuthenticatedUser();
 
             // Making directory for images for that username.
-            String locationForSave = images_directory + authUser.getUsername();
+            String locationForSave = usersImgsDirectory + authUser.getUsername();
 
             // Creating unique name for the image.
             String nameOfImage = new Date() + file.getOriginalFilename();
@@ -54,13 +80,13 @@ public class StorageServiceImpl implements StorageService {
             image.setUser(authUser);
             imageRepo.save(image);
 
-            return "Image is successful uploaded to server";
+            return "Successful saved";
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return "Error, Please try again";
+        return "Error, please try again";
     }
 
     @Override
@@ -75,18 +101,15 @@ public class StorageServiceImpl implements StorageService {
         return images;
     }
 
-    public String getDynamicDirectory(){
+    @Override
+    public String getUserDirectory(){
         String authUsername = userService.getAuthenticatedUser().getUsername();
-        return public_directory + authUsername + "/";
+        return publicUserImgs + authUsername + "/";
     }
 
     @Override
-    public Image userImageById(Long id) {
+    public Image ImageUserById(Long id) {
 
-        imageRepo.findOne(id);
-        
-
-
-        return null;
+        return imageRepo.findOne(id);
     }
 }

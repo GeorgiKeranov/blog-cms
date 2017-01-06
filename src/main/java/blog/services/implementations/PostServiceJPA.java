@@ -21,13 +21,12 @@ public class PostServiceJPA implements PostService {
 
     @Override
     public Post getPostById(Long id) {
-        Post postById = postRepo.findOne(id);
-        return postById;
+        return postRepo.findOne(id);
     }
 
     @Override
     public List<Post> getAllPosts(){
-        return postRepo.findAll();
+        return postRepo.findByOrderByDateDesc();
     }
 
     @Override

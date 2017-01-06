@@ -13,6 +13,8 @@ public class Post {
 
     private String title;
 
+    private String icon;
+
     @Column(length = 500)
     private String body;
 
@@ -48,6 +50,14 @@ public class Post {
         this.title = title;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     public String getBody() {
         return body;
     }
@@ -68,17 +78,7 @@ public class Post {
         return date;
     }
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", body='" + body + '\'' +
-                ", author=" + author +
-                ", date=" + date +
-                '}';
-    }
-
+    @Transient
     public String getSummaryTitle(){
         if(title.length() > 15)
             return title.substring(0, 15);

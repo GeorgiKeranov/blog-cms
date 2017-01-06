@@ -10,12 +10,12 @@
 
     <main>
 
-        <h2><b th:text="${post.title}"></b></h2>
-        <p th:text="${post.body}"></p>
-        <p><span th:if="${post.author}" th:remove="tag">
-            <b><i>by </i><span th:text="${post.author.username}"></span></b>
-        </span></p>
-
+        <div class="postPage">
+            <h1><b th:text="${post.title}"></b></h1>
+            <img th:if="${post.icon}" th:src="@{/res/image-post/} + ${post.icon}"/>
+            <h3 th:text="${post.body}"></h3>
+            <h2 th:if="${post.author}"><strong th:text="${post.author.fullname}"></strong></h2>
+        </div>
     </main>
 
     <footer th:replace="fragments/layout :: site-footer"></footer>

@@ -14,8 +14,11 @@ public class HomeController {
 
     @RequestMapping("/")
     public String index(Model model){
+
+
         model.addAttribute("allPosts", postServiceJPA.getAllPosts());
         model.addAttribute("last5Posts", postServiceJPA.getLast5Posts());
+
         return "home";
     }
 

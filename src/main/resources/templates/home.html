@@ -22,10 +22,13 @@
 
             <h1>Posts :</h1>
 
-            <article class="post" th:each="post : ${allPosts}">
-                <a th:href="@{/posts/} + ${post.id}"><h2 th:text="${post.title}">Title</h2></a>
-                <p th:text="${post.body}">Body</p>
-            </article>
+            <a th:each="post : ${allPosts}" th:href="@{/posts/} + ${post.id}">
+                <div class="post">
+                    <img th:if="${post.icon}" th:src="@{/res/image-post/} + ${post.icon}"/>
+                    <h2 th:text="${post.title}">Title</h2>
+                    <p th:text="${post.body}">Body</p>
+                </div>
+            </a>
 
         </div>
 

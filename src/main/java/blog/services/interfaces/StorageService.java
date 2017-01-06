@@ -7,10 +7,13 @@ import java.util.List;
 
 public interface StorageService {
 
-    public final static String images_directory = "/home/georgi/Server/images/";
-    public final static String public_directory = "/res/images/";
-    public String saveFile(MultipartFile file);
+    public final static String usersImgsDirectory = "/home/georgi/Server/images/";
+    public final static String postsImgsDirectory = "/home/georgi/Server/image-post/";
+    public final static String publicUserImgs = "/res/images/";
+
+    public String savePostImage(MultipartFile file);
+    public String saveUserImage(MultipartFile file);
     public List<Image> userImages();
-    public String getDynamicDirectory();
-    public Image userImageById(Long id);
+    public String getUserDirectory();
+    public Image ImageUserById(Long id);
 }

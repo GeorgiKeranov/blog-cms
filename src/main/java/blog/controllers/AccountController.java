@@ -18,24 +18,19 @@ public class AccountController {
     @Autowired
     StorageService storageService;
 
-    @RequestMapping("/myaccount")
+    @RequestMapping("/account")
     public String showMyAccountPage(Model model){
         return "/account/myAccount";
     }
 
-    @RequestMapping(value = "/myaccount", method = RequestMethod.POST)
-    public String uploadImg(@RequestParam("picture") MultipartFile picture, Model model){
-
-        String msg = storageService.saveFile(picture);
-        model.addAttribute("msg", msg);
-        return "/account/myAccount";
-    }
-
-    @RequestMapping("/myaccount/loadPics")
+    @RequestMapping("/account/loadPics")
     public String getImageById(Model model){
 
-
-        return "loadPics";
+        List<Image> images = storageService.userImages();
+        String linkImages = storageService.getUserDirectory();
+        model.addAttribute("images", images);
+        model.addAttribute("linkImgs", linkImages);
+        return "/tests/loadPics";
     }
 
 }

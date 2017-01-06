@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="/fragments/layout :: site-head">
+    <title>Geting image</title>
+</head>
+<body>
+
+    <header th:replace="/fragments/layout :: site-header"></header>
+
+    <main>
+
+        <a class="divLink" th:if="${images}" th:each="image : ${images}" th:href="${linkImgs} + ${image.imgName}">
+            <div class="imgGallery">
+                <img th:src="${linkImgs} + ${image.imgName}"/>
+                <div class="description" th:text="${image.originalName}"></div>
+            </div>
+        </a>
+
+    </main>
+
+</body>
+</html>
