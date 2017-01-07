@@ -10,7 +10,7 @@ public class PostForm {
     @Size(min=5, message = "Title must be more than 5 characters")
     private String title;
     @Size(min=5, message = "Body must be more than 5 characters")
-    private String body;
+    private String description;
 
     public User getAuthor() {
         return author;
@@ -28,12 +28,11 @@ public class PostForm {
         this.title = title;
     }
 
-    public String getBody() {
-        return body;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
 }

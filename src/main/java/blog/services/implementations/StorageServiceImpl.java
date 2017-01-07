@@ -121,7 +121,6 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public boolean saveProfilePicture(MultipartFile file) {
-        if(file.isEmpty()) return false;
 
         try {
             Long KB = file.getSize()/1024;

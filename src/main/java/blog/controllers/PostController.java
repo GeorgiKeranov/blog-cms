@@ -47,7 +47,7 @@ public class PostController {
         Post curPost = postService.getPostById(id);
 
         postForm.setAuthor(curPost.getAuthor());
-        postForm.setBody(curPost.getBody());
+        postForm.setDescription(curPost.getDescription());
         postForm.setTitle(curPost.getTitle());
 
         return "posts/editPost";
@@ -73,16 +73,19 @@ public class PostController {
 
         if(bindingResult.hasErrors()) return "/posts/createPost";
 
-        String imageName = storageService.savePostImage(picture);
-        if(imageName == null){
-            model.addAttribute("msg", "Error, please try again. Size of the file cannot be more than 5MB.");
-            return "/posts/createPost";
+        Post postForSave = new Post();
+
+        if(!picture.isEmpty()) {
+            String imageName = storageService.savePostImage(picture);
+            if (imageName == null) {
+                model.addAttribute("msg", "Error, please try again. Size of the image cannot be more than 5MB.");
+                return "/posts/createPost";
+            }
+            postForSave.setIcon(imageName);
         }
 
-        Post postForSave = new Post();
-        postForSave.setIcon(imageName);
         postForSave.setTitle(postForm.getTitle());
-        postForSave.setBody(postForm.getBody());
+        postForSave.setDescription(postForm.getDescription());
         postForSave.setAuthor(userService.getAuthenticatedUser());
 
         postService.savePost(postForSave);

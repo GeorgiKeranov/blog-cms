@@ -16,6 +16,7 @@
                 <form class="form-horizontal" enctype="multipart/form-data" role="form" th:object="${editAccountForm}" method="post">
                 <div class="col-md-3">
                     <div class="text-center">
+                        <h3>Profile picture</h3>
                         <img class="profilePic" th:if="${user.profile_picture}" th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
                         <img class="profilePic" th:unless="${user.profile_picture}" th:src="@{/res/images/default-user.png}"/>
                         <br/>
@@ -71,6 +72,7 @@
                         <label class="col-md-3 control-label"> Current Password:</label>
                         <div class="col-md-8">
                             <input class="form-control" type="password" name="curPassword" placeholder="Required"/>
+                            <span class="redError" th:if="${#fields.hasErrors('curPassword')}" th:errors="*{curPassword}"></span>
                         </div>
                     </div>
 
@@ -79,7 +81,7 @@
                         <div class="col-md-8">
                             <input class="btn btn-primary" value="Save Changes" type="submit"/>
                             <span></span>
-                            <input class="btn btn-default" value="Cancel" type="reset"/>
+                            <a class="btn btn-default" href="/account">Cancel</a>
                         </div>
                     </div>
                 </div>

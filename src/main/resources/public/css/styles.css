@@ -141,6 +141,7 @@ h1.title {
 }
 
 .form-group{
+    margin-top: 15px;
     margin-bottom: 15px;
 }
 
@@ -195,8 +196,15 @@ div.firstRow a {
 }
 
 div#righter {
-    padding-left: 25px;
+    padding-left: 45px;
 }
 
+div.personal-info {
+    padding-left: 45px;
+}
 
-
+div.multiline
+{
+    padding:20px;
+    white-space: pre-wrap;
+}

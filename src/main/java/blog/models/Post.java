@@ -16,7 +16,7 @@ public class Post {
     private String icon;
 
     @Column(length = 500)
-    private String body;
+    private String description;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User author;
@@ -28,9 +28,9 @@ public class Post {
 
     }
 
-    public Post(String title, String body, User author) {
+    public Post(String title, String description, User author) {
         this.title = title;
-        this.body = body;
+        this.description = description;
         this.author = author;
     }
 
@@ -58,12 +58,16 @@ public class Post {
         this.icon = icon;
     }
 
-    public String getBody() {
-        return body;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public User getAuthor() {

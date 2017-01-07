@@ -9,53 +9,47 @@
 
     <main>
 
-        <h1>Create Post : </h1>
+        <div class="container">
+            <div class="row">
 
-        <form method="post" enctype="multipart/form-data" th:object="${postForm}">
+                <div class="col-md-8 col-md-offset-2">
 
-            <p class="textInfo" th:if="${msg}" th:text="${msg}"></p>
+                    <h1>Create post</h1>
+                    <h4 class="redError" th:if="${msg}" th:text="${msg}"></h4>
 
-            <table>
-                <tr>
-                    <th>
-                        Article Image
-                    </th>
-                    <th>
-                        <input type="file" name="picture"/>
-                    </th>
-                </tr>
+                    <form method="post" th:object="${postForm}" enctype="multipart/form-data">
 
-                <tr>
+                        <div class="form-group has-error">
+                            <label for="picture">Article Image</label>
+                            <input id="picture" type="file" name="picture"/>
+                            <img id="image"/>
+                        </div>
 
-                    <th>
-                        Title
-                    </th>
-                    <th>
-                        <input autofocus="autofocus" type="text" name="title" placeholder="Title" th:value="*{title}"/>
-                        <span class="FormError" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-                    </th>
-                </tr>
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input autofocus="autofocus" id="title" type="text" name="title" placeholder="Title" th:value="*{title}"/>
+                            <span class="FormError" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                        </div>
 
-                <tr>
-                    <th>
-                        Body
-                    </th>
-                    <th>
-                        <input type="text" name="body" placeholder="Body" th:value="*{body}"/>
-                        <span class="FormError" th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></span>
-                    </th>
-                </tr>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" class="form-control" name="description"></textarea>
+                            <span class="FormError" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                        </div>
 
-                <tr>
-                    <th>
-                        <input type="submit" value="Create Post"/>
-                    </th>
-                </tr>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="create">
+                                Create
+                            </button>
+                            <a href="/" class="btn btn-default">Cancel</a>
+                        </div>
 
-            </table>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    </form>
+                </div>
 
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        </form>
+            </div>
+        </div>
 
     </main>
 

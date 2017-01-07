@@ -47,7 +47,10 @@ public class AccountController {
                                     @RequestParam(name = "profilePic", required = false) MultipartFile profilePic,
                                     @Valid EditAccountForm form, BindingResult bindingResult){
 
-        if(bindingResult.hasErrors()) return "/account/editAccount";
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("user", userService.getAuthenticatedUser());
+            return "/account/editAccount";
+        }
 
         String pass = form.getCurPassword();
 
@@ -82,7 +85,6 @@ public class AccountController {
             boolean noError = storageService.saveProfilePicture(profilePic);
             if(!noError) {
                 model.addAttribute("user", userService.getAuthenticatedUser());
-                model.addAttribute("errMsg", "Picture is not saved, please try again!");
                 return "/account/editAccount";
             }
         }

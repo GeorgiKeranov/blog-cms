@@ -13,7 +13,7 @@
         <div class="postPage">
             <h1><b th:text="${post.title}"></b></h1>
             <img th:if="${post.icon}" th:src="@{/res/image-post/} + ${post.icon}"/>
-            <h3 th:text="${post.body}"></h3>
+            <div class="multiline" th:text="${post.description}"></div>
             <h2 th:if="${post.author}"><strong th:text="${post.author.fullname}"></strong></h2>
         </div>
     </main>

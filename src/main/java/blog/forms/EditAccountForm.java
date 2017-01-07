@@ -20,6 +20,7 @@ public class EditAccountForm {
 
     private String confirmNewPassword;
 
+    @Size(min=1, message = "Current password is required!")
     private String curPassword;
 
     public String getFirstname() {
