@@ -4,10 +4,10 @@
 # It is written in java with Spring Boot, Spring MVC, Spring Security, Spring Data Jpa, Hibernate and Thymeleaf.
 # Database : MySql , Connector : mysql-connector.
 #
-# InteliJ bugs if you want to run it :
+# If you want to run it in InteliJ :
 # 1. Set your language level (in ProjectSettings/Modules : Language level : 8 - Lambdas...)
-# 2. Check comments to set it for your database and file system.
-#
+# 2. File/Settings then click on Build, Execution, Deployment/Comipler/Java Compiler/
+# and then in left have "Target bytecode version" - change it this to 1.8.
 #
 # Configure for your machine :
 # 1. Open src/main/java/blog/application.properties
