@@ -25,5 +25,5 @@
 # For example(linux) .addResourceLocations("file:/home/{your account name}/ServerResources/");
 # Run application from SpringBoot file as java appliaction.
 # Now go to your database then roles table
-# and insert new row with role : ROLE_USER!
+# and insert new row with role : ROLE_USER .
 # And you are ready, application is hosted on localhost:8080.
