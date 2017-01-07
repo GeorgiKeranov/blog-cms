@@ -6,10 +6,10 @@
     <meta charset="UTF-8" />
 
     <link rel="icon" href="/img/small-logo.png"/>
-    <link rel="stylesheet" href="/css/styles.css"/>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <script src="/js/bootstrap.js"></script>
     <script src="/js/jquery-3.1.0.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/styles.css"/>
     <script src="/js/blog-scripts.js"></script>
     <meta th:include="this :: head" th:remove="tag"/>
 </head>
@@ -23,19 +23,28 @@
 
             <div id="navbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="/"><img id="site-logo" src="/img/site-logo.png"/></a></li>
+                    <li><a href="/">Home</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/create-post">Create Post</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
-                    <li sec:authorize="isAnonymous()"><a href="/register">Register</a></li>
+                    <li sec:authorize="isAnonymous()">
+                        <a href="/login">Login</a>
+                    </li>
+                    <li sec:authorize="isAnonymous()">
+                        <a href="/register">Register</a>
+                    </li>
                     <li sec:authorize="isAuthenticated()">
                         <a href="/account">
                             <span th:text="${#authentication.getName()}"></span>
                         </a>
                     </li>
-                    <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+                    <li sec:authorize="isAuthenticated()">
+                        <form method="post" action="/logout">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <input class="btn btn-primary navbar-btn" type="submit" value="Logout"/>
+                        </form>
+                     </li>
                 </ul>
             </div>
         </div>

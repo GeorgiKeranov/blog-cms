@@ -14,12 +14,16 @@ import javax.validation.Valid;
 public class LoginController {
 
     @RequestMapping("/login")
-    public String showLoginPage(@Valid LoginForm loginForm, BindingResult bindingResult, Model model,
-                                @RequestParam(value = "error", required = false) String error){
+    public String showLoginPage(Model model,
+                                @RequestParam(value = "error", required = false) String error,
+                                @RequestParam(value = "logout", required = false) String logout,
+                                @RequestParam(value = "regSuccess", required = false) String regSuccess){
 
         if(error != null) model.addAttribute("loginError", true);
+        if(logout != null) model.addAttribute("logout", true);
+        if(regSuccess != null) model.addAttribute("regSuccess", regSuccess);
 
-        return "/forms/login";
+        return "/account/login";
     }
 
 }

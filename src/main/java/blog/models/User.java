@@ -12,7 +12,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fullname;
+    private String firstName;
+
+    private String lastName;
+
+    private String email;
+
+    private String profile_picture;
 
     @Column(unique = true)
     private String username;
@@ -34,10 +40,20 @@ public class User {
 
     }
 
-    public User(String fullname, String username, String password) {
-        this.fullname = fullname;
+    public User(String firstName,String lastName,String email, String username, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.username = username;
         this.password = password;
+    }
+
+    public String getProfile_picture() {
+        return profile_picture;
+    }
+
+    public void setProfile_picture(String profile_picture) {
+        this.profile_picture = profile_picture;
     }
 
     public Set<Image> getImages() {
@@ -56,12 +72,28 @@ public class User {
         this.roles = roles;
     }
 
-    public String getFullname(){
-        return fullname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullname(String fullname){
-        this.fullname = fullname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getId() {
@@ -94,6 +126,11 @@ public class User {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    @Transient
+    public String getFullname(){
+        return firstName + " " + lastName;
     }
 
 }

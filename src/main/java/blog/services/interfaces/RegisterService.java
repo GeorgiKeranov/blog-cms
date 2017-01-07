@@ -5,6 +5,6 @@ import blog.models.User;
 
 public interface RegisterService {
 
-    public User register(User userForRegi);
+    public String register(User userForRegi);
 
 }

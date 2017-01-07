@@ -31,7 +31,7 @@
                         Title
                     </th>
                     <th>
-                        <input type="text" name="title" placeholder="Title" th:value="*{title}"/>
+                        <input autofocus="autofocus" type="text" name="title" placeholder="Title" th:value="*{title}"/>
                         <span class="FormError" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                     </th>
                 </tr>
@@ -53,6 +53,8 @@
                 </tr>
 
             </table>
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         </form>
 
     </main>

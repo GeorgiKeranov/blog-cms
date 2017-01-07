@@ -5,8 +5,17 @@ import javax.validation.constraints.Size;
 
 public class RegisterForm {
 
+    @Size(min=3, message = "Please enter a valid email")
+    private String firstname;
+
+    @Size(min=3, message = "Please enter a valid email")
+    private String lastname;
+
     @Size(min=5, max=40, message = "Please enter username between 5 and 40 characters")
     private String username;
+
+    @Size(min=3, message = "Please enter a valid email")
+    private String email;
 
     @Size(min=5, max=40, message = "Please enter password between 5 and 40 characters")
     @NotNull(message = "Password cannot be empty")
@@ -15,9 +24,6 @@ public class RegisterForm {
     @Size(min=5, max=40, message = "Please enter password between 5 and 40 characters")
     @NotNull(message = "Password cannot be empty")
     private String password1;
-
-    @Size(min=1, message = "Full name cannot be empty!")
-    private String fullName;
 
 
     public String getUsername() {
@@ -44,12 +50,27 @@ public class RegisterForm {
         this.password = password;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

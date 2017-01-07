@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/fragments/layout :: site-head">
+    <meta charset="UTF-8"/>
+    <title th:text="${#authentication.getName()}"></title>
+</head>
+<body class="bodyBackgroundOrange">
+
+    <header th:replace="/fragments/layout :: site-header"></header>
+
+    <main class="main-bottom">
+        <div class="container">
+            <div class="row">
+                <!-- left column -->
+                <form class="form-horizontal" enctype="multipart/form-data" role="form" th:object="${editAccountForm}" method="post">
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <img class="profilePic" th:if="${user.profile_picture}" th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
+                        <img class="profilePic" th:unless="${user.profile_picture}" th:src="@{/res/images/default-user.png}"/>
+                        <br/>
+                        <br/>
+                        <h6>Upload a different photo...</h6>
+                        <input class="form-control" type="file" name="profilePic"/>
+                    </div>
+                </div>
+
+                <!-- edit form column -->
+                <div class="col-md-9 personal-info">
+                    <h3>Personal info</h3>
+                    <h3 class="redError" th:if="${errMsg}" th:text="${errMsg}"></h3>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" th:value="${user.email}" type="email" name="email"/>
+                            <span class="FormError" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">First name:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" th:value="${user.firstName}" name="firstname"/>
+                            <span class="FormError" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Last name:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" th:value="${user.lastName}" type="text" name="lastname"/>
+                            <span class="FormError" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">New Password:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="password" name="newPassword" placeholder="Not Required"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Confirm New Password:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="password" name="confirmNewPassword" placeholder="Not Required"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"> Current Password:</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="password" name="curPassword" placeholder="Required"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">
+                            <input class="btn btn-primary" value="Save Changes" type="submit"/>
+                            <span></span>
+                            <input class="btn btn-default" value="Cancel" type="reset"/>
+                        </div>
+                    </div>
+                </div>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+            </div>
+        </div>
+        <hr/>
+
+    </main>
+
+    <footer th:replace="/fragments/layout :: site-footer"></footer>
+
+</body>
+</html>

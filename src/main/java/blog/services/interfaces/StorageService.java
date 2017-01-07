@@ -16,4 +16,5 @@ public interface StorageService {
     public List<Image> userImages();
     public String getUserDirectory();
     public Image ImageUserById(Long id);
+    public boolean saveProfilePicture(MultipartFile file);
 }

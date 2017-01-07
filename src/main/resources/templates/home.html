@@ -5,7 +5,7 @@
     <title>Blog</title>
 </head>
 
-<body>
+<body class="bodyBackgroundBlue">
     <header th:replace="fragments/layout :: site-header"></header>
 
     <main>
@@ -18,15 +18,14 @@
             </aside>
         </div>
 
-        <div class="main">
+        <div class="mainRight">
 
             <h1>Posts :</h1>
 
             <a th:each="post : ${allPosts}" th:href="@{/posts/} + ${post.id}">
                 <div class="post">
                     <img th:if="${post.icon}" th:src="@{/res/image-post/} + ${post.icon}"/>
-                    <h2 th:text="${post.title}">Title</h2>
-                    <p th:text="${post.body}">Body</p>
+                    <h2 th:text="${post.summaryTitle}">Title</h2>
                 </div>
             </a>
 

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/fragments/layout :: site-head">
+    <meta charset="UTF-8"/>
+    <title th:text="${#authentication.getName()}"></title>
+</head>
+<body class="bodyBackgroundOrange">
+
+    <header th:replace="/fragments/layout :: site-header"></header>
+
+    <main class="main-bottom">
+        <div class="container">
+            <h2>Your Account</h2>
+            <hr/>
+
+
+            <div class="row">
+                <!-- left column -->
+                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post">
+
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <img class="profilePic" th:if="${user.profile_picture}" th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
+                            <img class="profilePic" th:unless="${user.profile_picture}" th:src="@{/res/images/default-user.png}"/>
+                        </div>
+                    </div>
+
+                    <!-- edit form column -->
+                    <div class="col-md-9 personal-info" id="righter">
+
+                        <div class="firstRow">
+                            <h3>Personal info</h3>
+                            <a class="btn btn-warning" href="/account/edit">Edit Account</a>
+                        </div>
+
+                        <hr/>
+
+                        <table>
+
+                            <tr>
+                                <td>
+                                    <h3>Username:</h3>
+                                </td>
+                                <th>
+                                    <h3><strong th:text="${user.username}"></strong></h3>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h3>Email:</h3>
+                                </td>
+                                <td>
+                                    <h3><strong th:text="${user.email}"></strong></h3>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h3>First Name:</h3>
+                                </td>
+                                <th>
+                                    <h3><strong th:text="${user.firstName}"></strong></h3>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h3>Last Name:</h3>
+                                </td>
+                                <td>
+                                    <h3><strong th:text="${user.lastName}"></strong></h3>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr/>
+
+    </main>
+
+    <footer th:replace="/fragments/layout :: site-footer"></footer>
+
+</body>
+</html>

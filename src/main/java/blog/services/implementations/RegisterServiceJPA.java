@@ -13,15 +13,21 @@ public class RegisterServiceJPA implements RegisterService {
     UserRepository userRepo;
 
     @Override
-    public User register(User userForRegi) {
+    public String register(User userForRegi) {
 
         User isUserWithThisUsername = userRepo.findByUsername(userForRegi.getUsername());
 
         if(isUserWithThisUsername != null) {
-            return null;
+            return "Username is already taken.";
+        }
+
+        User isUserWithThatEmail = userRepo.findByEmail(userForRegi.getEmail());
+
+        if(isUserWithThatEmail != null){
+            return "Email is already taken.";
         }
 
         User regUser = userRepo.save(userForRegi);
-        return regUser;
+        return null;
     }
 }
