@@ -1,7 +1,6 @@
 # Blog
 #
-# Blog web application. You can register, login then you can make posts with images. You can edit your posts, account.
-# Posts by other users are shown on the home page.
+# Blog web application. You can register, login then you can make posts with images. You can edit your posts, account. Posts by other users are shown on the home page.
 #
 # It is written in java with Spring Boot, Spring MVC, Spring Security, Spring Data Jpa, Hibernate and Thymeleaf.
 # Database : MySql , Connector : mysql-connector.
