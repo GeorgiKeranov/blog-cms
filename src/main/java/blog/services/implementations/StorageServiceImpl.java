@@ -33,7 +33,6 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public String savePostImage(MultipartFile file) {
-        if(file.isEmpty()) return null;
 
         try {
             Long KB = file.getSize()/1024;
@@ -58,7 +57,6 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public String saveUserImage(MultipartFile file) {
-        if(file.isEmpty()) return "Image is empty.";
 
         try {
             Long KB = file.getSize()/1024;
@@ -96,7 +94,7 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public List<Image> userImages() {
+    public List<Image> getUserImages() {
 
         User authUser = userService.getAuthenticatedUser();
 
@@ -105,12 +103,6 @@ public class StorageServiceImpl implements StorageService {
         if(images.isEmpty()) return null;
 
         return images;
-    }
-
-    @Override //TODO delete this and automate it in the thymeleaf.
-    public String getUserDirectory(){
-        String authUsername = userService.getAuthenticatedUser().getUsername();
-        return publicUserImgs + authUsername + "/";
     }
 
     @Override
@@ -139,6 +131,15 @@ public class StorageServiceImpl implements StorageService {
 
             Files.copy(file.getInputStream(), location.resolve(nameOfImage));
 
+            // Saves the image in images table.
+            // If this profile picture is changed. It wont be deleted.
+            Image image = new Image();
+            image.setOriginalName(file.getOriginalFilename());
+            image.setImgName(nameOfImage);
+            image.setUser(authUser);
+            imageRepo.save(image);
+
+            //Saves profile picture name in user table.
             authUser.setProfile_picture(nameOfImage);
             userRepo.save(authUser);
 

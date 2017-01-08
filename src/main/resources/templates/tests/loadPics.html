@@ -11,7 +11,7 @@
 
         <a class="divLink" th:if="${images}" th:each="image : ${images}" th:href="${linkImgs} + ${image.imgName}">
             <div class="imgGallery">
-                <img th:src="${linkImgs} + ${image.imgName}"/>
+                <img th:src="@{/res/images/} + ${#authentication.getName()} + ${image.imgName}"/>
                 <div class="description" th:text="${image.originalName}"></div>
             </div>
         </a>

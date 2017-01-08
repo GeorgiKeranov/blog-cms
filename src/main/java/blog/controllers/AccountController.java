@@ -81,7 +81,7 @@ public class AccountController {
 
         userService.updateUser(userDetails);
 
-        if(profilePic != null) {
+        if(!profilePic.isEmpty()) {
             boolean noError = storageService.saveProfilePicture(profilePic);
             if(!noError) {
                 model.addAttribute("user", userService.getAuthenticatedUser());
@@ -95,10 +95,8 @@ public class AccountController {
     @RequestMapping("/account/loadPics")
     public String getImageById(Model model){
 
-        List<Image> images = storageService.userImages();
-        String linkImages = storageService.getUserDirectory();
+        List<Image> images = storageService.getUserImages();
         model.addAttribute("images", images);
-        model.addAttribute("linkImgs", linkImages);
         return "/tests/loadPics";
     }
 
