@@ -84,7 +84,7 @@ div.mainRight h1 {
 
 div.post {
     margin: 20px;
-    border-style: ridge;
+    border-style: solid;
     padding: 10px;
     text-align: center;
     float: left;
@@ -136,7 +136,6 @@ body.blueColor{
 
 h1.title {
     font-size: 50px;
-    font-family: 'Passion One', cursive;
     font-weight: 400;
 }
 
@@ -207,4 +206,19 @@ div.multiline
 {
     padding:20px;
     white-space: pre-wrap;
+}
+
+input.input-width {
+    width: 60%;
+    height: 25px;
+}
+
+textarea.description {
+    width: 65%;
+}
+
+img#image {
+    margin-top: 30px;
+    width: 400px;
+    height: auto;
 }

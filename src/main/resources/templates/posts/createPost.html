@@ -7,7 +7,7 @@
 
     <header th:replace="fragments/layout :: site-header"></header>
 
-    <main>
+    <main class="main-bottom">
 
         <div class="container">
             <div class="row">
@@ -20,20 +20,20 @@
                     <form method="post" th:object="${postForm}" enctype="multipart/form-data">
 
                         <div class="form-group has-error">
-                            <label for="picture">Article Image</label>
+                            <label for="picture">Article Image :</label>
                             <input id="picture" type="file" name="picture"/>
                             <img id="image"/>
                         </div>
 
                         <div class="form-group">
-                            <label for="title">Title</label>
-                            <input autofocus="autofocus" id="title" type="text" name="title" placeholder="Title" th:value="*{title}"/>
+                            <label for="title">Title :</label>
+                            <input class="input-width" autofocus="autofocus" id="title" type="text" name="title" placeholder="Title" th:value="*{title}"/>
                             <span class="FormError" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea id="description" class="form-control" name="description"></textarea>
+                            <h5><strong>Description :</strong></h5>
+                            <textarea id="description" class="description" name="description"></textarea>
                             <span class="FormError" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
                         </div>
 
