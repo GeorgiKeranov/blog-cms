@@ -3,7 +3,6 @@ package blog.services.implementations;
 import blog.models.Image;
 import blog.models.User;
 import blog.repositories.ImageRepository;
-import blog.repositories.PostRepository;
 import blog.repositories.UserRepository;
 import blog.services.interfaces.StorageService;
 import blog.services.interfaces.UserService;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,11 +33,6 @@ public class StorageServiceImpl implements StorageService {
     public String savePostImage(MultipartFile file) {
 
         try {
-            Long KB = file.getSize()/1024;
-            Long MB = KB/1024;
-
-            if(MB > 5) return null;
-
             // Creating unique name for the image.
             String nameOfImage = new Date() + file.getOriginalFilename();
 
@@ -59,11 +52,6 @@ public class StorageServiceImpl implements StorageService {
     public String saveUserImage(MultipartFile file) {
 
         try {
-            Long KB = file.getSize()/1024;
-            Long MB = KB/1024;
-
-            if(MB > 5) return "Size of the picture cannot be more than 5 MB";
-
             // Getting the authenticated user.
             User authUser = userService.getAuthenticatedUser();
 
@@ -115,11 +103,6 @@ public class StorageServiceImpl implements StorageService {
     public boolean saveProfilePicture(MultipartFile file) {
 
         try {
-            Long KB = file.getSize()/1024;
-            Long MB = KB/1024;
-
-            if(MB > 5) return false;
-
             User authUser = userService.getAuthenticatedUser();
 
             // Making directory for profile picture for that username.

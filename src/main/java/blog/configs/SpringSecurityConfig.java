@@ -24,7 +24,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/create-post", "/post/edit/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/create-post", "/posts/edit/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/posts").access("hasRole('ROLE_USER')")
                 .antMatchers("/account", "/account/**", "/logout").access("hasRole('ROLE_USER')")
                 .antMatchers("/login", "/register").access("isAnonymous()")
                 .and().formLogin().loginPage("/login")

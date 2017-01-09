@@ -1,6 +1,7 @@
 package blog.services.implementations;
 
 import blog.models.Post;
+import blog.models.User;
 import blog.repositories.PostRepository;
 import blog.services.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,16 @@ public class PostServiceJPA implements PostService {
     @Override
     public void savePost(Post post) {
         postRepo.save(post);
+    }
+
+    @Override
+    public List<Post> getUserPosts(User user) {
+
+        return postRepo.findByAuthorOrderByDateDesc(user);
+    }
+
+    @Override
+    public void deletePostById(Long id) {
+        postRepo.delete(id);
     }
 }

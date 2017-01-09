@@ -47,39 +47,40 @@ public class AccountController {
                                     @RequestParam(name = "profilePic", required = false) MultipartFile profilePic,
                                     @Valid EditAccountForm form, BindingResult bindingResult){
 
+        User authUser = userService.getAuthenticatedUser();
+
         if(bindingResult.hasErrors()) {
-            model.addAttribute("user", userService.getAuthenticatedUser());
+            model.addAttribute("user", authUser);
             return "/account/editAccount";
         }
 
         String pass = form.getCurPassword();
 
-        boolean isPasswordCorrect = userService.checkPassword(pass);
+        boolean isPasswordCorrect = userService.checkPassword(authUser.getPassword(), pass);
         if(!isPasswordCorrect){
-            model.addAttribute("user", userService.getAuthenticatedUser());
+            model.addAttribute("user", authUser);
             model.addAttribute("errMsg", "Current Password is incorrect!");
             return "/account/editAccount";
         }
 
-        User userDetails = new User();
-
         String newPass = form.getNewPassword();
         String confirmNewPass = form.getConfirmNewPassword();
 
+        String theNewPassword = null;
         if(!(newPass.equals("") && confirmNewPass.equals(""))){
             if(!newPass.equals(confirmNewPass)){
                 model.addAttribute("user", userService.getAuthenticatedUser());
                 model.addAttribute("errMsg", "New password and confirm password are not the same");
                 return "/account/editAccount";
             }
-            userDetails.setPassword(newPass);
+          theNewPassword = newPass;
         }
 
-        userDetails.setFirstName(form.getFirstname());
-        userDetails.setLastName(form.getLastname());
-        userDetails.setEmail(form.getEmail());
+        authUser.setFirstName(form.getFirstname());
+        authUser.setLastName(form.getLastname());
+        authUser.setEmail(form.getEmail());
 
-        userService.updateUser(userDetails);
+        userService.updateUser(authUser, theNewPassword);
 
         if(!profilePic.isEmpty()) {
             boolean noError = storageService.saveProfilePicture(profilePic);

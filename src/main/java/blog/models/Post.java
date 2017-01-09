@@ -89,4 +89,11 @@ public class Post {
         return title;
     }
 
+    @Transient
+    public String getSummaryDesc(){
+        if(description.length() > 100)
+            return description.substring(0, 100);
+        return description;
+    }
+
 }

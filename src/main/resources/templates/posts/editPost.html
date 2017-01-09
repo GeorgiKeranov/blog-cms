@@ -8,25 +8,47 @@
 
 <header th:replace="fragments/layout :: site-header"></header>
 
-<main>
+<main class="main-bottom">
 
-    <form method="post" th:object="${postForm}">
-        <p>Title</p>
-        <p><input type="text" name="title" value="No Title" th:value="*{title}"/></p>
-        <p>Body</p>
-        <p><input type="text" name="body" value="No Body" th:value="*{body}"/></p>
-        <p>Author</p>
-        <p>
-            <span th:if="${postForm.author}">
-                <input type="text" name="author" th:value="${postForm.author.username}"/>
-            </span>
+    <div class="container">
+        <div class="row">
 
-            <span th:unless="${postForm.author}">
-                <input type="text" name="author"/>
-            </span>
-        </p>
-        <p><input type="submit" value="Apply Editing"/></p>
-    </form>
+            <div class="col-md-8 col-md-offset-2">
+
+                <h1>Edit post</h1>
+
+                <form method="post" enctype="multipart/form-data" th:object="${postForm}">
+
+                    <div class="form-group has-error">
+                        <label for="picture">Article Image :</label>
+                        <input id="picture" type="file" name="picture"/>
+                        <img id="image" th:if="${post.icon}" th:src="@{/res/image-post/} + ${post.icon}"/>
+                        <img th:unless="${post.icon}" id="image"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">Title :</label>
+                        <input class="input-width" autofocus="autofocus" id="title" type="text" name="title" placeholder="Title" th:value="${post.title}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <h5><strong>Description :</strong></h5>
+                        <textarea id="description" class="description" name="description" th:text="${post.description}"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="create">
+                            Edit Changes
+                        </button>
+                        <a href="/" class="btn btn-default">Cancel</a>
+                    </div>
+
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                </form>
+            </div>
+
+        </div>
+    </div>
 
 </main>
 

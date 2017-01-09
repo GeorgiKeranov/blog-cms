@@ -24,33 +24,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkPassword(String password) {
-        User authUser = getAuthenticatedUser();
-        String userPass = authUser.getPassword();
+    public boolean checkPassword(String hashPass, String password) {
 
-        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
 
-        if(bcrypt.matches(password, userPass)) return true;
+        if(bCrypt.matches(password, hashPass)) return true;
 
         return false;
     }
 
     @Override
-    public void updateUser(User user) {
-        User authUser = getAuthenticatedUser();
+    public void updateUser(User user, String newPass) {
 
-        user.setId(authUser.getId());
-        user.setUsername(authUser.getUsername());
-        user.setProfile_picture(authUser.getProfile_picture());
-        user.setImages(authUser.getImages());
-        user.setPosts(authUser.getPosts());
-        user.setRoles(authUser.getRoles());
-
-        if(user.getPassword()  == null) {
-            user.setPassword(authUser.getPassword());
-        } else {
+        if(newPass != null) {
             BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-            String hashPass = bcrypt.encode(user.getPassword());
+            String hashPass = bcrypt.encode(newPass);
             user.setPassword(hashPass);
         }
 

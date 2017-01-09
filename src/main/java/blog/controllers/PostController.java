@@ -35,33 +35,6 @@ public class PostController {
     @Autowired
     ImageRepository imageRepository;
 
-    @RequestMapping("/posts/{id}")
-    public String curPost(@PathVariable("id") Long id, Model model){
-        model.addAttribute("post", postService.getPostById(id));
-        return "posts/currentPost";
-    }
-
-    @RequestMapping("/post/edit/{id}")
-    public String editPost(@PathVariable("id") Long id, PostForm postForm, Model model){
-
-        Post curPost = postService.getPostById(id);
-
-        postForm.setAuthor(curPost.getAuthor());
-        postForm.setDescription(curPost.getDescription());
-        postForm.setTitle(curPost.getTitle());
-
-        return "posts/editPost";
-    }
-
-    @RequestMapping(value = "/post/edit/{id}", method = RequestMethod.POST)
-    public String editPostbyParams(@Valid PostForm postForm, BindingResult bindingResult, Model model){
-
-        //TODO make edit. (update the database .update() with postservice)
-
-        return "redirect:/posts/";
-
-    }
-
     @RequestMapping("/create-post")
     public String createPost(PostForm postForm){
         return "posts/createPost";
@@ -91,6 +64,83 @@ public class PostController {
         postService.savePost(postForSave);
 
         return "redirect:/";
+    }
+
+    @RequestMapping("/posts/{id}")
+    public String curPost(@PathVariable("id") Long id, Model model){
+        model.addAttribute("post", postService.getPostById(id));
+        return "posts/currentPost";
+    }
+
+    @RequestMapping("/posts/edit/{id}")
+    public String editPost(@PathVariable("id") Long id, PostForm postForm, Model model){
+
+        User user = userService.getAuthenticatedUser();
+        String username = user.getUsername();
+
+        Post curPost = postService.getPostById(id);
+        String postOwner = curPost.getAuthor().getUsername();
+
+        if(username.equals(postOwner)){
+            model.addAttribute("post", curPost);
+            return "posts/editPost";
+        }
+
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/posts/edit/{id}", method = RequestMethod.POST)
+    public String editPostByParams(@PathVariable("id") Long id,
+                                   @Valid PostForm postForm, BindingResult bindingResult,
+                                   Model model, MultipartFile picture){
+
+        User user = userService.getAuthenticatedUser();
+        String username = user.getUsername();
+
+        Post post = postService.getPostById(id);
+        String postOwner = post.getAuthor().getUsername();
+
+        if(username.equals(postOwner)) {
+
+            post.setTitle(postForm.getTitle());
+            post.setDescription(postForm.getDescription());
+
+            if (!picture.isEmpty())
+                post.setIcon(storageService.savePostImage(picture));
+
+            postService.savePost(post);
+            return "redirect:/posts/";
+        }
+
+        return "redirect:/";
+
+    }
+
+    @RequestMapping(value = "/posts")
+    public String showAllPosts(Model model){
+
+        User authUser = userService.getAuthenticatedUser();
+        List<Post> userPosts = postService.getUserPosts(authUser);
+
+        model.addAttribute("posts", userPosts);
+
+        return "/posts/showAllPosts";
+    }
+
+    @RequestMapping("/posts/delete/{id}")
+    public String deletePost(@PathVariable("id") Long id, Model model){
+
+        User authUser = userService.getAuthenticatedUser();
+        String authUsername = authUser.getUsername();
+
+        Post postForDel = postService.getPostById(id);
+        String postOwner = postForDel.getAuthor().getUsername();
+
+        if(authUsername.equals(postOwner)){
+            postService.deletePostById(id);
+        }
+
+        return "redirect:/posts";
     }
 
 }

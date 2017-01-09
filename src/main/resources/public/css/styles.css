@@ -177,7 +177,8 @@ input::-webkit-input-placeholder {
 }
 
 img.profilePic {
-    width: 300px;
+    max-width: 300px;
+    border-radius: 90%;
     height: auto;
 }
 
@@ -215,10 +216,29 @@ input.input-width {
 
 textarea.description {
     width: 65%;
+    overflow-y: hidden;
+    height: auto;
 }
 
 img#image {
     margin-top: 30px;
     width: 400px;
     height: auto;
+}
+
+div.myPost {
+    width: 100%;
+    height: auto;
+}
+
+#listPostsImage {
+    max-height: 100px;
+    width: auto;
+}
+
+.testBorder {
+    border: ridge;
+}
+.coolborder {
+    border: groove;
 }
