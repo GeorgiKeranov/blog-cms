@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments/layout :: site-head">
+    <meta charset="UTF-8"/>
+    <title>Your Posts</title>
+</head>
+
+<body>
+
+    <header th:replace="fragments/layout :: site-header"></header>
+
+    <main class="main-bottom">
+
+        <div class="container">
+            <div class="row">
+                <h2 style="text-align: center"> Your Posts : </h2>
+            </div>
+            <div class="row borderPadding" th:each="post : ${posts}">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4><strong th:text="${post.title}"></strong></h4>
+                    </div>
+                    <div class="col-md-1 button-padding">
+                        <a class="btn btn-primary" th:href="@{/posts/} + ${post.id}">Read Post</a>
+                    </div>
+                    <div class="col-md-1 button-padding">
+                        <a class="btn btn-warning" th:href="@{/posts/edit/} + ${post.id}">Edit Post</a>
+                    </div>
+                    <div class="col-md-1 button-padding">
+                        <a id="delete" class="btn btn-danger" th:href="@{/posts/delete/} + ${post.id}">Delete Post</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <img class="img50" th:if="${post.icon}"
+                             th:src="@{/res/image-post/} + ${post.icon}"/>
+                    </div>
+                    <div class="col-md-5 multiline testBorder" th:text="${post.summaryDesc}"></div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="fragments/layout :: site-footer"></footer>
+</body>
+
+</html>

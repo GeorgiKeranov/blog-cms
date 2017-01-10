@@ -9,14 +9,61 @@
     <header th:replace="fragments/layout :: site-header"></header>
 
     <!-- Title will be header, picture will be floating left and description will be in right of the picture. -->
-    <main>
+    <main class="main-bottom">
 
-        <div class="postPage">
-            <h1><b th:text="${post.title}"></b></h1>
-            <img th:if="${post.icon}" th:src="@{/res/image-post/} + ${post.icon}"/>
-            <div class="multiline" th:text="${post.description}"></div>
-            <h2 th:if="${post.author}"><strong th:text="${post.author.fullname}"></strong></h2>
+        <div class="container">
+            <div class="testBorder">
+                <div class="row">
+                    <h1 class="text-center"><b th:text="${post.title}"></b></h1>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <img class="big" th:if="${post.icon}" th:src="@{/res/image-post/} + ${post.icon}"/>
+                    </div>
+                    <div class="col-md-6 multiline testBorder text-center" th:text="${post.description}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="floatRight">
+                    <h2 class="bold">
+                        Author : <a th:href="@{/user/} + ${post.author.id}" th:text="${post.author.fullname}"></a>
+                    </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row"><h2 class="col-md-12 bold text-center">Comments:</h2></div>
+
+            <div th:if="${user}" class="row">
+                <div class="col-md-2">
+                    <img class="image-padding" th:if="${user.profile_picture}" style="height: 100px;"
+                         th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
+                    <img th:unless="${user.profile_picture}" style="width: 100%" src="/res/images/default-user.png"/>
+                </div>
+                <form method="post">
+                    <textarea class="col-md-6 margintop30" placeholder="Comment" name="comment"></textarea>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <div class="col-md-1">
+                    <button class="btn btn-primary margintop30" type="submit">Comment</button>
+                    </div>
+                </form>
+            </div>
+
+            <div th:if="${post.comments}">
+                <div th:each="com : ${post.comments}" class="row borderPadding2">
+                    <div class="col-md-2">
+                        <img class="image-padding" th:if="${com.author.profile_picture}" style="height: 100px;"
+                             th:src="@{/res/images/} + ${com.author.username} + @{/} + ${com.author.profile_picture}"/>
+                        <img th:unless="${com.author.profile_picture}" style="width: 100%" src="/res/images/default-user.png"/>
+                    </div>
+                    <div class="col-md-6 margintop30 multiline2 borderPadding2" placeholder="Comment" th:text="${com.comment}"></div>
+                </div>
+            </div>
+
         </div>
+
+
     </main>
 
     <footer th:replace="fragments/layout :: site-footer"></footer>

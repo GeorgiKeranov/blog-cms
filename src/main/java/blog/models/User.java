@@ -2,6 +2,7 @@ package blog.models;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,6 +35,10 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Image> images;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    private Set<Comment> comments;
+
 
     public User(){
         posts = new HashSet<Post>();
@@ -133,6 +138,14 @@ public class User {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     @Transient

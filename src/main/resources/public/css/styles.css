@@ -22,14 +22,27 @@ td {
 hr {
     clear:both;
     width: 100%;
-    height: 1px;
     color: black;
     border: 0;
     border-top: 1px solid
 }
 
+.bold {
+    font-weight: bold;
+}
+
+.floatRight {
+    float: right;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
 .main-bottom {
     margin-top: 40px;
+}
+
+.margintop30 {
+    margin-top: 30px;
 }
 
 body.bodyBackgroundBlue {
@@ -92,33 +105,30 @@ div.post {
     background-color: white;
 }
 
-div.post img{
-    width: 90%;
-    height: auto;
+img.big {
+    max-height: 400px;
+    max-width: 585px;
 }
 
-div.postPage {
+img.img50{
+    max-height: 250px;
+    max-width: 250px;
+}
+
+div.post img{
     width: 100%;
 }
 
-div.postPage img{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    height: auto;
-}
 div.postPage h1 {
-    text-align: center;
     color: darkslateblue;
 }
+
 div.postPage h2 {
-    text-align: right;
     color: #985f0d;
 
 }
+
 div.postPage h3 {
-    text-align: left;
     color: coral;
 }
 
@@ -203,9 +213,21 @@ div.personal-info {
     padding-left: 45px;
 }
 
+div.author {
+    text-align: right;
+}
+
 div.multiline
 {
-    padding:20px;
+    font-size: larger;
+    width: 550px;
+    height: 400px;
+    white-space: pre-wrap;
+}
+
+div.multiline1
+{
+    font-size: larger;
     white-space: pre-wrap;
 }
 
@@ -239,6 +261,22 @@ div.myPost {
 .testBorder {
     border: ridge;
 }
-.coolborder {
+
+.borderPadding {
+    padding: 40px;
     border: groove;
+}
+
+.borderPadding2 {
+    padding: 15px;
+    border: groove;
+}
+
+.button-padding {
+    text-align: center;
+    padding: 20px;
+}
+
+.image-padding {
+    padding-left: 20px;
 }

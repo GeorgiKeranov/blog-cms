@@ -2,6 +2,8 @@ package blog.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Posts")
@@ -23,6 +25,10 @@ public class Post {
 
     @Column(nullable = false)
     private Date date = new Date();
+
+    @OneToMany(mappedBy = "post")
+    @OrderBy("date")
+    private List<Comment> comments;
 
     public Post(){
 
@@ -82,17 +88,29 @@ public class Post {
         return date;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     @Transient
     public String getSummaryTitle(){
-        if(title.length() > 15)
-            return title.substring(0, 15);
+        if(title.length() > 15) {
+            String summary = title.substring(0, 15);
+            return summary + "...";
+        }
         return title;
     }
 
     @Transient
     public String getSummaryDesc(){
-        if(description.length() > 100)
-            return description.substring(0, 100);
+        if(description.length() > 1000){
+            String summary = description.substring(0, 1000);
+            return summary + "...";
+        }
         return description;
     }
 

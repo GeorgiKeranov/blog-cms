@@ -1,5 +1,6 @@
 package blog.services.interfaces;
 
+import blog.models.Comment;
 import blog.models.Post;
 import blog.models.User;
 
@@ -13,4 +14,5 @@ public interface PostService {
     public void savePost(Post post);
     public List<Post> getUserPosts(User user);
     public void deletePostById(Long id);
+    public void saveComment(Comment comment);
 }

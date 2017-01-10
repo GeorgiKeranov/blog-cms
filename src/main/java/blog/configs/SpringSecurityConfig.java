@@ -30,5 +30,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/login", "/register").access("isAnonymous()")
                 .and().formLogin().loginPage("/login")
                 .and().logout();
+
     }
 }

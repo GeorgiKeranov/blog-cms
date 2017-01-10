@@ -1,5 +1,6 @@
 package blog.controllers;
 
+import blog.models.Comment;
 import blog.models.Post;
 import blog.forms.PostForm;
 import blog.models.User;
@@ -69,7 +70,31 @@ public class PostController {
     @RequestMapping("/posts/{id}")
     public String curPost(@PathVariable("id") Long id, Model model){
         model.addAttribute("post", postService.getPostById(id));
+        User authUser = userService.getAuthenticatedUser();
+        if(authUser != null)
+            model.addAttribute("user", authUser);
         return "posts/currentPost";
+    }
+
+    @RequestMapping(value = "/posts/{id}", method = RequestMethod.POST)
+    public String postComment(@PathVariable("id") Long id,
+                              @RequestParam("comment") String comment){
+
+        if(comment == null || comment.equals("")) return "redirect:/posts/" + id;
+
+        User authUser = userService.getAuthenticatedUser();
+        if(authUser == null) return "redirect:/login";
+
+        Post curPost = postService.getPostById(id);
+
+        Comment commentForSave = new Comment();
+        commentForSave.setAuthor(authUser);
+        commentForSave.setComment(comment);
+        commentForSave.setPost(curPost);
+
+        postService.saveComment(commentForSave);
+
+        return "redirect:/posts/" + id;
     }
 
     @RequestMapping("/posts/edit/{id}")

@@ -7,7 +7,6 @@
 
     <link rel="icon" href="/img/small-logo.png"/>
     <script src="/js/jquery-3.1.0.min.js"></script>
-    <script src="/js/bootstrap.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/styles.css"/>
     <meta th:include="this :: head" th:remove="tag"/>
@@ -24,6 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/">Home</a></li>
                     <li sec:authorize="isAuthenticated()"><a href="/create-post">Create Post</a></li>
+                    <li sec:authorize="isAuthenticated()"><a href="/posts">Your Posts</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
