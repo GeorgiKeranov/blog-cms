@@ -27,3 +27,9 @@ $("#delete").click(function () {
    }
    else return false;
 });
+
+$(".reply").click(function () {
+
+    var reply = $(this).parent().parent().parent().children().children('.reply-comment');
+    reply.toggle();
+});

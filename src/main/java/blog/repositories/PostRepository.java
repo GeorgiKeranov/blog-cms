@@ -1,5 +1,6 @@
 package blog.repositories;
 
+import blog.models.Comment;
 import blog.models.Post;
 import blog.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;

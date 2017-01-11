@@ -1,5 +1,6 @@
 body{
     font-family: 'Oxygen', sans-serif;
+    background-color: #dddddd;
 }
 
 header{
@@ -25,6 +26,14 @@ hr {
     color: black;
     border: 0;
     border-top: 1px solid
+}
+
+.row {
+    padding: 15px;
+}
+
+.btn {
+    border-radius: 24px;
 }
 
 .bold {
@@ -106,13 +115,18 @@ div.post {
 }
 
 img.big {
+    padding-top: 20px;
+    padding-left: 50px;
     max-height: 400px;
-    max-width: 585px;
+    max-width: 450px;
 }
 
 img.img50{
-    max-height: 250px;
+    max-height: 150px;
     max-width: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 div.post img{
@@ -220,26 +234,31 @@ div.author {
 div.multiline
 {
     font-size: larger;
+    word-wrap: break-word;
     width: 550px;
-    height: 400px;
+    height: 150px;
     white-space: pre-wrap;
+    overflow:scroll;
+    border: 2px solid #8c8c8c;
 }
 
 div.multiline1
 {
     font-size: larger;
     white-space: pre-wrap;
+    overflow:scroll;
 }
 
-input.input-width {
+input.title {
     width: 60%;
-    height: 25px;
+    height: 40px;
+    font-size: medium;
 }
 
 textarea.description {
-    width: 65%;
-    overflow-y: hidden;
+    width: 100%;
     height: auto;
+    font-size: larger;
 }
 
 img#image {
@@ -256,10 +275,6 @@ div.myPost {
 #listPostsImage {
     max-height: 100px;
     width: auto;
-}
-
-.testBorder {
-    border: ridge;
 }
 
 .borderPadding {
@@ -279,4 +294,24 @@ div.myPost {
 
 .image-padding {
     padding-left: 20px;
+}
+
+.reply-comment {
+    display: none;
+}
+
+.articles {
+    background-color: white;
+    margin-bottom: 40px;
+}
+
+.centered {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.width1000 {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }

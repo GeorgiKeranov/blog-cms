@@ -8,7 +8,6 @@
 
     <header th:replace="fragments/layout :: site-header"></header>
 
-    <!-- Title will be header, picture will be floating left and description will be in right of the picture. -->
     <main class="main-bottom">
 
         <div class="container">
@@ -50,14 +49,50 @@
                 </form>
             </div>
 
-            <div th:if="${post.comments}">
-                <div th:each="com : ${post.comments}" class="row borderPadding2">
+            <div th:if="${post.comments}" th:each="com : ${post.comments}">
+
+                <div class="row borderPadding2">
+
                     <div class="col-md-2">
                         <img class="image-padding" th:if="${com.author.profile_picture}" style="height: 100px;"
                              th:src="@{/res/images/} + ${com.author.username} + @{/} + ${com.author.profile_picture}"/>
                         <img th:unless="${com.author.profile_picture}" style="width: 100%" src="/res/images/default-user.png"/>
                     </div>
                     <div class="col-md-6 margintop30 multiline2 borderPadding2" placeholder="Comment" th:text="${com.comment}"></div>
+                    <div th:if="${user}" class="col-md-4">
+                        <button class="reply btn btn-info margintop30">Reply</button>
+                    </div>
+                </div>
+
+                <div th:if="${com.replies}">
+                    <div class="row" th:each="reply : ${com.replies}">
+                        <div class="col-md-2">
+                            <img class="image-padding" th:if="${reply.author.profile_picture}" style="height: 100px;"
+                                 th:src="@{/res/images/} + ${reply.author.username} + @{/} + ${reply.author.profile_picture}"/>
+                            <img th:unless="${reply.author.profile_picture}" style="width: 100%" src="/res/images/default-user.png"/>
+                        </div>
+                        <div class="col-md-6 margintop30 multiline2 borderPadding2" placeholder="Comment" th:text="${reply.reply}"></div>
+                    </div>
+                </div>
+
+                <div th:if="${user}" class="row">
+                    <div class="reply-comment">
+
+                        <div class="col-md-2">
+                            <img class="image-padding" th:if="${user.profile_picture}" style="height: 100px;"
+                                 th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
+                            <img th:unless="${user.profile_picture}" style="width: 100%" src="/res/images/default-user.png"/>
+                        </div>
+                        <form method="post">
+                            <textarea class="col-md-6 margintop30" placeholder="Reply" name="reply"></textarea>
+                            <input type="hidden" th:value="${com.id}" name="commentForReply"/>
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <div class="col-md-1">
+                                <button class="btn btn-primary margintop30" type="submit">Comment</button>
+                            </div>
+                        </form>
+
+                    </div>
                 </div>
             </div>
 

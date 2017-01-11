@@ -33,11 +33,14 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Image> images;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
     private Set<Comment> comments;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    private Set<Reply> replies;
 
 
     public User(){
@@ -146,6 +149,14 @@ public class User {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Set<Reply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(Set<Reply> replies) {
+        this.replies = replies;
     }
 
     @Transient

@@ -11,22 +11,19 @@
 
     <main class="main-bottom">
 
-        <div class="container">
-            <div class="row">
-                <h2 style="text-align: center"> Your Posts : </h2>
-            </div>
-            <div class="row borderPadding" th:each="post : ${posts}">
+        <div class="width1000">
+            <div class="row articles" th:each="post : ${posts}">
                 <div class="row">
                     <div class="col-md-3">
-                        <h4><strong th:text="${post.title}"></strong></h4>
+                        <h4 style="text-align: center;"><strong th:text="${post.summaryTitle}"></strong></h4>
                     </div>
-                    <div class="col-md-1 button-padding">
+                    <div class="col-md-2 col-md-offset-2">
                         <a class="btn btn-primary" th:href="@{/posts/} + ${post.id}">Read Post</a>
                     </div>
-                    <div class="col-md-1 button-padding">
+                    <div class="col-md-2">
                         <a class="btn btn-warning" th:href="@{/posts/edit/} + ${post.id}">Edit Post</a>
                     </div>
-                    <div class="col-md-1 button-padding">
+                    <div class="col-md-2">
                         <a id="delete" class="btn btn-danger" th:href="@{/posts/delete/} + ${post.id}">Delete Post</a>
                     </div>
                 </div>
@@ -35,7 +32,7 @@
                         <img class="img50" th:if="${post.icon}"
                              th:src="@{/res/image-post/} + ${post.icon}"/>
                     </div>
-                    <div class="col-md-5 multiline testBorder" th:text="${post.summaryDesc}"></div>
+                    <div class="col-md-5 col-md-offset-2 multiline centered" th:text="${post.summaryDesc}"></div>
 
                 </div>
             </div>

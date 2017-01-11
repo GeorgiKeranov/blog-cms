@@ -2,6 +2,8 @@ package blog.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Comments")
@@ -21,6 +23,10 @@ public class Comment {
 
     @ManyToOne
     private Post post;
+
+    @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER)
+    @OrderBy("date")
+    private Set<Reply> replies;
 
     public Long getId() {
         return id;
@@ -60,5 +66,13 @@ public class Comment {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public Set<Reply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(Set<Reply> replies) {
+        this.replies = replies;
     }
 }

@@ -107,8 +107,8 @@ public class Post {
 
     @Transient
     public String getSummaryDesc(){
-        if(description.length() > 1000){
-            String summary = description.substring(0, 1000);
+        if(description.length() > 325){
+            String summary = description.substring(0, 325);
             return summary + "...";
         }
         return description;

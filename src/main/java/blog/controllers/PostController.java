@@ -3,6 +3,7 @@ package blog.controllers;
 import blog.models.Comment;
 import blog.models.Post;
 import blog.forms.PostForm;
+import blog.models.Reply;
 import blog.models.User;
 import blog.repositories.ImageRepository;
 import blog.services.interfaces.PostService;
@@ -77,25 +78,42 @@ public class PostController {
     }
 
     @RequestMapping(value = "/posts/{id}", method = RequestMethod.POST)
-    public String postComment(@PathVariable("id") Long id,
-                              @RequestParam("comment") String comment){
+    public String postCommentOrReply(@PathVariable("id") Long id,
+                                     @RequestParam(value = "comment", required = false) String comment,
+                                     @RequestParam(value = "reply", required = false) String reply,
+                                     @RequestParam(value = "commentForReply", required = false) Long commentId){
 
-        if(comment == null || comment.equals("")) return "redirect:/posts/" + id;
+        if(comment != null && reply!= null) return "redirect:/posts" + id;
 
         User authUser = userService.getAuthenticatedUser();
         if(authUser == null) return "redirect:/login";
 
+
+
         Post curPost = postService.getPostById(id);
 
-        Comment commentForSave = new Comment();
-        commentForSave.setAuthor(authUser);
-        commentForSave.setComment(comment);
-        commentForSave.setPost(curPost);
+        if(comment != null) {
+            Comment commentForSave = new Comment();
+            commentForSave.setAuthor(authUser);
+            commentForSave.setComment(comment);
+            commentForSave.setPost(curPost);
 
-        postService.saveComment(commentForSave);
+            postService.saveComment(commentForSave);
+        }
+
+        if(reply != null){
+            Reply replyForSave = new Reply();
+            replyForSave.setAuthor(authUser);
+            replyForSave.setReply(reply);
+            Comment commentForReply = postService.getCommentById(commentId);
+            replyForSave.setComment(commentForReply);
+
+            postService.saveReply(replyForSave);
+        }
 
         return "redirect:/posts/" + id;
     }
+
 
     @RequestMapping("/posts/edit/{id}")
     public String editPost(@PathVariable("id") Long id, PostForm postForm, Model model){

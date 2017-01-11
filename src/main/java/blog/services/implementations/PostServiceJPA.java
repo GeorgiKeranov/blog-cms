@@ -2,9 +2,11 @@ package blog.services.implementations;
 
 import blog.models.Comment;
 import blog.models.Post;
+import blog.models.Reply;
 import blog.models.User;
 import blog.repositories.CommentRepository;
 import blog.repositories.PostRepository;
+import blog.repositories.ReplyRepository;
 import blog.services.interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class PostServiceJPA implements PostService {
 
     @Autowired
     CommentRepository commentRepo;
+
+    @Autowired
+    ReplyRepository replyRepo;
 
     @Override
     public List<Post> getLast5Posts() {
@@ -54,5 +59,15 @@ public class PostServiceJPA implements PostService {
     @Override
     public void saveComment(Comment comment) {
         commentRepo.save(comment);
+    }
+
+    @Override
+    public Comment getCommentById(Long id) {
+        return commentRepo.getOne(id);
+    }
+
+    @Override
+    public void saveReply(Reply reply) {
+        replyRepo.save(reply);
     }
 }
