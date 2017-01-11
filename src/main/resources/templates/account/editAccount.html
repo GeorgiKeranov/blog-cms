@@ -10,29 +10,30 @@
     <header th:replace="/fragments/layout :: site-header"></header>
 
     <main class="main-bottom">
-        <div class="container">
+        <div class="container white">
             <div class="row">
                 <!-- left column -->
                 <form class="form-horizontal" enctype="multipart/form-data" role="form" th:object="${editAccountForm}" method="post">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="text-center">
-                        <h3>Profile picture</h3>
-                        <img id="image" class="profilePic" th:if="${user.profile_picture}" th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
-                        <img id="image" class="profilePic" th:unless="${user.profile_picture}" th:src="@{/res/images/default-user.png}"/>
-                        <br/>
-                        <br/>
                         <h6>Upload a different photo...</h6>
                         <input id="picture" class="form-control" type="file" name="profilePic"/>
+                        <br/>
+                        <h3>Profile picture</h3>
+                        <img th:if="${user.profile_picture}" id="profilePic" class="profilePic"
+                             th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
+                        <img th:unless="${user.profile_picture}" id="profilePic" class="profilePic"
+                             th:src="@{/res/images/default-user.png}"/>
                     </div>
                 </div>
 
                 <!-- edit form column -->
-                <div class="col-md-9 personal-info">
+                <div class="col-md-8 personal-info">
                     <h3>Personal info</h3>
                     <h3 class="redError" th:if="${errMsg}" th:text="${errMsg}"></h3>
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Email:</label>
-                        <div class="col-lg-8">
+                        <div class="col-lg-7">
                             <input class="form-control" th:value="${user.email}" type="email" name="email"/>
                             <span class="FormError" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                         </div>
@@ -40,7 +41,7 @@
 
                     <div class="form-group">
                         <label class="col-lg-3 control-label">First name:</label>
-                        <div class="col-lg-8">
+                        <div class="col-lg-7">
                             <input class="form-control" type="text" th:value="${user.firstName}" name="firstname"/>
                             <span class="FormError" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></span>
                         </div>
@@ -48,7 +49,7 @@
 
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Last name:</label>
-                        <div class="col-lg-8">
+                        <div class="col-lg-7">
                             <input class="form-control" th:value="${user.lastName}" type="text" name="lastname"/>
                             <span class="FormError" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></span>
                         </div>
@@ -56,21 +57,21 @@
 
                     <div class="form-group">
                         <label class="col-md-3 control-label">New Password:</label>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <input class="form-control" type="password" name="newPassword" placeholder="Not Required"/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-3 control-label">Confirm New Password:</label>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <input class="form-control" type="password" name="confirmNewPassword" placeholder="Not Required"/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-3 control-label"> Current Password:</label>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <input class="form-control" type="password" name="curPassword" placeholder="Required"/>
                             <h4 class="redError" th:if="${#fields.hasErrors('curPassword')}" th:errors="*{curPassword}"></h4>
                         </div>
@@ -78,7 +79,7 @@
 
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <input class="btn btn-primary" value="Save Changes" type="submit"/>
                             <span></span>
                             <a class="btn btn-default" href="/account">Cancel</a>

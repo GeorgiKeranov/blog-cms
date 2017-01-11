@@ -5,32 +5,21 @@
     <title>Blog</title>
 </head>
 
-<body class="bodyBackgroundBlue">
+<body>
     <header th:replace="fragments/layout :: site-header"></header>
 
-    <main>
-        <div class="left-side-navigation">
-            <h3>Latest 5 posts :</h3>
-            <aside>
-                <a th:each="p : ${last5Posts}" th:href="@{/posts/} + ${p.id}">
-                    <p th:text="${p.summaryTitle}"></p>
-                </a>
-            </aside>
-        </div>
-
-        <div class="mainRight">
-
-            <h1>Posts :</h1>
-
-            <a th:each="post : ${allPosts}" th:href="@{/posts/} + ${post.id}">
-                <div class="post">
+    <main class="main-bottom">
+        <div class="container">
+            <div class="postBorder" th:each="post : ${allPosts}">
+                <a th:href="@{/posts/} + ${post.id}">
                     <img th:if="${post.icon}" th:src="@{/res/image-post/} + ${post.icon}"/>
+                </a>
+
+                <a th:href="@{/posts/} + ${post.id}">
                     <h2 th:text="${post.summaryTitle}">Title</h2>
-                </div>
-            </a>
-
+                </a>
+            </div>
         </div>
-
     </main>
 
     <footer th:replace="fragments/layout :: site-footer"></footer>

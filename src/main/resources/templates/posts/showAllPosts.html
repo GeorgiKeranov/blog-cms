@@ -31,6 +31,8 @@
                     <div class="col-md-3">
                         <img class="img50" th:if="${post.icon}"
                              th:src="@{/res/image-post/} + ${post.icon}"/>
+                        <img class="img50" th:unless="${post.icon}"
+                             th:src="@{/res/image-post/default-image.png}"/>
                     </div>
                     <div class="col-md-5 col-md-offset-2 multiline centered" th:text="${post.summaryDesc}"></div>
 

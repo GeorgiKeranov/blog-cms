@@ -4,7 +4,7 @@ body{
 }
 
 header{
-    height: 30px;
+    height: 55px;
 }
 
 footer {
@@ -43,6 +43,12 @@ hr {
 .floatRight {
     float: right;
     margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.floatLeft {
+    float: left;
+    margin-left: 20px;
     margin-bottom: 20px;
 }
 
@@ -104,19 +110,35 @@ div.mainRight h1 {
     text-align: center;
 }
 
-div.post {
-    margin: 20px;
-    border-style: solid;
+div.postBorder {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    float: left;
+    border: 1px solid white;
     padding: 10px;
     text-align: center;
-    float: left;
-    width: 300px;
-    background-color: white;
+    background-color: skyblue;
+    width: 336px;
+    height: 270px;
+}
+
+div.postBorder img{
+    max-width: 310px;
+    max-height: 188px;
+}
+
+div.postBorder a{
+    color: #333333;
+}
+
+div.postBorder a:hover{
+    color: #e95d2c;
 }
 
 img.big {
-    padding-top: 20px;
-    padding-left: 50px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
     max-height: 400px;
     max-width: 450px;
 }
@@ -127,10 +149,6 @@ img.img50{
     display: block;
     margin-left: auto;
     margin-right: auto;
-}
-
-div.post img{
-    width: 100%;
 }
 
 div.postPage h1 {
@@ -201,9 +219,9 @@ input::-webkit-input-placeholder {
 }
 
 img.profilePic {
+    max-height: 300px;
     max-width: 300px;
     border-radius: 90%;
-    height: auto;
 }
 
 div.firstRow {
@@ -242,6 +260,17 @@ div.multiline
     border: 2px solid #8c8c8c;
 }
 
+div.multiline2
+{
+    font-size: larger;
+    word-wrap: break-word;
+    width: 550px;
+    height: 300px;
+    white-space: pre-wrap;
+    overflow:scroll;
+    border: 2px solid #8c8c8c;
+}
+
 div.multiline1
 {
     font-size: larger;
@@ -263,8 +292,8 @@ textarea.description {
 
 img#image {
     margin-top: 30px;
-    width: 400px;
-    height: auto;
+    max-width: 400px;
+    max-height: 270px;
 }
 
 div.myPost {
@@ -314,4 +343,8 @@ div.myPost {
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.white {
+    background-color: white;
 }

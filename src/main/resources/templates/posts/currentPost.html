@@ -11,7 +11,7 @@
     <main class="main-bottom">
 
         <div class="container">
-            <div class="testBorder">
+            <div class="white">
                 <div class="row">
                     <h1 class="text-center"><b th:text="${post.title}"></b></h1>
                 </div>
@@ -20,14 +20,17 @@
                     <div class="col-md-6">
                         <img class="big" th:if="${post.icon}" th:src="@{/res/image-post/} + ${post.icon}"/>
                     </div>
-                    <div class="col-md-6 multiline testBorder text-center" th:text="${post.description}"></div>
+                    <div class="col-md-6 multiline2" th:text="${post.description}"></div>
                 </div>
 
                 <div class="row">
+                    <div class="floatLeft">
+                        <h2 class="bold">Date posted : <span th:text="${post.date}"></span></h2>
+                    </div>
                     <div class="floatRight">
-                    <h2 class="bold">
-                        Author : <a th:href="@{/user/} + ${post.author.id}" th:text="${post.author.fullname}"></a>
-                    </h2>
+                        <h2 class="bold">
+                            Author : <a th:href="@{/user/} + ${post.author.id}" th:text="${post.author.fullname}"></a>
+                        </h2>
                     </div>
                 </div>
             </div>
@@ -58,7 +61,7 @@
                              th:src="@{/res/images/} + ${com.author.username} + @{/} + ${com.author.profile_picture}"/>
                         <img th:unless="${com.author.profile_picture}" style="width: 100%" src="/res/images/default-user.png"/>
                     </div>
-                    <div class="col-md-6 margintop30 multiline2 borderPadding2" placeholder="Comment" th:text="${com.comment}"></div>
+                    <div class="col-md-6 margintop30 borderPadding2" placeholder="Comment" th:text="${com.comment}"></div>
                     <div th:if="${user}" class="col-md-4">
                         <button class="reply btn btn-info margintop30">Reply</button>
                     </div>

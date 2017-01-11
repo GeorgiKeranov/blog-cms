@@ -7,14 +7,17 @@ $("textarea").keyup(function () {
 $("#picture").change(function () {
 
     if(this.files && this.files[0]){
+
         var reader = new FileReader();
         reader.readAsDataURL(this.files[0]);
         reader.onload = function (image) {
             $("#image").attr('src', image.target.result);
+            $("#profilePic").attr('src', image.target.result);
         }
     }
     else {
         $("#image").removeAttr("src");
+        $("#profilePic").removeAttr("src");
     }
 
 });

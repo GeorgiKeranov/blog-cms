@@ -1115,7 +1115,7 @@ if (typeof jQuery === 'undefined') {
           return
         }
         if (e.target !== e.currentTarget) return
-        this.options.backdrop == 'fragments'
+        this.options.backdrop == 'static'
           ? this.$element[0].focus()
           : this.hide()
       }, this))
@@ -1573,7 +1573,7 @@ if (typeof jQuery === 'undefined') {
 
     function complete() {
       if (that.hoverState != 'in') $tip.detach()
-      if (that.$element) {
+      if (that.$element) { // TODO: Check whether guarding this code with this `if` is really necessary.
         that.$element
           .removeAttr('aria-describedby')
           .trigger('hidden.bs.' + that.type)
