@@ -20,6 +20,11 @@ td {
     padding-right: 50px;
 }
 
+a:hover {
+    text-decoration: none;
+    color: #e95d2c;
+}
+
 hr {
     clear:both;
     width: 100%;
@@ -62,6 +67,12 @@ hr {
 
 body.bodyBackgroundBlue {
     background-color: #5bc0de;
+}
+
+.show-white-spaces {
+    white-space: pre-wrap;
+    overflow: scroll;
+    padding: 10px;
 }
 
 .FormError {
@@ -129,10 +140,6 @@ div.postBorder img{
 
 div.postBorder a{
     color: #333333;
-}
-
-div.postBorder a:hover{
-    color: #e95d2c;
 }
 
 img.big {
@@ -311,8 +318,7 @@ div.myPost {
     border: groove;
 }
 
-.borderPadding2 {
-    padding: 15px;
+.grooveBorder {
     border: groove;
 }
 
@@ -321,8 +327,11 @@ div.myPost {
     padding: 20px;
 }
 
-.image-padding {
-    padding-left: 20px;
+.comment-image {
+    max-height: 100px;
+    /* max-width!! */
+    display: block;
+    margin: auto;
 }
 
 .reply-comment {
@@ -347,4 +356,9 @@ div.myPost {
 
 .white {
     background-color: white;
+}
+
+.user-name-comments {
+    font-size: large;
+    color: #122b40;
 }

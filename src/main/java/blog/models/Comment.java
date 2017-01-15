@@ -1,5 +1,7 @@
 package blog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,7 @@ public class Comment {
 
     private Date date = new Date();
 
+    @JsonIgnore
     @ManyToOne
     private Post post;
 

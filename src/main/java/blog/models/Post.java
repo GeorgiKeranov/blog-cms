@@ -19,7 +19,7 @@ public class Post {
     @Column(length = 500)
     private String description;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private User author;
 
     @Column(nullable = false)

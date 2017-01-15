@@ -1,5 +1,7 @@
 package blog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -21,24 +23,31 @@ public class User {
 
     private String profile_picture;
 
+    @JsonIgnore
     @Column(unique = true)
     private String username;
 
+    @JsonIgnore
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "author")
     private Set<Post> posts;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Image> images;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
     private Set<Comment> comments;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
     private Set<Reply> replies;
 

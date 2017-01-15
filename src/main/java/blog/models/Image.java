@@ -1,5 +1,7 @@
 package blog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,7 @@ public class Image {
 
     private String imgName;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     private User user;
 

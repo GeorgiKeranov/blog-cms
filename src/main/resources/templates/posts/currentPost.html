@@ -11,6 +11,8 @@
     <main class="main-bottom">
 
         <div class="container">
+
+            <!-- Post information -->
             <div class="white">
                 <div class="row">
                     <h1 class="text-center"><b th:text="${post.title}"></b></h1>
@@ -29,19 +31,22 @@
                     </div>
                     <div class="floatRight">
                         <h2 class="bold">
-                            Author : <a th:href="@{/user/} + ${post.author.id}" th:text="${post.author.fullname}"></a>
+                            Author : <a th:href="@{/users/} + ${post.author.id}" th:text="${post.author.fullname}"></a>
                         </h2>
                     </div>
                 </div>
             </div>
 
+
+            <!-- Comments section -->
             <div class="row"><h2 class="col-md-12 bold text-center">Comments:</h2></div>
 
+            <!-- Create new comment -->
             <div th:if="${user}" class="row">
                 <div class="col-md-2">
-                    <img class="image-padding" th:if="${user.profile_picture}" style="height: 100px;"
+                    <img class="comment-image" th:if="${user.profile_picture}"
                          th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
-                    <img th:unless="${user.profile_picture}" style="width: 100%" src="/res/images/default-user.png"/>
+                    <img class="comment-image" th:unless="${user.profile_picture}" src="/res/images/default-user.png"/>
                 </div>
                 <form method="post">
                     <textarea class="col-md-6 margintop30" placeholder="Comment" name="comment"></textarea>
@@ -52,50 +57,81 @@
                 </form>
             </div>
 
+            <!-- Show comments of current post -->
             <div th:if="${post.comments}" th:each="com : ${post.comments}">
 
-                <div class="row borderPadding2">
-
-                    <div class="col-md-2">
-                        <img class="image-padding" th:if="${com.author.profile_picture}" style="height: 100px;"
-                             th:src="@{/res/images/} + ${com.author.username} + @{/} + ${com.author.profile_picture}"/>
-                        <img th:unless="${com.author.profile_picture}" style="width: 100%" src="/res/images/default-user.png"/>
-                    </div>
-                    <div class="col-md-6 margintop30 borderPadding2" placeholder="Comment" th:text="${com.comment}"></div>
-                    <div th:if="${user}" class="col-md-4">
-                        <button class="reply btn btn-info margintop30">Reply</button>
-                    </div>
-                </div>
-
-                <div th:if="${com.replies}">
-                    <div class="row" th:each="reply : ${com.replies}">
-                        <div class="col-md-2">
-                            <img class="image-padding" th:if="${reply.author.profile_picture}" style="height: 100px;"
-                                 th:src="@{/res/images/} + ${reply.author.username} + @{/} + ${reply.author.profile_picture}"/>
-                            <img th:unless="${reply.author.profile_picture}" style="width: 100%" src="/res/images/default-user.png"/>
-                        </div>
-                        <div class="col-md-6 margintop30 multiline2 borderPadding2" placeholder="Comment" th:text="${reply.reply}"></div>
-                    </div>
-                </div>
-
-                <div th:if="${user}" class="row">
-                    <div class="reply-comment">
+                <div class="row">
+                    <div class="grooveBorder">
 
                         <div class="col-md-2">
-                            <img class="image-padding" th:if="${user.profile_picture}" style="height: 100px;"
-                                 th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
-                            <img th:unless="${user.profile_picture}" style="width: 100%" src="/res/images/default-user.png"/>
+                            <img class="comment-image" th:if="${com.author.profile_picture}"
+                                 th:src="@{/res/images/} + ${com.author.username} + @{/} + ${com.author.profile_picture}"/>
+                            <img class="comment-image" th:unless="${com.author.profile_picture}" src="/res/images/default-user.png"/>
                         </div>
-                        <form method="post">
-                            <textarea class="col-md-6 margintop30" placeholder="Reply" name="reply"></textarea>
-                            <input type="hidden" th:value="${com.id}" name="commentForReply"/>
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                            <div class="col-md-1">
-                                <button class="btn btn-primary margintop30" type="submit">Comment</button>
+
+                        <div class="col-md-4"><a class="user-name-comments" th:href="@{/users/} + ${com.author.id}" th:text="${com.author.fullname}"></a></div>
+
+                        <div class="col-md-6"><b>Date Commented : <span th:text="${com.date}"></span></b></div>
+
+                        <div class="row">
+                            <div class="col-md-7 grooveBorder show-white-spaces" th:text="${com.comment}"></div>
+
+                            <div th:if="${user}" class="col-md-1">
+                                <button class="reply btn btn-info">Reply</button>
                             </div>
-                        </form>
 
+                        </div>
                     </div>
+
+                    <!-- Reply form -->
+                    <div th:if="${user}" class="row">
+                        <div class="reply-comment">
+
+                            <div class="col-md-2">
+                                <img class="comment-image" th:if="${user.profile_picture}"
+                                     th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
+                                <img class="comment-image" th:unless="${user.profile_picture}"
+                                     src="/res/images/default-user.png"/>
+                            </div>
+                            <form method="post">
+                                <textarea class="col-md-6 margintop30" placeholder="Reply" name="reply"></textarea>
+                                <input type="hidden" th:value="${com.id}" name="commentForReply"/>
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <div class="col-md-1">
+                                    <button class="btn btn-primary margintop30" type="submit">Reply</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <!-- Replies of current comment -->
+                    <div th:if="${com.replies}">
+                        <div class="row" th:each="reply : ${com.replies}">
+
+                            <div class="grooveBorder col-md-offset-2">
+                                <div class="col-md-2">
+                                    <img class="comment-image" th:if="${reply.author.profile_picture}"
+                                         th:src="@{/res/images/} + ${reply.author.username} + @{/} + ${reply.author.profile_picture}"/>
+                                    <img class="comment-image" th:unless="${reply.author.profile_picture}" src="/res/images/default-user.png"/>
+                                </div>
+
+                                <div class="col-md-4"><a class="user-name-comments" th:href="@{/users/} + ${com.author.id}" th:text="${com.author.fullname}"></a></div>
+
+                                <div class="col-md-4"><b>Date Commented : <span th:text="${reply.date}"></span></b></div>
+
+                                <div class="row">
+                                    <div class="col-md-7 col-md-offset-1 grooveBorder show-white-spaces" th:text="${reply.reply}">></div>
+
+                                    <div th:if="${user}" class="col-md-1">
+                                        <button class="reply btn btn-info">Reply</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

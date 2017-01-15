@@ -1,5 +1,7 @@
 package blog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,9 +15,11 @@ public class Reply {
 
     private String reply;
 
+    @JsonIgnore
     @ManyToOne
     private User author;
 
+    @JsonIgnore
     @ManyToOne
     private Comment comment;
 

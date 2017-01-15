@@ -1,4 +1,4 @@
-//Script for autosizing textarea.
+//Script for auto-sizing textarea.
 $("textarea").keyup(function () {
    $(this).css({'height' : 'auto'}).height(this.scrollHeight);
 });
@@ -32,7 +32,13 @@ $("#delete").click(function () {
 });
 
 $(".reply").click(function () {
+    // TODO : When you click on reply button of reply it isn't doing anything.
+    var replyDiv = $(this).parent().parent().parent().parent().children().children('.reply-comment');
 
-    var reply = $(this).parent().parent().parent().children().children('.reply-comment');
-    reply.toggle();
+    var showElement = false;
+    if(replyDiv.css('display') == "none") showElement = true;
+
+    $(".reply-comment").hide();
+
+    if(showElement) replyDiv.show();
 });

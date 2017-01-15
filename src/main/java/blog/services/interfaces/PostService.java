@@ -9,13 +9,24 @@ import java.util.List;
 
 public interface PostService {
 
-    public List<Post> getLast5Posts();
-    public Post getPostById(Long id);
+
+    // Post functions.
     public List<Post> getAllPosts();
+
+    public List<Post> getLast5Posts();
+
+    public Post getPostById(Long id);
+
     public void savePost(Post post);
-    public List<Post> getUserPosts(User user);
+
     public void deletePostById(Long id);
-    public void saveComment(Comment comment);
+
+    public List<Post> getUserPosts(User user);
+
+    // Comment and reply functions.
     public Comment getCommentById(Long id);
+
+    public void saveComment(Comment comment);
+
     public void saveReply(Reply reply);
 }

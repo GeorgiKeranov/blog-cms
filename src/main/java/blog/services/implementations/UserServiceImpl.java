@@ -17,6 +17,11 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepo;
 
     @Override
+    public User getUserByUsername(String username) {
+        return userRepo.findByUsername(username);
+    }
+
+    @Override
     public User getAuthenticatedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUser = auth.getName();
@@ -24,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkPassword(String hashPass, String password) {
+    public boolean checkPassword(String password, String hashPass) {
 
         BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
 
