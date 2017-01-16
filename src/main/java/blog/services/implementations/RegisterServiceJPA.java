@@ -30,4 +30,27 @@ public class RegisterServiceJPA implements RegisterService {
         User regUser = userRepo.save(userForRegi);
         return null;
     }
+
+    @Override
+    public String generateUserUrl(String fullname) {
+
+        // Editing fullname alphabets to lowercase.
+        fullname = fullname.toLowerCase();
+
+        User user = userRepo.findByUserUrl(fullname);
+
+        if(user == null) return fullname;
+        else {
+            int i = 0;
+            while (user != null) {
+                fullname = fullname + "." + i;
+                user = userRepo.findByUserUrl(fullname);
+                i++;
+            }
+        }
+
+        return fullname;
+    }
+
+
 }

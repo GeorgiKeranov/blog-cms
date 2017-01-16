@@ -31,7 +31,7 @@
                     </div>
                     <div class="floatRight">
                         <h2 class="bold">
-                            Author : <a th:href="@{/users/} + ${post.author.id}" th:text="${post.author.fullname}"></a>
+                            Author : <a th:href="@{/users/} + ${post.author.userUrl}" th:text="${post.author.fullname}"></a>
                         </h2>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                             <img class="comment-image" th:unless="${com.author.profile_picture}" src="/res/images/default-user.png"/>
                         </div>
 
-                        <div class="col-md-4"><a class="user-name-comments" th:href="@{/users/} + ${com.author.id}" th:text="${com.author.fullname}"></a></div>
+                        <div class="col-md-4"><a class="user-name-comments" th:href="@{/users/} + ${com.author.userUrl}" th:text="${com.author.fullname}"></a></div>
 
                         <div class="col-md-6"><b>Date Commented : <span th:text="${com.date}"></span></b></div>
 
@@ -116,7 +116,7 @@
                                     <img class="comment-image" th:unless="${reply.author.profile_picture}" src="/res/images/default-user.png"/>
                                 </div>
 
-                                <div class="col-md-4"><a class="user-name-comments" th:href="@{/users/} + ${com.author.id}" th:text="${com.author.fullname}"></a></div>
+                                <div class="col-md-4"><a class="user-name-comments" th:href="@{/users/} + ${com.author.userUrl}" th:text="${com.author.fullname}"></a></div>
 
                                 <div class="col-md-4"><b>Date Commented : <span th:text="${reply.date}"></span></b></div>
 
@@ -124,7 +124,7 @@
                                     <div class="col-md-7 col-md-offset-1 grooveBorder show-white-spaces" th:text="${reply.reply}">></div>
 
                                     <div th:if="${user}" class="col-md-1">
-                                        <button class="reply btn btn-info">Reply</button>
+                                        <button id="replyOnReply" class="reply btn btn-info">Reply</button>
                                     </div>
 
                                 </div>

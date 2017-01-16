@@ -1,8 +1,5 @@
 package blog.forms;
 
-
-import org.springframework.beans.factory.annotation.Required;
-
 import javax.validation.constraints.Size;
 
 public class EditAccountForm {

@@ -1,7 +1,5 @@
 package blog.forms;
 
-import blog.models.User;
-
 import javax.validation.constraints.Size;
 
 public class PostForm {

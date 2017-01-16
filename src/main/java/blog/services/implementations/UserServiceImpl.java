@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUrl(String url) {
+        return userRepo.findByUserUrl(url);
+    }
+
+    @Override
     public User getAuthenticatedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUser = auth.getName();

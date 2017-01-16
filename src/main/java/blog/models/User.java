@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,6 +13,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String userUrl;
 
     private String firstName;
 
@@ -31,6 +32,7 @@ public class User {
     private String password;
 
     @JsonIgnore
+    @OrderBy("date")
     @OneToMany(mappedBy = "author")
     private Set<Post> posts;
 
@@ -54,10 +56,10 @@ public class User {
 
     public User(){
         posts = new HashSet<Post>();
-
     }
 
-    public User(String firstName,String lastName,String email, String username, String password) {
+    public User(String userUrl, String firstName, String lastName,String email, String username, String password) {
+        this.userUrl = userUrl;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -166,6 +168,14 @@ public class User {
 
     public void setReplies(Set<Reply> replies) {
         this.replies = replies;
+    }
+
+    public String getUserUrl() {
+        return userUrl;
+    }
+
+    public void setUserUrl(String userUrl) {
+        this.userUrl = userUrl;
     }
 
     @Transient

@@ -32,8 +32,15 @@ $("#delete").click(function () {
 });
 
 $(".reply").click(function () {
-    // TODO : When you click on reply button of reply it isn't doing anything.
-    var replyDiv = $(this).parent().parent().parent().parent().children().children('.reply-comment');
+
+    var replyDiv;
+
+    // Checking who element is!
+    var elId = this.id;
+    if(elId == "replyOnReply")
+        replyDiv = $(this).parent().parent().parent().parent().parent().parent().children().children('.reply-comment');
+    else
+        replyDiv = $(this).parent().parent().parent().parent().children().children('.reply-comment');
 
     var showElement = false;
     if(replyDiv.css('display') == "none") showElement = true;

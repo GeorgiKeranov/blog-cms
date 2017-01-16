@@ -15,7 +15,6 @@ public class Reply {
 
     private String reply;
 
-    @JsonIgnore
     @ManyToOne
     private User author;
 

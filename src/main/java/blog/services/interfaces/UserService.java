@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface UserService {
 
     public User getUserByUsername(String username);
+    public User getUserByUrl(String url);
     public User getAuthenticatedUser();
     public boolean checkPassword(String password, String hashPass);
     public void updateUser(User user, String newPass);

@@ -47,7 +47,6 @@ public class PostServiceJPA implements PostService {
 
     @Override
     public List<Post> getUserPosts(User user) {
-
         return postRepo.findByAuthorOrderByDateDesc(user);
     }
 

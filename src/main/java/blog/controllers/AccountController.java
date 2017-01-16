@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,7 +57,7 @@ public class AccountController {
 
         String pass = form.getCurPassword();
 
-        boolean isPasswordCorrect = userService.checkPassword(authUser.getPassword(), pass);
+        boolean isPasswordCorrect = userService.checkPassword(pass, authUser.getPassword());
         if(!isPasswordCorrect){
             model.addAttribute("user", authUser);
             model.addAttribute("errMsg", "Current Password is incorrect!");
@@ -91,6 +92,14 @@ public class AccountController {
         }
 
         return "redirect:/account";
+    }
+
+    @RequestMapping("/users/{userUrl:.+}")
+    public String viewUserAccount(@PathVariable("userUrl") String userUrl, Model model){
+        User user = userService.getUserByUrl(userUrl);
+        if(user == null) return "redirect:/";
+        model.addAttribute("user", user);
+        return "/account/account"; //TODO create unique template for viewing user accounts.
     }
 
     @RequestMapping("/account/loadPics")

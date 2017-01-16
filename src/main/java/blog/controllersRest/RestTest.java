@@ -6,18 +6,13 @@ import blog.models.User;
 import blog.services.interfaces.PostService;
 import blog.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
 
 @RestController
 public class RestTest {
-
-    //TODO JsonIgnoreFilter learn it!!
 
     @Autowired
     PostService postService;
@@ -52,10 +47,17 @@ public class RestTest {
     }
 
     @RequestMapping("/rest/user/posts")
-    public Set<Post> getUserPosts(@RequestParam("username") String username){
+    public List<Post> getUserPosts(@RequestParam("username") String username){
 
         User user = userService.getUserByUsername(username);
-        Set<Post> posts = user.getPosts();
-        return posts == null? null :posts;
+        List<Post> posts = postService.getUserPosts(user);
+
+        return posts == null? null : posts;
+    }
+
+    @RequestMapping(value = "/rest/login", method = RequestMethod.GET)
+    public User loginUser(@RequestParam("username") String username){
+        User user = userService.getUserByUsername(username);
+        return user == null? null : user;
     }
 }

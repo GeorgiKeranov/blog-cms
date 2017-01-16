@@ -1,7 +1,5 @@
 package blog.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,7 +14,6 @@ public class Role {
     @Column(unique = true)
     private String role;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
