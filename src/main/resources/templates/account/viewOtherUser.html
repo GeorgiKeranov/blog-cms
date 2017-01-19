@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments/layout :: site-head">
+    <title th:text="${user.firstName}"></title>
+</head>
+
+<body>
+
+    <header th:replace="fragments/layout :: site-header"></header>
+
+    <main>
+
+        <div class="row">
+
+            <!-- User image -->
+            <div class="row">
+                <img class="profile-image" th:if="${user.profile_picture}"
+                     th:src="@{/res/images/} + ${user.username} + @{/} + ${user.profile_picture}"/>
+                <img class="profile-image" th:unless="${user.profile_picture}"
+                    src="/res/images/default-user.png"/>
+            </div>
+
+            <div class="personal-info">
+                <h3>Personal info</h3>
+
+                <hr/>
+
+                <table>
+
+                    <tr>
+                        <td>
+                            <h3>First Name:</h3>
+                        </td>
+                        <th>
+                            <h3><strong th:text="${user.firstName}"></strong></h3>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <h3>Last Name:</h3>
+                        </td>
+                        <td>
+                            <h3><strong th:text="${user.lastName}"></strong></h3>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <h3>Email:</h3>
+                        </td>
+                        <td>
+                            <h3><strong th:text="${user.email}"></strong></h3>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <div class="user-posts">
+                <h3><span th:text="${user.firstName}"></span>'s Posts : </h3>
+                <hr/>
+                <br/>
+                <div class="row grooveBorder articles" th:each="post : ${user.posts}">
+                        <div class="col-md-3">
+                            <img class="img-small" th:if="${post.icon}"
+                                 th:src="@{/res/image-post/} + ${post.icon}"/>
+                            <img class="img-small" th:unless="${post.icon}"
+                                 th:src="@{/res/image-post/default-image.png}"/>
+                        </div>
+
+                        <div class="col-md-1">
+                            <h5 style="text-align: center;"><strong th:text="${post.summaryTitle}"></strong></h5>
+                        </div>
+
+                        <div class="col-md-offset-5 col-md-2">
+                            <a class="btn btn-primary" th:href="@{/posts/} + ${post.id}">Read Post</a>
+                        </div>
+                 </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer th:replace="fragments/layout :: site-footer"></footer>
+
+</body>
+</html>

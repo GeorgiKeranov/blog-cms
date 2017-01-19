@@ -24,7 +24,7 @@ $("#picture").change(function () {
 
 //Confirmation window if the user wrong clicked delete.
 $("#delete").click(function () {
-   var answer = confirm('Are you sure you want to delete the post ?');
+   var answer = confirm('Are you sure you want to delete it ?');
    if (answer){
        return true;
    }

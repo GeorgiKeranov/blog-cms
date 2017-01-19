@@ -1,7 +1,6 @@
 package blog.models;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -11,11 +10,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private String role;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    @ManyToOne
+    private User user;
 
     public Long getId() {
         return id;
@@ -33,11 +31,11 @@ public class Role {
         this.role = role;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

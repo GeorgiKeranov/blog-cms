@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -94,12 +97,13 @@ public class AccountController {
         return "redirect:/account";
     }
 
-    @RequestMapping("/users/{userUrl:.+}")
+    @RequestMapping("/{userUrl:.+}")
     public String viewUserAccount(@PathVariable("userUrl") String userUrl, Model model){
         User user = userService.getUserByUrl(userUrl);
         if(user == null) return "redirect:/";
+
         model.addAttribute("user", user);
-        return "/account/account"; //TODO create unique template for viewing user accounts.
+        return "/account/viewOtherUser";
     }
 
     @RequestMapping("/account/loadPics")
@@ -110,4 +114,23 @@ public class AccountController {
         return "/tests/loadPics";
     }
 
+    @RequestMapping("/account/delete")
+    public String deleteAccount(HttpServletRequest request){
+
+        User authUser = userService.getAuthenticatedUser();
+
+        try {
+            userService.deleteUser(authUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            request.logout();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/login?deleted=true";
+    }
 }

@@ -1,20 +1,44 @@
 package blog.services.implementations;
 
-import blog.models.User;
+import blog.models.*;
+import blog.repositories.CommentRepository;
+import blog.repositories.ReplyRepository;
+import blog.repositories.RoleRepository;
 import blog.repositories.UserRepository;
+import blog.services.interfaces.PostService;
+import blog.services.interfaces.StorageService;
 import blog.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    RoleRepository roleRepo;
+
+    @Autowired
+    CommentRepository commentRepo;
+
+    @Autowired
+    ReplyRepository replyRepo;
+
+
+    @Autowired
+    PostService postService;
+
+    @Autowired
+    StorageService storageService;
+
 
     @Override
     public User getUserByUsername(String username) {
@@ -54,4 +78,24 @@ public class UserServiceImpl implements UserService {
 
         userRepo.save(user);
     }
+
+    @Override
+    public void deleteUser(User user) throws IOException {
+        //Deleting all images of user.
+        Set<Image> images = user.getImages();
+        for(Image img : images)
+            storageService.deleteUserImageById(img.getId(), null);
+
+        //Deleting profile picture
+        storageService.deleteUserImageById(null, user.getProfile_picture());
+
+        //Deleting posts pictures.
+        Set<Post> posts = user.getPosts();
+        for(Post post : posts)
+            storageService.deletePostImage(post.getIcon());
+
+        userRepo.delete(user.getId());
+    }
+
+
 }

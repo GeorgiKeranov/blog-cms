@@ -1,9 +1,9 @@
-body{
+body {
     font-family: 'Oxygen', sans-serif;
     background-color: #dddddd;
 }
 
-header{
+header {
     height: 55px;
 }
 
@@ -133,12 +133,12 @@ div.postBorder {
     height: 270px;
 }
 
-div.postBorder img{
+div.postBorder img {
     max-width: 310px;
     max-height: 188px;
 }
 
-div.postBorder a{
+div.postBorder a {
     color: #333333;
 }
 
@@ -150,7 +150,7 @@ img.big {
     max-width: 450px;
 }
 
-img.img50{
+img.img50 {
     max-height: 150px;
     max-width: 250px;
     display: block;
@@ -239,9 +239,8 @@ div.firstRow h3 {
     display: inline-block;
 }
 
-div.firstRow a {
+div.firstRow a, a>form {
     display: inline-block;
-    margin-left: 50%;
 }
 
 div#righter {
@@ -322,6 +321,10 @@ div.myPost {
     border: groove;
 }
 
+.coolBorder {
+
+}
+
 .button-padding {
     text-align: center;
     padding: 20px;
@@ -361,4 +364,30 @@ div.myPost {
 .user-name-comments {
     font-size: large;
     color: #122b40;
+}
+
+.profile-image {
+    max-height: 200px;
+    max-width: 200px;
+    border-radius: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.personal-info {
+    width: 40%;
+    position: absolute;
+    top: 300px;
+    bottom: 0;
+}
+
+.user-posts {
+    margin-left: 55%;
+    margin-right: 15%;
+}
+
+.img-small {
+    max-width: 70px;
+    max-height: 70px;
 }

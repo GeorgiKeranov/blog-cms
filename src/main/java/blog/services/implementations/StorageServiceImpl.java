@@ -38,7 +38,6 @@ public class StorageServiceImpl implements StorageService {
 
             Path location = Paths.get(postsImgsDirectory);
             Files.copy(file.getInputStream(), location.resolve(nameOfImage));
-
             return nameOfImage;
 
         } catch (IOException e) {
@@ -101,6 +100,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public boolean saveProfilePicture(MultipartFile file) {
+        //TODO make function to change picture from images table.
 
         try {
             User authUser = userService.getAuthenticatedUser();
@@ -115,7 +115,7 @@ public class StorageServiceImpl implements StorageService {
             Files.copy(file.getInputStream(), location.resolve(nameOfImage));
 
             // Saves the image in images table.
-            // If this profile picture is changed. It wont be deleted.
+            // If this profile picture is changed. Last profile picture wont be deleted.
             Image image = new Image();
             image.setOriginalName(file.getOriginalFilename());
             image.setImgName(nameOfImage);
@@ -134,4 +134,33 @@ public class StorageServiceImpl implements StorageService {
 
         return false;
     }
+
+    @Override
+    public void deleteUserImageById(Long id, String location) throws IOException {
+
+        User authUser = userService.getAuthenticatedUser();
+        Path locForDelete = Paths.get(usersImgsDirectory + authUser.getUsername());
+
+        if(id == null){
+            Files.deleteIfExists(locForDelete.resolve(location));
+            return;
+        }
+
+        if(location == null) {
+            String pictureName = imageRepo.getOne(id).getImgName();
+            Files.deleteIfExists(locForDelete.resolve(pictureName));
+            imageRepo.delete(id);
+        }
+    }
+
+    @Override
+    public void deletePostImage(String directory) throws IOException {
+
+        Path path = Paths.get(postsImgsDirectory);
+        Files.delete(path.resolve(directory));
+
+    }
+
+
+
 }

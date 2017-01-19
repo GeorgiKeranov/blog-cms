@@ -29,4 +29,8 @@ public interface PostService {
     public void saveComment(Comment comment);
 
     public void saveReply(Reply reply);
+
+    public void deletePost(Post post);
+
+    //TODO Delete all user images : delete folder with account username.
 }

@@ -26,7 +26,7 @@ public class Comment {
     @ManyToOne
     private Post post;
 
-    @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OrderBy("date")
     private Set<Reply> replies;
 

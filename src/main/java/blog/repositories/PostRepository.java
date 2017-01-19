@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    List<Post> findFirst5ByOrderByDateDesc();
-    List<Post> findByOrderByDateDesc();
-    List<Post> findByAuthorOrderByDateDesc(User author);
+    public List<Post> findFirst5ByOrderByDateDesc();
+    public List<Post> findByOrderByDateDesc();
+    public List<Post> findByAuthorOrderByDateDesc(User author);
 }

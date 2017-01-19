@@ -14,9 +14,8 @@
 
 
             <div class="row">
-                <!-- left column -->
-                <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post">
 
+                <!-- left column -->
                     <div class="col-md-3">
                         <div class="text-center">
                             <img class="profilePic" th:if="${user.profile_picture}" th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
@@ -25,11 +24,12 @@
                     </div>
 
                     <!-- edit form column -->
-                    <div class="col-md-9 personal-info" id="righter">
+                    <div class="col-md-9" id="righter">
 
                         <div class="firstRow">
                             <h3>Personal info</h3>
-                            <a class="btn btn-warning" href="/account/edit">Edit Account</a>
+                            <a class="btn btn-warning col-md-offset-3" href="/account/edit">Edit Account</a>
+                            <a id="delete" class="btn btn-danger col-md-offset-1" href="/account/delete">Delete Account</a>
                         </div>
 
                         <hr/>
@@ -73,7 +73,6 @@
                             </tr>
                         </table>
                     </div>
-                </form>
             </div>
         </div>
         <hr/>

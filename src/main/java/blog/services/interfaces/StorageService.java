@@ -3,6 +3,7 @@ package blog.services.interfaces;
 import blog.models.Image;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface StorageService {
@@ -28,5 +29,11 @@ public interface StorageService {
 
     // Getting image name from database in table images.
     public Image ImageUserById(Long id);
+
+    // 2 Options to delete image by id from database
+    // or to delete it by location.
+    public void deleteUserImageById(Long id, String Location) throws IOException;
+
+    public void deletePostImage(String directory) throws IOException;
 
 }

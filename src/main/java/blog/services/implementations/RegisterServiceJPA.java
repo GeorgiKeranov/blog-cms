@@ -1,6 +1,8 @@
 package blog.services.implementations;
 
+import blog.models.Role;
 import blog.models.User;
+import blog.repositories.RoleRepository;
 import blog.repositories.UserRepository;
 import blog.services.interfaces.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,9 @@ public class RegisterServiceJPA implements RegisterService {
 
     @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @Override
     public String register(User userForRegi) {
@@ -28,6 +33,12 @@ public class RegisterServiceJPA implements RegisterService {
         }
 
         User regUser = userRepo.save(userForRegi);
+
+        Role user_role = new Role();
+        user_role.setRole("ROLE_USER");
+        user_role.setUser(regUser);
+        roleRepository.save(user_role);
+
         return null;
     }
 
@@ -51,6 +62,5 @@ public class RegisterServiceJPA implements RegisterService {
 
         return fullname;
     }
-
 
 }

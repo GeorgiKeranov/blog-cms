@@ -171,16 +171,19 @@ public class PostController {
     }
 
     @RequestMapping("/posts/delete/{id}")
-    public String deletePost(@PathVariable("id") Long id, Model model){
+    public String deletePost(@PathVariable("id") Long id){
 
         User authUser = userService.getAuthenticatedUser();
+
+        if(authUser == null) return "redirect:/posts";
+
         String authUsername = authUser.getUsername();
 
         Post postForDel = postService.getPostById(id);
         String postOwner = postForDel.getAuthor().getUsername();
 
         if(authUsername.equals(postOwner)){
-            postService.deletePostById(id);
+            postService.deletePostById(postForDel.getId());
         }
 
         return "redirect:/posts";

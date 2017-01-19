@@ -8,9 +8,11 @@ import blog.repositories.CommentRepository;
 import blog.repositories.PostRepository;
 import blog.repositories.ReplyRepository;
 import blog.services.interfaces.PostService;
+import blog.services.interfaces.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -24,6 +26,9 @@ public class PostServiceJPA implements PostService {
 
     @Autowired
     ReplyRepository replyRepo;
+
+    @Autowired
+    StorageService storageService;
 
     @Override
     public List<Post> getLast5Posts() {
@@ -68,5 +73,17 @@ public class PostServiceJPA implements PostService {
     @Override
     public void saveReply(Reply reply) {
         replyRepo.save(reply);
+    }
+
+    @Override
+    public void deletePost(Post post) {
+
+        try {
+            storageService.deletePostImage(post.getIcon());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        postRepo.delete(post);
     }
 }

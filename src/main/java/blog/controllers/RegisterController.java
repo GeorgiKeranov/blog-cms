@@ -1,9 +1,7 @@
 package blog.controllers;
 
 import blog.forms.RegisterForm;
-import blog.models.Role;
 import blog.models.User;
-import blog.repositories.RoleRepository;
 import blog.services.interfaces.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,13 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 
 @Controller
 public class RegisterController {
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Autowired
     private RegisterService registerService;
@@ -43,12 +37,12 @@ public class RegisterController {
             return "/account/register";
         }
 
-        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-
         String urlForTheAccount = registerService.generateUserUrl(
                 registerForm.getFirstname() + "." +
                         registerForm.getLastname()
         );
+
+        BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
 
         User userForReg = new User(
                 urlForTheAccount,
@@ -56,12 +50,7 @@ public class RegisterController {
                 registerForm.getLastname(),
                 registerForm.getEmail(),
                 registerForm.getUsername(),
-                bcrypt.encode(registerForm.getPassword()));
-
-        HashSet<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findByRole("ROLE_USER"));
-
-        userForReg.setRoles(roles);
+                bCrypt.encode(registerForm.getPassword()));
 
         String message = registerService.register(userForReg);
 

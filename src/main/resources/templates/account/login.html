@@ -14,9 +14,10 @@
                 <form class="form-horizontal" method="post">
                     <fieldset>
                         <legend>Login</legend>
-                        <h4 class="redError" th:if="${loginError}">Username or Password is incorrect</h4>
+                        <h4 class="redError" th:if="${loginError}">Incorrect credentials</h4>
                         <h4 class="greenSuccess" th:if="${logout}">Logout was Successful!</h4>
                         <h4 class="greenSuccess" th:if="${regSuccess}">Registration was successful! Now You can Login.</h4>
+                        <h4 class="greenSuccess" th:if="${accDeleted}" th:text="${accDeleted}"></h4>
 
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="username">Username</label>

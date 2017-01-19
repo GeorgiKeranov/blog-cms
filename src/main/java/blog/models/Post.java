@@ -19,13 +19,13 @@ public class Post {
     @Column(length = 500)
     private String description;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private User author;
 
     @Column(nullable = false)
     private Date date = new Date();
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     @OrderBy("date")
     private List<Comment> comments;
 
