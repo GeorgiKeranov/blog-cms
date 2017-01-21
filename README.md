@@ -1,6 +1,6 @@
 # Blog
 #
-# Blog web application. You can register, login then you can make posts with images. You can edit your posts, account. Posts by other users are shown on the home page.
+# Blog web application. You can register, login then you can make posts with images. You can edit your posts, add profile picture, edit account. You can comment and reply on posts. Posts by other users are shown on the home page.
 #
 # It is written in java with Spring Boot, Spring MVC, Spring Security, Spring Data Jpa, Hibernate and Thymeleaf.
 # Database : MySql , Connector : mysql-connector.
@@ -25,6 +25,4 @@
 # For example(windows) .addResourceLocations("file:///C:/ServerResources/");
 # For example(linux) .addResourceLocations("file:/home/{your account name}/ServerResources/");
 # Run application from SpringBoot file as java application.
-# Now go to your database then roles table
-# and insert new row with role : ROLE_USER .
 # And you are ready, application is hosted on localhost:8080.
