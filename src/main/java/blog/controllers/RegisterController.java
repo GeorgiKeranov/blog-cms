@@ -37,17 +37,11 @@ public class RegisterController {
             return "/account/register";
         }
 
-        String urlForTheAccount = registerService.generateUserUrl(
-                registerForm.getFirstname() + "." +
-                        registerForm.getLastname()
-        );
-
         BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
 
         User userForReg = new User(
-                urlForTheAccount,
-                registerForm.getFirstname(),
-                registerForm.getLastname(),
+                registerForm.getFirstName(),
+                registerForm.getLastName(),
                 registerForm.getEmail(),
                 registerForm.getUsername(),
                 bCrypt.encode(registerForm.getPassword()));

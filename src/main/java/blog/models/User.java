@@ -57,8 +57,7 @@ public class User {
         posts = new HashSet<Post>();
     }
 
-    public User(String userUrl, String firstName, String lastName,String email, String username, String password) {
-        this.userUrl = userUrl;
+    public User(String firstName, String lastName, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -66,7 +65,7 @@ public class User {
         this.password = password;
     }
 
-    public User(String firstName,String lastName,String email,  String password) {
+    public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

@@ -20,6 +20,11 @@ public class RestTest {
     @Autowired
     UserService userService;
 
+    @RequestMapping("/rest")
+    public User getAuthUser(){
+        return userService.getAuthenticatedUser();
+    }
+
     @RequestMapping("/rest/all-posts")
     public List<Post> getAllPosts(){
         return postService.getAllPosts();
@@ -59,5 +64,10 @@ public class RestTest {
     public User loginUser(@RequestParam("username") String username){
         User user = userService.getUserByUsername(username);
         return user == null? null : user;
+    }
+
+    @RequestMapping(value = "/rest/check-user", method = RequestMethod.POST)
+    public User checkUserByName(@RequestParam("username") String username) {
+        return userService.getUserByUsername(username);
     }
 }

@@ -42,16 +42,16 @@
                     <div class="form-group">
                         <label class="col-lg-3 control-label">First name:</label>
                         <div class="col-lg-7">
-                            <input class="form-control" type="text" th:value="${user.firstName}" name="firstname"/>
-                            <span class="FormError" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></span>
+                            <input class="form-control" type="text" th:value="${user.firstName}" name="firstName"/>
+                            <span class="FormError" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Last name:</label>
                         <div class="col-lg-7">
-                            <input class="form-control" th:value="${user.lastName}" type="text" name="lastname"/>
-                            <span class="FormError" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></span>
+                            <input class="form-control" th:value="${user.lastName}" type="text" name="lastName"/>
+                            <span class="FormError" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                         </div>
                     </div>
 

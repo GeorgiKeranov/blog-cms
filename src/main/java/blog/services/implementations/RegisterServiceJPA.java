@@ -32,6 +32,12 @@ public class RegisterServiceJPA implements RegisterService {
             return "Email is already taken.";
         }
 
+        userForRegi.setUserUrl(
+                generateUserUrl(
+                        userForRegi.getFirstName() + "." +
+                        userForRegi.getLastName())
+        );
+
         User regUser = userRepo.save(userForRegi);
 
         Role user_role = new Role();
