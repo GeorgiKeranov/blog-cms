@@ -1,5 +1,7 @@
 package blog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -83,8 +85,8 @@ public class Post {
         this.author = author;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        return date.toString();
     }
 
     public List<Comment> getComments() {
@@ -95,6 +97,7 @@ public class Post {
         this.comments = comments;
     }
 
+    @JsonIgnore
     @Transient
     public String getSummaryTitle(){
         if(title.length() > 15) {
@@ -104,6 +107,7 @@ public class Post {
         return title;
     }
 
+    @JsonIgnore
     @Transient
     public String getSummaryDesc(){
         if(description.length() > 325){

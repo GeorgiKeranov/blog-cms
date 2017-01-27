@@ -54,7 +54,7 @@ public class StorageServiceImpl implements StorageService {
             // Getting the authenticated user.
             User authUser = userService.getAuthenticatedUser();
 
-            // Making directory for images for that username.
+            // Making directory for images for that username. // TODO create new way for secure reasons.
             String locationForSave = usersImgsDirectory + authUser.getUsername();
 
             // Creating unique name for the image.

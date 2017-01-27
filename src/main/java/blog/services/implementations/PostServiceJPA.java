@@ -31,7 +31,7 @@ public class PostServiceJPA implements PostService {
     StorageService storageService;
 
     @Override
-    public List<Post> getLast5Posts() {
+    public List<Post> getLatest10Posts() {
         return postRepo.findFirst5ByOrderByDateDesc();
     }
 

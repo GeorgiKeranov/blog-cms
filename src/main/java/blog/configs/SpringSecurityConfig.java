@@ -70,6 +70,7 @@ public class SpringSecurityConfig{
                     .and().authorizeRequests()
                     .antMatchers("/rest/login").anonymous()
                     .antMatchers("/rest/register").anonymous()
+                    .antMatchers("/rest/authentication").permitAll()
                     .anyRequest().hasRole("USER")
                     .and().logout().logoutUrl("/rest/logout")
                         .logoutSuccessUrl("/rest/")

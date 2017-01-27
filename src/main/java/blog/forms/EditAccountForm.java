@@ -5,10 +5,10 @@ import javax.validation.constraints.Size;
 public class EditAccountForm {
 
     @Size(min=2, message = "Please enter a first name with more than 2 characters")
-    private String firstname;
+    private String firstName;
 
     @Size(min=2, message = "Please enter last name with more than 2 characters")
-    private String lastname;
+    private String lastName;
 
     @Size(min=4, message = "Email is not correct.")
     private String email;
@@ -20,20 +20,20 @@ public class EditAccountForm {
     @Size(min=1, message = "Current password is required!")
     private String curPassword;
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {

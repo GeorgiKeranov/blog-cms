@@ -1,6 +1,7 @@
 package blog.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,21 +15,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String userUrl;
 
+    @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = false)
     private String lastName;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String profile_picture;
 
     @JsonIgnore
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
 
     @JsonIgnore
+    @Column(nullable = false)
     private String password;
 
     @JsonIgnore
@@ -57,7 +63,7 @@ public class User {
         posts = new HashSet<Post>();
     }
 
-    public User(String firstName, String lastName, String email, String username, String password) {
+    public User(String firstName, String lastName, String username, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -177,6 +183,7 @@ public class User {
     }
 
     @Transient
+    @JsonIgnore
     public String getFullname(){
         return firstName + " " + lastName;
     }

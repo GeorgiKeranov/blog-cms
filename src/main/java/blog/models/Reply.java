@@ -56,8 +56,8 @@ public class Reply {
         this.comment = comment;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        return date.toString();
     }
 
     public void setDate(Date date) {

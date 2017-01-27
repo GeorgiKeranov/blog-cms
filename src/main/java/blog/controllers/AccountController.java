@@ -80,8 +80,8 @@ public class AccountController {
           theNewPassword = newPass;
         }
 
-        authUser.setFirstName(form.getFirstname());
-        authUser.setLastName(form.getLastname());
+        authUser.setFirstName(form.getFirstName());
+        authUser.setLastName(form.getLastName());
         authUser.setEmail(form.getEmail());
 
         userService.updateUser(authUser, theNewPassword);

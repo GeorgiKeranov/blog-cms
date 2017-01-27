@@ -9,7 +9,7 @@ import java.util.List;
 public interface StorageService {
 
     public final static String usersImgsDirectory = "/home/georgi/Server/images/";
-    public final static String postsImgsDirectory = "/home/georgi/Server/posts-images/";
+    public final static String postsImgsDirectory = "/home/georgi/Server/image-post/";
 
     // THE NAMES OF THE PICTURES ARE UNIQUE. Even if you save picture with the same name.
 

@@ -13,7 +13,7 @@ public interface PostService {
     // Post functions.
     public List<Post> getAllPosts();
 
-    public List<Post> getLast5Posts();
+    public List<Post> getLatest10Posts();
 
     public Post getPostById(Long id);
 

@@ -12,13 +12,16 @@ public class AuthRestCont {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/rest/is-auth")
+    @RequestMapping(value = "/rest/authentication", produces = "application/json")
     public String isAuthenticated(){
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("auth_error", false);
+        JSONObject response = new JSONObject();
 
-        return jsonObject.toString();
+        if(userService.getAuthenticatedUser() != null)
+            response.put("authenticated", true);
+        else response.put("authenticated", false);
+
+        return response.toString();
     }
 
 

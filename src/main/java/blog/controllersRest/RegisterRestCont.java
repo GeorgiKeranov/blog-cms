@@ -34,16 +34,10 @@ public class RegisterRestCont {
         String message = registerService.register(userForReg);
 
         if(message != null ) {
-            if(message.equals("Username is already taken."))
-                //TODO send json error.
-                return "JSONERROR";
-
-            //TODO send json error.
-            else return "JSONERROR";
+                return "{ \"error\": true, \"error_msg\": \"" + message + "\" }";
         }
 
-
-        return "{ \"registered\":  true}";
+        return "{ \"error\": false }";
     }
 
 }
