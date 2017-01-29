@@ -12,4 +12,9 @@ public class AccountRestCont {
     @Autowired
     UserService userService;
 
+    @RequestMapping("/rest/account")
+    public User getAuthUserInfo() {
+        return userService.getAuthenticatedUser();
+    }
+
 }

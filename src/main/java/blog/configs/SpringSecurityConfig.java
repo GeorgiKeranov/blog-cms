@@ -73,7 +73,7 @@ public class SpringSecurityConfig{
                     .antMatchers("/rest/authentication").permitAll()
                     .anyRequest().hasRole("USER")
                     .and().logout().logoutUrl("/rest/logout")
-                        .logoutSuccessUrl("/rest/")
+                        .logoutSuccessUrl("/rest/authentication")
                     .and().csrf().disable();
         }
     }

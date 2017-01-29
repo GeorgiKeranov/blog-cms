@@ -15,9 +15,9 @@
             <!-- User image -->
             <div class="row">
                 <img class="profile-image" th:if="${user.profile_picture}"
-                     th:src="@{/res/images/} + ${user.username} + @{/} + ${user.profile_picture}"/>
+                     th:src="@{/res/images/} + ${user.userUrl} + @{/} + ${user.profile_picture}"/>
                 <img class="profile-image" th:unless="${user.profile_picture}"
-                    src="/res/images/default-user.png"/>
+                    src="/res/images/default-image.png"/>
             </div>
 
             <div class="personal-info">

@@ -18,8 +18,8 @@
                 <!-- left column -->
                     <div class="col-md-3">
                         <div class="text-center">
-                            <img class="profilePic" th:if="${user.profile_picture}" th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
-                            <img class="profilePic" th:unless="${user.profile_picture}" th:src="@{/res/images/default-user.png}"/>
+                            <img class="profilePic" th:if="${user.profile_picture}" th:src="@{/res/images/} + ${user.userUrl} + @{/} + ${user.profile_picture}"/>
+                            <img class="profilePic" th:unless="${user.profile_picture}" th:src="@{/res/images/default-image.png}"/>
                         </div>
                     </div>
 

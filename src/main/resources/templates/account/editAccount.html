@@ -21,9 +21,9 @@
                         <br/>
                         <h3>Profile picture</h3>
                         <img th:if="${user.profile_picture}" id="profilePic" class="profilePic"
-                             th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
+                             th:src="@{/res/images/} + ${user.userUrl} + @{/} + ${user.profile_picture}"/>
                         <img th:unless="${user.profile_picture}" id="profilePic" class="profilePic"
-                             th:src="@{/res/images/default-user.png}"/>
+                             th:src="@{/res/images/default-image.png}"/>
                     </div>
                 </div>
 

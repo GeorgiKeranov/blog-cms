@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,7 +29,7 @@ public class Comment {
 
     @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OrderBy("date")
-    private Set<Reply> replies;
+    private List<Reply> replies;
 
     public Long getId() {
         return id;
@@ -70,11 +71,11 @@ public class Comment {
         this.post = post;
     }
 
-    public Set<Reply> getReplies() {
+    public List<Reply> getReplies() {
         return replies;
     }
 
-    public void setReplies(Set<Reply> replies) {
+    public void setReplies(List<Reply> replies) {
         this.replies = replies;
     }
 }

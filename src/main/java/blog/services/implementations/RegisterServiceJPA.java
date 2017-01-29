@@ -20,6 +20,9 @@ public class RegisterServiceJPA implements RegisterService {
     @Override
     public String register(User userForRegi) {
 
+        if(userForRegi.getUsername().length() < 5) return "Username have to be more than 4 characters.";
+        if(userForRegi.getUsername().length() > 40) return "Username have to be smaller than 40 characters.";
+
         User isUserWithThisUsername = userRepo.findByUsername(userForRegi.getUsername());
 
         if(isUserWithThisUsername != null) {

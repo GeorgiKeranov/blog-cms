@@ -17,10 +17,10 @@ public class RegisterForm {
     @Size(min=3, message = "Please enter a valid email")
     private String email;
 
-    @Size(min=5, max=40, message = "Please enter password between 5 and 40 characters")
+    @Size(min=6, max=40, message = "Please enter password between 5 and 40 characters")
     private String password;
 
-    @Size(min=5, max=40, message = "Please enter password between 5 and 40 characters")
+    @Size(min=6, max=40, message = "Please enter password between 5 and 40 characters")
     private String password1;
 
 

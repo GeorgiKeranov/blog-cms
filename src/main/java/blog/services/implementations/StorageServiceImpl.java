@@ -54,8 +54,8 @@ public class StorageServiceImpl implements StorageService {
             // Getting the authenticated user.
             User authUser = userService.getAuthenticatedUser();
 
-            // Making directory for images for that username. // TODO create new way for secure reasons.
-            String locationForSave = usersImgsDirectory + authUser.getUsername();
+            // Making directory for images for that user url from db.
+            String locationForSave = usersImgsDirectory + authUser.getUserUrl();
 
             // Creating unique name for the image.
             String nameOfImage = new Date() + file.getOriginalFilename();
@@ -106,7 +106,7 @@ public class StorageServiceImpl implements StorageService {
             User authUser = userService.getAuthenticatedUser();
 
             // Making directory for profile picture for that username.
-            String locationForSave = usersImgsDirectory + authUser.getUsername() + "/";
+            String locationForSave = usersImgsDirectory + authUser.getUserUrl() + "/";
             String nameOfImage = new Date() + file.getOriginalFilename();
 
             Path location = Paths.get(locationForSave);
@@ -139,7 +139,7 @@ public class StorageServiceImpl implements StorageService {
     public void deleteUserImageById(Long id, String location) throws IOException {
 
         User authUser = userService.getAuthenticatedUser();
-        Path locForDelete = Paths.get(usersImgsDirectory + authUser.getUsername());
+        Path locForDelete = Paths.get(usersImgsDirectory + authUser.getUserUrl());
 
         if(id == null){
             Files.deleteIfExists(locForDelete.resolve(location));
@@ -160,7 +160,5 @@ public class StorageServiceImpl implements StorageService {
         Files.delete(path.resolve(directory));
 
     }
-
-
 
 }

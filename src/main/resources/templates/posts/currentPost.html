@@ -45,8 +45,8 @@
             <div th:if="${user}" class="row">
                 <div class="col-md-2">
                     <img class="comment-image" th:if="${user.profile_picture}"
-                         th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
-                    <img class="comment-image" th:unless="${user.profile_picture}" src="/res/images/default-user.png"/>
+                         th:src="@{/res/images/} + ${user.userUrl} + @{/} + ${user.profile_picture}"/>
+                    <img class="comment-image" th:unless="${user.profile_picture}" src="/res/images/default-image.png"/>
                 </div>
                 <form method="post">
                     <textarea class="col-md-6 margintop30" placeholder="Comment" name="comment"></textarea>
@@ -65,8 +65,8 @@
 
                         <div class="col-md-2">
                             <img class="comment-image" th:if="${com.author.profile_picture}"
-                                 th:src="@{/res/images/} + ${com.author.username} + @{/} + ${com.author.profile_picture}"/>
-                            <img class="comment-image" th:unless="${com.author.profile_picture}" src="/res/images/default-user.png"/>
+                                 th:src="@{/res/images/} + ${com.author.userUrl} + @{/} + ${com.author.profile_picture}"/>
+                            <img class="comment-image" th:unless="${com.author.profile_picture}" src="/res/images/default-image.png"/>
                         </div>
 
                         <div class="col-md-4"><a class="user-name-comments" th:href="@{/} + ${com.author.userUrl}" th:text="${com.author.fullname}"></a></div>
@@ -89,9 +89,9 @@
 
                             <div class="col-md-2">
                                 <img class="comment-image" th:if="${user.profile_picture}"
-                                     th:src="@{/res/images/} + ${#authentication.getName()} + @{/} + ${user.profile_picture}"/>
+                                     th:src="@{/res/images/} + ${user.userUrl} + @{/} + ${user.profile_picture}"/>
                                 <img class="comment-image" th:unless="${user.profile_picture}"
-                                     src="/res/images/default-user.png"/>
+                                     src="/res/images/default-image.png"/>
                             </div>
                             <form method="post">
                                 <textarea class="col-md-6 margintop30" placeholder="Reply" name="reply"></textarea>
@@ -112,8 +112,8 @@
                             <div class="grooveBorder col-md-offset-2">
                                 <div class="col-md-2">
                                     <img class="comment-image" th:if="${reply.author.profile_picture}"
-                                         th:src="@{/res/images/} + ${reply.author.username} + @{/} + ${reply.author.profile_picture}"/>
-                                    <img class="comment-image" th:unless="${reply.author.profile_picture}" src="/res/images/default-user.png"/>
+                                         th:src="@{/res/images/} + ${reply.author.userUrl} + @{/} + ${reply.author.profile_picture}"/>
+                                    <img class="comment-image" th:unless="${reply.author.profile_picture}" src="/res/images/default-image.png"/>
                                 </div>
 
                                 <div class="col-md-4"><a class="user-name-comments" th:href="@{/} + ${com.author.userUrl}" th:text="${com.author.fullname}"></a></div>

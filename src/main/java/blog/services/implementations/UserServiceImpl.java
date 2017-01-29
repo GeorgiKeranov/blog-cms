@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -82,7 +83,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(User user) throws IOException {
         //Deleting all images of user.
-        Set<Image> images = user.getImages();
+        List<Image> images = user.getImages();
         for(Image img : images)
             storageService.deleteUserImageById(img.getId(), null);
 
@@ -90,7 +91,7 @@ public class UserServiceImpl implements UserService {
         storageService.deleteUserImageById(null, user.getProfile_picture());
 
         //Deleting posts pictures.
-        Set<Post> posts = user.getPosts();
+        List<Post> posts = user.getPosts();
         for(Post post : posts)
             storageService.deletePostImage(post.getIcon());
 

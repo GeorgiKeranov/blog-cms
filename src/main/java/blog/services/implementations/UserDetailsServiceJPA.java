@@ -22,6 +22,8 @@ public class UserDetailsServiceJPA implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
+        if(s == null || s.equals("")) throw new UsernameNotFoundException("Invalid User");;
+
         User user = userRepo.findByUsername(s);
 
         if(user == null){

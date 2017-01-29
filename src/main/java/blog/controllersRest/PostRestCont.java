@@ -2,7 +2,9 @@ package blog.controllersRest;
 
 import blog.models.Post;
 import blog.services.interfaces.PostService;
+import blog.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,15 +16,22 @@ public class PostRestCont {
     @Autowired
     PostService postService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping("/rest/posts/latest10")
     public List<Post> getLatest10Posts(){
-       List<Post> posts = postService.getLatest10Posts();
-       for(Post post : posts) {
-           post.setAuthor(null);
-           post.setComments(null);
-       }
+       return postService.getLatest10Posts();
+    }
 
-       return posts;
+    @RequestMapping("/rest/account/posts")
+    public List<Post> getAuthUserPosts(){
+        return userService.getAuthenticatedUser().getPosts();
+    }
+
+    @RequestMapping("/rest/posts/{id}")
+    public Post getPostById(@PathVariable("id") Long id) {
+        return postService.getPostById(id);
     }
 
 }

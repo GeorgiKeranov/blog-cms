@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,6 +14,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -27,7 +29,7 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private String profile_picture;
+    private String profile_picture = "no"; // "=" is for setting default value.
 
     @JsonIgnore
     @Column(unique = true, nullable = false)
@@ -40,7 +42,7 @@ public class User {
     @JsonIgnore
     @OrderBy("date")
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    private Set<Post> posts;
+    private List<Post> posts;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -48,19 +50,18 @@ public class User {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Image> images;
+    private List<Image> images;
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "author", cascade = CascadeType.ALL)
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "author", cascade = CascadeType.ALL)
-    private Set<Reply> replies;
+    private List<Reply> replies;
 
+    public User() {
 
-    public User(){
-        posts = new HashSet<Post>();
     }
 
     public User(String firstName, String lastName, String username, String email, String password) {
@@ -86,11 +87,11 @@ public class User {
         this.profile_picture = profile_picture;
     }
 
-    public Set<Image> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(Set<Image> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 
@@ -150,27 +151,27 @@ public class User {
         this.password = password;
     }
 
-    public Set<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(Set<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
-    public Set<Reply> getReplies() {
+    public List<Reply> getReplies() {
         return replies;
     }
 
-    public void setReplies(Set<Reply> replies) {
+    public void setReplies(List<Reply> replies) {
         this.replies = replies;
     }
 
