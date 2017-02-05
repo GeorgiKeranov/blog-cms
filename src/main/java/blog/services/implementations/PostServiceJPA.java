@@ -10,6 +10,8 @@ import blog.repositories.ReplyRepository;
 import blog.services.interfaces.PostService;
 import blog.services.interfaces.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -31,8 +33,24 @@ public class PostServiceJPA implements PostService {
     StorageService storageService;
 
     @Override
-    public List<Post> getLatest10Posts() {
+    public List<Post> getLatest5Posts() {
         return postRepo.findFirst5ByOrderByDateDesc();
+    }
+
+    @Override
+    public List<Post> getLatest5PostsUser(Long authorId) {
+
+        return postRepo.findByUserLatest5Posts(authorId, new PageRequest(0, 5));
+    }
+
+    @Override
+    public List<Post> find5BeforeId(Long id) {
+        return postRepo.find5BeforeId(id, new PageRequest(0, 5));
+    }
+
+    @Override
+    public List<Post> find5BeforeIdForUser(Long authorId, Long postsBeforeId) {
+        return postRepo.find5BeforeIdUser(authorId, postsBeforeId, new PageRequest(0, 5));
     }
 
     @Override

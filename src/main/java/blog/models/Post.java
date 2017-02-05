@@ -16,17 +16,18 @@ public class Post {
 
     private String title;
 
-    private String icon;
+    private String icon = "no"; // This is default value if there is not icon.
 
     @Column(length = 500)
     private String description;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    private User author;
+    private User author; // TODO JSON IGNORE
 
     @Column(nullable = false)
     private Date date = new Date();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     @OrderBy("date")
     private List<Comment> comments;

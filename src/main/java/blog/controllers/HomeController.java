@@ -16,7 +16,7 @@ public class HomeController {
     public String index(Model model){
 
         model.addAttribute("allPosts", postServiceJPA.getAllPosts());
-        model.addAttribute("last5Posts", postServiceJPA.getLatest10Posts());
+        model.addAttribute("last5Posts", postServiceJPA.getLatest5Posts());
 
         return "home";
     }

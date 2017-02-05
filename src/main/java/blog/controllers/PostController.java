@@ -83,7 +83,7 @@ public class PostController {
                                      @RequestParam(value = "reply", required = false) String reply,
                                      @RequestParam(value = "commentForReply", required = false) Long commentId){
 
-        if(comment != null && reply!= null) return "redirect:/posts" + id;
+        if(comment == null && reply== null) return "redirect:/posts/" + id;
 
         User authUser = userService.getAuthenticatedUser();
         if(authUser == null) return "redirect:/login";

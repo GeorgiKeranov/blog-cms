@@ -10,10 +10,15 @@ import java.util.List;
 public interface PostService {
 
 
-    // Post functions.
     public List<Post> getAllPosts();
 
-    public List<Post> getLatest10Posts();
+    public List<Post> getLatest5Posts();
+
+    public List<Post> getLatest5PostsUser(Long authorId);
+
+    public List<Post> find5BeforeId(Long id);
+
+    public List<Post> find5BeforeIdForUser(Long authorId, Long postsBeforeId);
 
     public Post getPostById(Long id);
 
