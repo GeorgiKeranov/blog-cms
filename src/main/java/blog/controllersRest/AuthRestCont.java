@@ -12,8 +12,10 @@ public class AuthRestCont {
     @Autowired
     UserService userService;
 
+    // This method is checking if the client is authenticated.
+    // And returning JSON object that shows that.
     @RequestMapping(value = "/rest/authentication", produces = "application/json")
-    public String isAuthenticated(){
+    public String isAuthenticated() {
 
         JSONObject response = new JSONObject();
 

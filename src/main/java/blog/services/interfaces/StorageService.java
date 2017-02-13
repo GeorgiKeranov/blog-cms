@@ -13,14 +13,14 @@ public interface StorageService {
 
     // THE NAMES OF THE PICTURES ARE UNIQUE. Even if you save picture with the same name.
 
-    // Saving image in directory(usersImgsDirectory + username of authenticated user)/
-    // Then mapping name of the picture in database, table user.
+    // Saving image in directory(usersImgsDirectory + userUrl of authenticated user).
+    // Then mapping name of the picture in database, table user, column : profile_picture.
     public boolean saveProfilePicture(MultipartFile file);
 
     // Saving image in postImgsDirectory and saving name of the image in the database, table posts.
     public String savePostImage(MultipartFile file);
 
-    // Saving image in directory (usersImgsDirectory + username of the authenticated user).
+    // Saving image in directory (usersImgsDirectory + userUrl of the authenticated user).
     // Then mapping name of the image in the database, table images.
     public String saveUserImage(MultipartFile file);
 

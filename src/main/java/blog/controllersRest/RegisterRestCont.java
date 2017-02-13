@@ -12,9 +12,8 @@ public class RegisterRestCont {
     @Autowired
     RegisterServiceJPA registerService;
 
-    @RequestMapping(value = "/rest/register",
-            method = RequestMethod.POST,
-            produces = "application/json")
+    // This method is saving new user into the database.
+    @RequestMapping(value = "/rest/register", method = RequestMethod.POST, produces = "application/json")
     public String register(@RequestParam("firstName") String firstName,
                            @RequestParam("lastName") String lastName,
                            @RequestParam("username") String username,

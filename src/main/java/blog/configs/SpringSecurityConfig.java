@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -35,16 +34,21 @@ public class SpringSecurityConfig{
     }
 
     @Order(1)
-    @Configuration
+    @Configuration // This configuration is for the rest service (/rest/*...).
     public static class RestSecurity extends WebSecurityConfigurerAdapter {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.antMatcher("/rest/**")
                     .formLogin().loginPage("/rest/login")
+
                     .successHandler(new AuthenticationSuccessHandler() {
                         @Override
-                        public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+                        public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
+                                                            HttpServletResponse httpServletResponse,
+                                                            Authentication authentication)
+                                throws IOException, ServletException {
+
                             JSONObject succLogin = new JSONObject();
                             succLogin.put("authenticated", true);
 
@@ -54,9 +58,14 @@ public class SpringSecurityConfig{
                             writer.write(succLogin.toString());
                         }
                     })
+
                     .failureHandler(new AuthenticationFailureHandler() {
                         @Override
-                        public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+                        public void onAuthenticationFailure(HttpServletRequest httpServletRequest,
+                                                            HttpServletResponse httpServletResponse,
+                                                            AuthenticationException e)
+                                throws IOException, ServletException {
+
                             JSONObject succLogin = new JSONObject();
                             succLogin.put("authenticated", false);
 
@@ -78,6 +87,7 @@ public class SpringSecurityConfig{
         }
     }
 
+    // This configuration is for the browser.
     @Configuration
     public static class WebSecurity extends WebSecurityConfigurerAdapter {
 
