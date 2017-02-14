@@ -42,8 +42,8 @@ public class RegisterController {
         User userForReg = new User(
                 registerForm.getFirstName(),
                 registerForm.getLastName(),
-                registerForm.getEmail(),
                 registerForm.getUsername(),
+                registerForm.getEmail(),
                 bCrypt.encode(registerForm.getPassword()));
 
         String message = registerService.register(userForReg);

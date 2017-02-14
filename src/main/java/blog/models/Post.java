@@ -21,7 +21,7 @@ public class Post {
     @Column(length = 500)
     private String description;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     private User author; // TODO JSON IGNORE
 
     @Column(nullable = false)

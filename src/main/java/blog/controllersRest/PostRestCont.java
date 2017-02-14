@@ -150,4 +150,22 @@ public class PostRestCont {
         return postService.find5BeforeIdForUser(userId, postsBeforeId);
     }
 
+
+    // This method is deleting post if the post's author is authenticated user.
+    @RequestMapping(value = "/rest/posts/{id}/delete", method = RequestMethod.POST, produces = "application/json")
+    public String deletePostById(@PathVariable("id") Long id) {
+
+        User authUser = userService.getAuthenticatedUser();
+
+        Post postForDelete = postService.getPostById(id);
+
+        if(postForDelete.getAuthor().getUsername().equals(authUser.getUsername())) {
+
+            postService.deletePostById(id);
+            return "{ \"deleted\": true }";
+        }
+
+        return "{ \"deleted\": false }";
+    }
+
 }
