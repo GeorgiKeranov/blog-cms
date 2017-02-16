@@ -243,6 +243,14 @@ div.firstRow a, a>form {
     display: inline-block;
 }
 
+div.onOneRow h3, a{
+    display: inline-block;
+}
+
+.delete-account {
+    display: inline-block;
+}
+
 div#righter {
     padding-left: 45px;
 }

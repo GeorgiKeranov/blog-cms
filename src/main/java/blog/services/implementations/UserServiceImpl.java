@@ -22,23 +22,10 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepository userRepo;
+    private UserRepository userRepo;
 
     @Autowired
-    RoleRepository roleRepo;
-
-    @Autowired
-    CommentRepository commentRepo;
-
-    @Autowired
-    ReplyRepository replyRepo;
-
-
-    @Autowired
-    PostService postService;
-
-    @Autowired
-    StorageService storageService;
+    private StorageService storageService;
 
 
     @Override

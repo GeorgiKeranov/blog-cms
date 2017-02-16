@@ -25,20 +25,22 @@ import java.util.List;
 public class AccountController {
 
     @Autowired
-    StorageService storageService;
+    private StorageService storageService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @RequestMapping("/account")
-    public String showMyAccountPage(Model model){
+    public String showMyAccountPage(Model model) {
+
         User authUser = userService.getAuthenticatedUser();
         model.addAttribute("user", authUser);
+
         return "/account/account";
     }
 
     @RequestMapping("/account/edit")
-    public String showEditAccountPage(EditAccountForm editAccountForm, Model model){
+    public String showEditAccountPage(EditAccountForm editAccountForm, Model model) {
 
         User authUser = userService.getAuthenticatedUser();
         model.addAttribute("user", authUser);
@@ -53,6 +55,7 @@ public class AccountController {
 
         User authUser = userService.getAuthenticatedUser();
 
+        // Checks if there are errors in EditAccountForm.
         if(bindingResult.hasErrors()) {
             model.addAttribute("user", authUser);
             return "/account/editAccount";
@@ -60,7 +63,10 @@ public class AccountController {
 
         String pass = form.getCurPassword();
 
+        // Checks if the entered password by authenticated user is the same as his/her's account.
         boolean isPasswordCorrect = userService.checkPassword(pass, authUser.getPassword());
+
+        // If password is incorrect add message to model and return the same page.
         if(!isPasswordCorrect){
             model.addAttribute("user", authUser);
             model.addAttribute("errMsg", "Current Password is incorrect!");
@@ -71,34 +77,49 @@ public class AccountController {
         String confirmNewPass = form.getConfirmNewPassword();
 
         String theNewPassword = null;
+
+        // Checks if new password and confirm new password aren't empty.
         if(!(newPass.equals("") && confirmNewPass.equals(""))){
+
+            // Checks if new password and confirm new password aren't equal.
             if(!newPass.equals(confirmNewPass)){
                 model.addAttribute("user", userService.getAuthenticatedUser());
                 model.addAttribute("errMsg", "New password and confirm password are not the same");
                 return "/account/editAccount";
             }
-          theNewPassword = newPass;
+
+            // We will need this variable below when updating the user info.
+            theNewPassword = newPass;
         }
 
         authUser.setFirstName(form.getFirstName());
         authUser.setLastName(form.getLastName());
         authUser.setEmail(form.getEmail());
 
+        // Updating the user info and sending newPassword (if the new password
+        // is null it will not change the authenticated user's password).
         userService.updateUser(authUser, theNewPassword);
 
+        // Checks if profilePic multipart file is not empty.
         if(!profilePic.isEmpty()) {
+
+            // Saving profile picture and getting false if there is error.
             boolean noError = storageService.saveProfilePicture(profilePic);
+
             if(!noError) {
                 model.addAttribute("user", userService.getAuthenticatedUser());
                 return "/account/editAccount";
             }
         }
 
+        // And finally if you are there it will redirect you to your account page.
         return "redirect:/account";
     }
 
+    // This url is for viewing other users and their posts.
     @RequestMapping("/{userUrl:.+}")
     public String viewUserAccount(@PathVariable("userUrl") String userUrl, Model model){
+
         User user = userService.getUserByUrl(userUrl);
         if(user == null) return "redirect:/";
 
@@ -114,7 +135,8 @@ public class AccountController {
         return "/tests/loadPics";
     }
 
-    @RequestMapping("/account/delete")
+    // This url is deleting your account.
+    @RequestMapping(value = "/account/delete", method = RequestMethod.POST)
     public String deleteAccount(HttpServletRequest request){
 
         User authUser = userService.getAuthenticatedUser();
@@ -126,6 +148,7 @@ public class AccountController {
         }
 
         try {
+            // This logout the authenticated user directly.
             request.logout();
         } catch (ServletException e) {
             e.printStackTrace();

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class RegisterRestCont {
 
     @Autowired
-    RegisterServiceJPA registerService;
+    private RegisterServiceJPA registerService;
 
     // This method is saving new user into the database.
     @RequestMapping(value = "/rest/register", method = RequestMethod.POST, produces = "application/json")
@@ -19,6 +19,8 @@ public class RegisterRestCont {
                            @RequestParam("username") String username,
                            @RequestParam("email") String email,
                            @RequestParam("password") String password){
+
+        // TODO escape ( , . ! @ # $ % ^ & ( ) + - * / .  : ; ? < > / '' "" [] {} ` ~ )
 
         BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
 

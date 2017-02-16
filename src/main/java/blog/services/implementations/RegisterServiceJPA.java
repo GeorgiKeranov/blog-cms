@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 public class RegisterServiceJPA implements RegisterService {
 
     @Autowired
-    UserRepository userRepo;
+    private UserRepository userRepo;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Override
     public String register(User userForRegi) {

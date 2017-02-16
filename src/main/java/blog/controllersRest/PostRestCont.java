@@ -18,13 +18,13 @@ import java.util.List;
 public class PostRestCont {
 
     @Autowired
-    PostService postService;
+    private PostService postService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    StorageService storageService;
+    private StorageService storageService;
 
     // This method is returning latest 5 posts ordered
     // by date from the database as JSON array.
@@ -128,7 +128,6 @@ public class PostRestCont {
     // on given Post by id.
     @RequestMapping(value = "/rest/posts/{id}/comments")
     public List<Comment> getPostComments(@PathVariable("id") Long id) {
-
         return postService.getPostById(id).getComments();
 
     }
@@ -168,4 +167,9 @@ public class PostRestCont {
         return "{ \"deleted\": false }";
     }
 
+    // This method is getting id of post and return the author(as User object) of that post.
+    @RequestMapping(value = "/rest/posts/{id}/author", method = RequestMethod.GET)
+    public User getAuthorByPostId(@PathVariable("id") Long id) {
+        return postService.getPostById(id).getAuthor();
+    }
 }

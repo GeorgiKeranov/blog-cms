@@ -21,8 +21,9 @@ public class Post {
     @Column(length = 500)
     private String description;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
-    private User author; // TODO JSON IGNORE
+    private User author;
 
     @Column(nullable = false)
     private Date date = new Date();

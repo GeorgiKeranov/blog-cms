@@ -29,6 +29,8 @@ public class RegisterController {
     public String register(@Valid RegisterForm registerForm, BindingResult result, Model model,
                            RedirectAttributes redirectAttributes){
 
+        // TODO escape ( , . ! @ # $ % ^ & ( ) + - * / .  : ; ? < > / '' "" [] {} ` ~ )
+
         if(result.hasErrors()) return "/account/register";
 
         boolean password = registerForm.getPassword().equals(registerForm.getPassword1());

@@ -5,20 +5,17 @@ import blog.services.interfaces.StorageService;
 import blog.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class AccountRestCont {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    StorageService storageService;
+    private StorageService storageService;
 
     // This method is returning the authenticated user's object as JSON object.
     @RequestMapping(value = "/rest/account", method = RequestMethod.GET)
@@ -63,4 +60,9 @@ public class AccountRestCont {
         return "{ \"error\": false }";
     }
 
+
+    @RequestMapping(value = "/rest/{userUrl:.+}", method = RequestMethod.GET)
+    public User getUserByUserUrl(@PathVariable("userUrl") String userUrl) {
+        return userService.getUserByUrl(userUrl);
+    }
 }

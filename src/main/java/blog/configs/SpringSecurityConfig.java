@@ -42,6 +42,8 @@ public class SpringSecurityConfig{
             http.antMatcher("/rest/**")
                     .formLogin().loginPage("/rest/login")
 
+                    // If the user have been authenticated successful it will show JSON object
+                    // { "authenticated" : true } .
                     .successHandler(new AuthenticationSuccessHandler() {
                         @Override
                         public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
@@ -59,6 +61,8 @@ public class SpringSecurityConfig{
                         }
                     })
 
+                    // If the user haven't been authenticated successful it will show JSON object
+                    // { "authenticated" : false } .
                     .failureHandler(new AuthenticationFailureHandler() {
                         @Override
                         public void onAuthenticationFailure(HttpServletRequest httpServletRequest,
@@ -77,12 +81,23 @@ public class SpringSecurityConfig{
                     })
 
                     .and().authorizeRequests()
+                    // /rest/login and /rest/register urls can be viewed only by
+                    // not authenticated users.
                     .antMatchers("/rest/login").anonymous()
                     .antMatchers("/rest/register").anonymous()
+
+                    // /rest/authentication url can be viewed by all the users.
                     .antMatchers("/rest/authentication").permitAll()
+
+                    // Other urls are accessed if the authenticated user have role USER.
                     .anyRequest().hasRole("USER")
+
+                    // That is the url that is logging out the authenticated user
+                    // by deleting his/her cookie for authentication from the server.
                     .and().logout().logoutUrl("/rest/logout")
                         .logoutSuccessUrl("/rest/authentication")
+
+                    // Disabling the csrf.
                     .and().csrf().disable();
         }
     }
@@ -95,12 +110,15 @@ public class SpringSecurityConfig{
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
+                    // Only Users with ROLE_USER can access below urls.
                     .antMatchers("/create-post", "/posts/edit/**",
                             "/posts", "/account",
                             "/account/**", "/logout").access("hasRole('ROLE_USER')")
 
+                    // Only users that are not authenticated can access /login and /register urls.
                     .antMatchers("/login", "/register").access("isAnonymous()")
 
+                    // Login page url is set to /login.
                     .and().formLogin().loginPage("/login")
                     .and().logout();
         }

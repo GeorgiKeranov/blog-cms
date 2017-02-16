@@ -21,16 +21,16 @@ import java.util.List;
 public class PostServiceJPA implements PostService {
 
     @Autowired
-    PostRepository postRepo;
+    private PostRepository postRepo;
 
     @Autowired
-    CommentRepository commentRepo;
+    private CommentRepository commentRepo;
 
     @Autowired
-    ReplyRepository replyRepo;
+    private ReplyRepository replyRepo;
 
     @Autowired
-    StorageService storageService;
+    private StorageService storageService;
 
     @Override
     public List<Post> getLatest5Posts() {

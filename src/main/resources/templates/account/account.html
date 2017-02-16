@@ -26,10 +26,13 @@
                     <!-- edit form column -->
                     <div class="col-md-9" id="righter">
 
-                        <div class="firstRow">
+                        <div class="onOneRow">
                             <h3>Personal info</h3>
                             <a class="btn btn-warning col-md-offset-3" href="/account/edit">Edit Account</a>
-                            <a id="delete" class="btn btn-danger col-md-offset-1" href="/account/delete">Delete Account</a>
+                            <form class="delete-account" method="post" action="/account/delete">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <input type="submit" id="delete" class="btn btn-danger col-md-offset-1" value="Delete your account"/>
+                            </form>
                         </div>
 
                         <hr/>

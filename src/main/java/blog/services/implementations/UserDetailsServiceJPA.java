@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class UserDetailsServiceJPA implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepo;
+    private UserRepository userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

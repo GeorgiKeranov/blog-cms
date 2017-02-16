@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthRestCont {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     // This method is checking if the client is authenticated.
     // And returning JSON object that shows that.

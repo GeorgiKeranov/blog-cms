@@ -21,13 +21,13 @@ import java.util.List;
 public class StorageServiceImpl implements StorageService {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    ImageRepository imageRepo;
+    private ImageRepository imageRepo;
 
     @Autowired
-    UserRepository userRepo;
+    private UserRepository userRepo;
 
     @Override
     public String savePostImage(MultipartFile file) {

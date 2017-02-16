@@ -26,16 +26,16 @@ import java.util.List;
 public class PostController {
 
     @Autowired
-    PostService postService;
+    private PostService postService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    StorageService storageService;
+    private StorageService storageService;
 
     @Autowired
-    ImageRepository imageRepository;
+    private ImageRepository imageRepository;
 
     @RequestMapping("/create-post")
     public String createPost(PostForm postForm){
