@@ -39,7 +39,6 @@ public class PostServiceJPA implements PostService {
 
     @Override
     public List<Post> getLatest5PostsUser(Long authorId) {
-
         return postRepo.findByUserLatest5Posts(authorId, new PageRequest(0, 5));
     }
 
@@ -75,6 +74,20 @@ public class PostServiceJPA implements PostService {
 
     @Override
     public void deletePostById(Long id) {
+
+        String pictureName = postRepo.getOne(id).getIcon();
+
+        // Checks if user have profile picture.
+        if(!pictureName.equals("no")) {
+            try {
+                // Deleting the picture from the server storage.
+                storageService.deletePostImage(pictureName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Deleting the post from the database.
         postRepo.delete(id);
     }
 
@@ -91,17 +104,5 @@ public class PostServiceJPA implements PostService {
     @Override
     public void saveReply(Reply reply) {
         replyRepo.save(reply);
-    }
-
-    @Override
-    public void deletePost(Post post) {
-
-        try {
-            storageService.deletePostImage(post.getIcon());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        postRepo.delete(post);
     }
 }

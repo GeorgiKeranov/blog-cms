@@ -17,7 +17,7 @@ public interface StorageService {
     // Then mapping name of the picture in database, table user, column : profile_picture.
     public boolean saveProfilePicture(MultipartFile file);
 
-    // Saving image in postImgsDirectory and saving name of the image in the database, table posts.
+    // Saving image in postImgsDirectory and returning it name.
     public String savePostImage(MultipartFile file);
 
     // Saving image in directory (usersImgsDirectory + userUrl of the authenticated user).

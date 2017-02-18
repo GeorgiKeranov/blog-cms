@@ -9,8 +9,9 @@ import java.util.List;
 
 public interface PostService {
 
-
     public List<Post> getAllPosts();
+
+    public List<Post> getUserPosts(User user);
 
     public List<Post> getLatest5Posts();
 
@@ -20,22 +21,20 @@ public interface PostService {
 
     public List<Post> find5BeforeIdForUser(Long authorId, Long postsBeforeId);
 
+
+    // Comment and reply functions.
+
     public Post getPostById(Long id);
 
     public void savePost(Post post);
 
     public void deletePostById(Long id);
 
-    public List<Post> getUserPosts(User user);
 
-    // Comment and reply functions.
     public Comment getCommentById(Long id);
 
     public void saveComment(Comment comment);
 
+
     public void saveReply(Reply reply);
-
-    public void deletePost(Post post);
-
-    //TODO Delete all user images : delete folder with account username.
 }

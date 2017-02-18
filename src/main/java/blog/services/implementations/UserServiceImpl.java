@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(User user) throws IOException { //TODO test this method and delete more things.
+    public void deleteUser(User user) throws IOException {
         //Deleting all images of user.
         List<Image> images = user.getImages();
         for(Image img : images)

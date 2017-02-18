@@ -100,7 +100,6 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public boolean saveProfilePicture(MultipartFile file) {
-        //TODO make function to change picture from images table.
 
         try {
             User authUser = userService.getAuthenticatedUser();
@@ -122,7 +121,7 @@ public class StorageServiceImpl implements StorageService {
             image.setUser(authUser);
             imageRepo.save(image);
 
-            //Saves profile picture name in user table.
+            // Saves profile picture name in user table.
             authUser.setProfile_picture(nameOfImage);
             userRepo.save(authUser);
 
