@@ -34,9 +34,6 @@ public class PostController {
     @Autowired
     private StorageService storageService;
 
-    @Autowired
-    private ImageRepository imageRepository;
-
     @RequestMapping("/create-post")
     public String createPost(PostForm postForm){
         return "posts/createPost";

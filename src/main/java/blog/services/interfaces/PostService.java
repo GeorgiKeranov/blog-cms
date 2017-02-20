@@ -35,6 +35,10 @@ public interface PostService {
 
     public void saveComment(Comment comment);
 
+    public void deleteComment(Comment comment);
+
 
     public void saveReply(Reply reply);
+
+    public void deleteReply(Reply reply);
 }

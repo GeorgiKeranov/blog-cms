@@ -3,6 +3,7 @@ package blog.controllersRest;
 import blog.forms.PostForm;
 import blog.models.Comment;
 import blog.models.Post;
+import blog.models.Reply;
 import blog.models.User;
 import blog.services.interfaces.PostService;
 import blog.services.interfaces.StorageService;
@@ -15,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-public class PostCont {
+public class PostRestCont {
 
     @Autowired
     PostService postService;
@@ -62,7 +63,7 @@ public class PostCont {
         return response.toString();
     }
 
-    // This method is commenting on given by id Post.
+    // This method is commenting on given Post by id.
     @RequestMapping(value = "/rest/posts/{id}/comment", method = RequestMethod.POST)
     public String commentOnPost(@PathVariable("id") Long id,
                                 @RequestParam(value = "comment", required = false) String comment) {
@@ -88,6 +89,37 @@ public class PostCont {
         return response.toString();
     }
 
+    // This method is replying on given Comment by id.
+    @RequestMapping(value = "/rest/posts/{id}/reply", method = RequestMethod.POST)
+    public String replyOnComment(@RequestParam("reply") String reply,
+                              @RequestParam("commentIdToReply") Long commentId) {
+
+        JSONObject response = new JSONObject();
+
+        User authUser = userService.getAuthenticatedUser();
+
+        Comment commentForReply = postService.getCommentById(commentId);
+        // Checking if on the given comment id exists a real comment in database.
+        if(commentForReply == null) {
+            response.put("error", true);
+            response.put("error_msg", "The comment to reply doesn't exists.");
+            return response.toString();
+        }
+
+        if(reply != null){
+            // Creating the Reply object.
+            Reply replyForSave = new Reply();
+            replyForSave.setAuthor(authUser);
+            replyForSave.setReply(reply);
+            replyForSave.setComment(commentForReply);
+
+            // Saving the created reply above to database.
+            postService.saveReply(replyForSave);
+        }
+
+        response.put("error", false);
+        return response.toString();
+    }
 
     // Methods that are loading from the database.
 
@@ -210,5 +242,37 @@ public class PostCont {
         }
 
         return "{ \"deleted\": false }";
+    }
+
+    @RequestMapping(value = "/rest/posts/delete-comment", method = RequestMethod.POST)
+    public String deleteComment(@RequestParam("commentId") Long commentId) {
+
+        Comment comment = postService.getCommentById(commentId);
+
+        User commentAuthor = comment.getAuthor();
+        User authenticatedUser = userService.getAuthenticatedUser();
+
+        // This is used to create a JSON for the response.
+        JSONObject response = new JSONObject();
+
+        // Checking if the authenticated user id and the
+        // author of the comment id are the same. If they are the same
+        // means that authenticated user is the author of the comment.
+        if(commentAuthor.getId() == authenticatedUser.getId()) {
+            postService.deleteComment(comment);
+            response.put("error", false);
+            return response.toString();
+        }
+
+        response.put("error", true);
+        response.put("error_msg", "You are not the author of the comment!");
+
+        return response.toString();
+    }
+
+    @RequestMapping(value = "rest/posts/delete-reply", method = RequestMethod.POST)
+    public String deleteReply(@RequestParam(value = "commentId", required = false) Long commentId,
+                              @RequestParam(value = "replyId", required = false) Long replyId) {
+        return null; // TODO
     }
 }

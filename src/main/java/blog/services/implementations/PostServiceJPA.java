@@ -97,6 +97,11 @@ public class PostServiceJPA implements PostService {
     }
 
     @Override
+    public void deleteComment(Comment comment) {
+        commentRepo.delete(comment);
+    }
+
+    @Override
     public Comment getCommentById(Long id) {
         return commentRepo.getOne(id);
     }
@@ -104,5 +109,10 @@ public class PostServiceJPA implements PostService {
     @Override
     public void saveReply(Reply reply) {
         replyRepo.save(reply);
+    }
+
+    @Override
+    public void deleteReply(Reply reply) {
+        replyRepo.delete(reply);
     }
 }
