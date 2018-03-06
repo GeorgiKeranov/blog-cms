@@ -244,6 +244,7 @@ public class PostRestCont {
         return "{ \"deleted\": false }";
     }
 
+    // This method is deleting comment if the author of it is the authenticated user.
     @RequestMapping(value = "/rest/posts/delete-comment", method = RequestMethod.POST)
     public String deleteComment(@RequestParam("commentId") Long commentId) {
 
@@ -270,9 +271,39 @@ public class PostRestCont {
         return response.toString();
     }
 
-    @RequestMapping(value = "rest/posts/delete-reply", method = RequestMethod.POST)
-    public String deleteReply(@RequestParam(value = "commentId", required = false) Long commentId,
-                              @RequestParam(value = "replyId", required = false) Long replyId) {
-        return null; // TODO
+    // This method is deleting reply if the author of it is the authenticated user.
+    @RequestMapping(value = "/rest/posts/delete-reply", method = RequestMethod.POST)
+    public String deleteReply(@RequestParam(value = "replyId", required = false) Long replyId) {
+
+        // That object is used to create JSON String more easily.
+        JSONObject response = new JSONObject();
+
+        // Getting the authenticated user's userUrl.
+        String authUserUrl = userService.getAuthenticatedUser().getUserUrl();
+
+        Reply reply = postService.getReplyById(replyId);
+        // Check if the given id is for real reply in the database.
+        if (reply == null) {
+            response.put("error", true);
+            response.put("error_msg", "This reply doesn't exists.");
+            return response.toString();
+        }
+
+        // Getting the author userUrl from the above Reply object.
+        String replyAuthorUserUrl = reply.getAuthor().getUserUrl();
+
+        // Check if the authenticated user is the author of that reply.
+        if(authUserUrl.equals(replyAuthorUserUrl)) {
+            // Deleting the reply and returning JSON as String for no error.
+            postService.deleteReply(reply);
+            response.put("error", false);
+            return response.toString();
+        }
+
+        // If we are here means that the authenticated user is not the author of the reply.
+        // So returning JSON error as String.
+        response.put("error", true);
+        response.put("error_msg", "You are not the author of that reply!");
+        return response.toString();
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -29,7 +29,7 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private String profile_picture = "no"; // "=" is for setting default value.
+    private String profile_picture = "no"; // "=" is for setting default value in the database.
 
     @JsonIgnore
     @Column(unique = true, nullable = false)

@@ -1,11 +1,14 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="/fragments/layout :: site-head">
+
+<head th:replace="fragments/layout :: site-head">
     <meta charset="UTF-8"/>
     <title th:text="${#authentication.getName()}"></title>
 </head>
-<body class="bodyBackgroundOrange">
 
-    <header th:replace="/fragments/layout :: site-header"></header>
+<body>
+
+    <header th:replace="fragments/layout :: site-header"></header>
 
     <main class="main-bottom">
         <div class="container">

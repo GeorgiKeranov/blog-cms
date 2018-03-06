@@ -9,36 +9,38 @@ import java.util.List;
 
 public interface PostService {
 
-    public List<Post> getAllPosts();
+    List<Post> getAllPosts();
 
-    public List<Post> getUserPosts(User user);
+    List<Post> getUserPosts(User user);
 
-    public List<Post> getLatest5Posts();
+    List<Post> getLatest5Posts();
 
-    public List<Post> getLatest5PostsUser(Long authorId);
+    List<Post> getLatest5PostsUser(Long authorId);
 
-    public List<Post> find5BeforeId(Long id);
+    List<Post> find5BeforeId(Long id);
 
-    public List<Post> find5BeforeIdForUser(Long authorId, Long postsBeforeId);
+    List<Post> find5BeforeIdForUser(Long authorId, Long postsBeforeId);
 
 
     // Comment and reply functions.
 
-    public Post getPostById(Long id);
+    Post getPostById(Long id);
 
-    public void savePost(Post post);
+    void savePost(Post post);
 
-    public void deletePostById(Long id);
-
-
-    public Comment getCommentById(Long id);
-
-    public void saveComment(Comment comment);
-
-    public void deleteComment(Comment comment);
+    void deletePostById(Long id);
 
 
-    public void saveReply(Reply reply);
+    Comment getCommentById(Long id);
 
-    public void deleteReply(Reply reply);
+    void saveComment(Comment comment);
+
+    void deleteComment(Comment comment);
+
+
+    void saveReply(Reply reply);
+
+    Reply getReplyById(Long replyId);
+
+    void deleteReply(Reply reply);
 }

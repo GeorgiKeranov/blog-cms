@@ -112,7 +112,13 @@ public class PostServiceJPA implements PostService {
     }
 
     @Override
+    public Reply getReplyById(Long replyId) {
+        return replyRepo.getOne(replyId);
+    }
+
+    @Override
     public void deleteReply(Reply reply) {
         replyRepo.delete(reply);
     }
+
 }

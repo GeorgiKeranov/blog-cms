@@ -21,6 +21,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <img class="big" th:if="${post.icon}" th:src="@{/res/image-post/} + ${post.icon}"/>
+                        <img class="big" th:unless="${post.icon}" src="/res/image-post/default-image.png"/>
                     </div>
                     <div class="col-md-6 multiline2" th:text="${post.description}"></div>
                 </div>
@@ -44,9 +45,11 @@
             <!-- Create new comment -->
             <div th:if="${user}" class="row">
                 <div class="col-md-2">
-                    <img class="comment-image" th:if="${user.profile_picture}"
-                         th:src="@{/res/images/} + ${user.userUrl} + @{/} + ${user.profile_picture}"/>
-                    <img class="comment-image" th:unless="${user.profile_picture}" src="/res/images/default-image.png"/>
+                    <div class="image-container">
+                        <img th:if="${user.profile_picture}"
+                             th:src="@{/res/images/} + ${user.userUrl} + @{/} + ${user.profile_picture}"/>
+                        <img th:unless="${user.profile_picture}" src="/res/images/default-image.png"/>
+                    </div>
                 </div>
                 <form method="post">
                     <textarea class="col-md-6 margintop30" placeholder="Comment" name="comment"></textarea>
@@ -64,9 +67,11 @@
                     <div class="grooveBorder">
 
                         <div class="col-md-2">
-                            <img class="comment-image" th:if="${com.author.profile_picture}"
-                                 th:src="@{/res/images/} + ${com.author.userUrl} + @{/} + ${com.author.profile_picture}"/>
-                            <img class="comment-image" th:unless="${com.author.profile_picture}" src="/res/images/default-image.png"/>
+                            <div class="image-container">
+                                <img th:if="${com.author.profile_picture}"
+                                     th:src="@{/res/images/} + ${com.author.userUrl} + @{/} + ${com.author.profile_picture}"/>
+                                <img th:unless="${com.author.profile_picture}" src="/res/images/default-image.png"/>
+                            </div>
                         </div>
 
                         <div class="col-md-4"><a class="user-name-comments" th:href="@{/} + ${com.author.userUrl}" th:text="${com.author.fullname}"></a></div>
@@ -74,7 +79,7 @@
                         <div class="col-md-6"><b>Date Commented : <span th:text="${com.date}"></span></b></div>
 
                         <div class="row">
-                            <div class="col-md-7 grooveBorder show-white-spaces" th:text="${com.comment}"></div>
+                            <div class="col-md-7 show-white-spaces" th:text="${com.comment}"></div>
 
                             <div th:if="${user}" class="col-md-1">
                                 <button class="reply btn btn-info">Reply</button>
@@ -88,10 +93,11 @@
                         <div class="reply-comment">
 
                             <div class="col-md-2">
-                                <img class="comment-image" th:if="${user.profile_picture}"
-                                     th:src="@{/res/images/} + ${user.userUrl} + @{/} + ${user.profile_picture}"/>
-                                <img class="comment-image" th:unless="${user.profile_picture}"
-                                     src="/res/images/default-image.png"/>
+                                <div class="image-container">
+                                    <img th:if="${user.profile_picture}"
+                                         th:src="@{/res/images/} + ${user.userUrl} + @{/} + ${user.profile_picture}"/>
+                                    <img th:unless="${user.profile_picture}" src="/res/images/default-image.png"/>
+                                </div>
                             </div>
                             <form method="post">
                                 <textarea class="col-md-6 margintop30" placeholder="Reply" name="reply"></textarea>
@@ -111,9 +117,11 @@
 
                             <div class="grooveBorder col-md-offset-2">
                                 <div class="col-md-2">
-                                    <img class="comment-image" th:if="${reply.author.profile_picture}"
-                                         th:src="@{/res/images/} + ${reply.author.userUrl} + @{/} + ${reply.author.profile_picture}"/>
-                                    <img class="comment-image" th:unless="${reply.author.profile_picture}" src="/res/images/default-image.png"/>
+                                    <div class="small-image-container">
+                                        <img th:if="${reply.author.profile_picture}"
+                                             th:src="@{/res/images/} + ${reply.author.userUrl} + @{/} + ${reply.author.profile_picture}"/>
+                                        <img th:unless="${reply.author.profile_picture}" src="/res/images/default-image.png"/>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-4"><a class="user-name-comments" th:href="@{/} + ${com.author.userUrl}" th:text="${com.author.fullname}"></a></div>
@@ -121,12 +129,7 @@
                                 <div class="col-md-4"><b>Date Commented : <span th:text="${reply.date}"></span></b></div>
 
                                 <div class="row">
-                                    <div class="col-md-7 col-md-offset-1 grooveBorder show-white-spaces" th:text="${reply.reply}">></div>
-
-                                    <div th:if="${user}" class="col-md-1">
-                                        <button id="replyOnReply" class="reply btn btn-info">Reply</button>
-                                    </div>
-
+                                    <div class="col-md-8 show-white-spaces" th:text="${reply.reply}">></div>
                                 </div>
                             </div>
                         </div>

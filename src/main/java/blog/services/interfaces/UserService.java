@@ -7,11 +7,16 @@ import java.io.IOException;
 
 public interface UserService {
 
-    public User getUserByUsername(String username);
-    public User getUserByUrl(String url);
-    public User getAuthenticatedUser();
-    public boolean checkPassword(String password, String hashPass);
-    public void updateUser(User user, String newPass);
-    public void deleteUser(User user) throws IOException;
+    User getUserByUsername(String username);
+
+    User getUserByUrl(String url);
+
+    User getAuthenticatedUser();
+
+    boolean checkPassword(String password, String hashPass);
+
+    void updateUser(User user, String newPass);
+
+    void deleteUser(User user) throws IOException;
 
 }

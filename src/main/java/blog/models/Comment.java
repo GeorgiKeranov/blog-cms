@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "Comments")
-
+@Table(name = "comments")
 public class Comment {
 
     @Id
@@ -27,7 +26,7 @@ public class Comment {
     @ManyToOne
     private Post post;
 
-    @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     @OrderBy("date")
     private List<Reply> replies;
 

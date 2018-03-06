@@ -71,8 +71,7 @@ body.bodyBackgroundBlue {
 
 .show-white-spaces {
     white-space: pre-wrap;
-    overflow: scroll;
-    padding: 10px;
+    padding: 5px;
 }
 
 .FormError {
@@ -338,13 +337,6 @@ div.myPost {
     padding: 20px;
 }
 
-.comment-image {
-    max-height: 100px;
-    /* max-width!! */
-    display: block;
-    margin: auto;
-}
-
 .reply-comment {
     display: none;
 }
@@ -399,3 +391,47 @@ div.myPost {
     max-width: 70px;
     max-height: 70px;
 }
+
+.center-image-vertical {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.image-container {
+    height: 100px;
+    width: 150px;
+    position: relative;
+}
+
+.small-image-container {
+    height: 100px;
+    widht: 100px;
+    position: relative;
+}
+
+.image-container img {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.small-image-container img {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
