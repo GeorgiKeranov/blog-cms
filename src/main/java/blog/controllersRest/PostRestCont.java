@@ -30,8 +30,8 @@ public class PostRestCont {
 
     // Methods that are saving in database.
 
-    // This method is creating new Post in the database.
-    @RequestMapping(value = "/rest/create-post", method = RequestMethod.POST)
+    // This method is creating new post in the database.
+    @RequestMapping(value = "/rest/create-post", method = RequestMethod.POST, produces = "application/json")
     public String createNewPost(PostForm postForm,
                                 @RequestParam(value="picture", required = false) MultipartFile picture){
 
@@ -63,15 +63,15 @@ public class PostRestCont {
         return response.toString();
     }
 
-    // This method is commenting on given Post by id.
-    @RequestMapping(value = "/rest/posts/{id}/comment", method = RequestMethod.POST)
+    // This method is commenting on given post by id.
+    @RequestMapping(value = "/rest/posts/{id}/comment", method = RequestMethod.POST, produces = "application/json")
     public String commentOnPost(@PathVariable("id") Long id,
                                 @RequestParam(value = "comment", required = false) String comment) {
 
         JSONObject response = new JSONObject();
         if(comment == null) {
             response.put("error", true);
-            response.put("error_msg", "There is not comment.");
+            response.put("error_msg", "There is no comment.");
             return response.toString();
         }
 
@@ -90,7 +90,7 @@ public class PostRestCont {
     }
 
     // This method is replying on given Comment by id.
-    @RequestMapping(value = "/rest/posts/{id}/reply", method = RequestMethod.POST)
+    @RequestMapping(value = "/rest/posts/{id}/reply", method = RequestMethod.POST, produces = "application/json")
     public String replyOnComment(@RequestParam("reply") String reply,
                               @RequestParam("commentIdToReply") Long commentId) {
 
@@ -151,13 +151,13 @@ public class PostRestCont {
         return postService.getLatest5PostsUser(authUserId);
     }
 
-    // This method is used to return 5 Posts ordered by date before given id of other Post.
+    // This method is used to return 5 posts ordered by date before given id of other post.
     @RequestMapping(value = "/rest/posts", method = RequestMethod.GET)
     public List<Post> get5PostsBeforeId(@RequestParam("postsBeforeId") Long id) {
         return postService.find5BeforeId(id);
     }
 
-    // This method is used to return 5 Posts by the user given by userUrl
+    // This method is used to return 5 posts by the user given by userUrl
     // ordered by date before the given id of other user's Post.
     @RequestMapping(value = "/rest/{userUrl:.+}/posts", method = RequestMethod.GET)
     public List<Post> get5UserPostsBeforeId(@PathVariable("userUrl") String userUrl,
@@ -182,7 +182,7 @@ public class PostRestCont {
     }
 
     // This method is returning all the comments and replies
-    // on given Post by id.
+    // on given post by id.
     @RequestMapping(value = "/rest/posts/{id}/comments", method = RequestMethod.GET)
     public List<Comment> getPostComments(@PathVariable("id") Long id) {
         return postService.getPostById(id).getComments();
@@ -201,12 +201,20 @@ public class PostRestCont {
 
         JSONObject response = new JSONObject();
 
+        User authUser = userService.getAuthenticatedUser();
         Post post = postService.getPostById(id);
 
         // If post is null we are returning error.
         if(post == null) {
             response.put("error", true);
             response.put("error_msg", "Post cannot be found.");
+            return response.toString();
+        }
+
+        // Check if the post doesn't belong to the authenticated user.
+        if(!post.getAuthor().getUsername().equals(authUser.getUsername())) {
+            response.put("error", true);
+            response.put("error_msg", "Post doesn't belong to you!");
             return response.toString();
         }
 
@@ -238,14 +246,14 @@ public class PostRestCont {
 
         if(postForDelete.getAuthor().getUsername().equals(authUser.getUsername())) {
             postService.deletePostById(id);
-            return "{ \"deleted\": true }";
+            return "{ \"error\": false }";
         }
 
-        return "{ \"deleted\": false }";
+        return "{ \"error\": true, \"error_msg\": \"You are not the author of that post\" }";
     }
 
     // This method is deleting comment if the author of it is the authenticated user.
-    @RequestMapping(value = "/rest/posts/delete-comment", method = RequestMethod.POST)
+    @RequestMapping(value = "/rest/posts/delete-comment", method = RequestMethod.POST, produces = "application/json")
     public String deleteComment(@RequestParam("commentId") Long commentId) {
 
         Comment comment = postService.getCommentById(commentId);
@@ -272,7 +280,7 @@ public class PostRestCont {
     }
 
     // This method is deleting reply if the author of it is the authenticated user.
-    @RequestMapping(value = "/rest/posts/delete-reply", method = RequestMethod.POST)
+    @RequestMapping(value = "/rest/posts/delete-reply", method = RequestMethod.POST, produces = "application/json")
     public String deleteReply(@RequestParam(value = "replyId", required = false) Long replyId) {
 
         // That object is used to create JSON String more easily.
