@@ -4,6 +4,9 @@ Blog web application. You can register, login then you can make posts with image
 
 It is written in Java with Spring Boot, Spring MVC, Spring Security, Spring Data JPA, Hibernate and Thymeleaf. Database used - MySQL. Also REST part of the project is used by Android application -> https://github.com/GeorgiKeranov/BlogApp
 
+# Pictures and video
+## Pictures -> https://georgikeranov.com/project/Blog
+## Video -> 
 
 # Documentation
 
