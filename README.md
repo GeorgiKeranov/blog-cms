@@ -6,7 +6,7 @@ It is written in Java with Spring Boot, Spring MVC, Spring Security, Spring Data
 
 # Pictures and video
 ## Pictures -> https://georgikeranov.com/project/Blog
-## Video -> 
+## Video -> https://www.youtube.com/watch?v=hClXpGD-3V0
 
 # Documentation
 
