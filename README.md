@@ -4,6 +4,9 @@ Blog web application. You can register, login then you can make posts with image
 
 It is written in Java with Spring Boot, Spring MVC, Spring Security, Spring Data JPA, Hibernate and Thymeleaf. Database used - MySQL. Also REST part of the project is used by Android application -> https://github.com/GeorgiKeranov/BlogApp
 
+# Pictures and video
+## Pictures -> https://georgikeranov.com/project/Blog
+## Video -> 
 
 # Documentation
 
@@ -37,6 +40,16 @@ Required parameters -> username, password.
 ```
 
 #### Not logged in response:
+```JavaScript
+{
+  "authenticated": false
+}
+```
+<br/>
+
+### POST /rest/logout -> Logout of the account.
+
+#### Logged out response:
 ```JavaScript
 {
   "authenticated": false
@@ -177,6 +190,418 @@ Required parameters -> reply, commentIdToReply.
     "date": "2018-03-06 17:38:35.0"
 }
 ```
+
 <br/>
+
+### GET /rest/posts/latest -> Get latest 5 posts ordered by date.
+
+#### Response:
+```JavaScript
+[
+    {
+        "id": 11,
+        "title": "Title 6",
+        "icon": "Wed Mar 07 12:57:25 EET 201820180209_125457.jpg",
+        "description": "Title 6",
+        "date": "2018-03-07 12:57:25.0"
+    },
+    {
+        "id": 10,
+        "title": "Title 5",
+        "icon": "Wed Mar 07 12:56:51 EET 201820180227_182216.jpg",
+        "description": "Desc 5",
+        "date": "2018-03-07 12:56:51.0"
+    },
+    {
+        "id": 9,
+        "title": "Fourth Title",
+        "icon": "no",
+        "description": "Fourth Descripttionnnnn.",
+        "date": "2018-03-07 12:56:26.0"
+    },
+    {
+        "id": 8,
+        "title": "Thrid title",
+        "icon": "Wed Mar 07 12:53:34 EET 201820180218_192757.jpg",
+        "description": "Third description.",
+        "date": "2018-03-07 12:53:35.0"
+    },
+    {
+        "id": 7,
+        "title": "Second title",
+        "icon": "Wed Mar 07 12:52:36 EET 201811158036_866579163413641_491502118_n.jpg",
+        "description": "Second description",
+        "date": "2018-03-07 12:52:37.0"
+    }
+]
+```
+
+### GET /rest/posts?postsBeforeId={id} -> Get 5 Posts ordered by date before given id of other Post.
+For example if id = 11 :
+#### Response:
+```JavaScript
+[
+    {
+        "id": 10,
+        "title": "Title 5",
+        "icon": "Wed Mar 07 12:56:51 EET 201820180227_182216.jpg",
+        "description": "Desc 5",
+        "date": "2018-03-07 12:56:51.0"
+    },
+    {
+        "id": 9,
+        "title": "Fourth Title",
+        "icon": "no",
+        "description": "Fourth Descripttionnnnn.",
+        "date": "2018-03-07 12:56:26.0"
+    },
+    {
+        "id": 8,
+        "title": "Thrid title",
+        "icon": "Wed Mar 07 12:53:34 EET 201820180218_192757.jpg",
+        "description": "Third description.",
+        "date": "2018-03-07 12:53:35.0"
+    },
+    {
+        "id": 7,
+        "title": "Second title",
+        "icon": "Wed Mar 07 12:52:36 EET 201811158036_866579163413641_491502118_n.jpg",
+        "description": "Second description",
+        "date": "2018-03-07 12:52:37.0"
+    },
+    {
+        "id": 6,
+        "title": "Post title",
+        "icon": "Tue Mar 06 17:38:34 EET 2018Honda.jpg",
+        "description": "Post description",
+        "date": "2018-03-06 17:38:35.0"
+    }
+]
+```
+
+<br/>
+
+### GET /rest/{userUrl}/latest-posts -> Get latest 5 posts for user given by userUrl.
+
+#### Response:
+```JavaScript
+[
+    {
+        "id": 11,
+        "title": "Title 6",
+        "icon": "Wed Mar 07 12:57:25 EET 201820180209_125457.jpg",
+        "description": "Title 6",
+        "date": "2018-03-07 12:57:25.0"
+    },
+    {
+        "id": 10,
+        "title": "Title 5",
+        "icon": "Wed Mar 07 12:56:51 EET 201820180227_182216.jpg",
+        "description": "Desc 5",
+        "date": "2018-03-07 12:56:51.0"
+    },
+    {
+        "id": 9,
+        "title": "Fourth Title",
+        "icon": "no",
+        "description": "Fourth Descripttionnnnn.",
+        "date": "2018-03-07 12:56:26.0"
+    },
+    {
+        "id": 8,
+        "title": "Thrid title",
+        "icon": "Wed Mar 07 12:53:34 EET 201820180218_192757.jpg",
+        "description": "Third description.",
+        "date": "2018-03-07 12:53:35.0"
+    },
+    {
+        "id": 7,
+        "title": "Second title",
+        "icon": "Wed Mar 07 12:52:36 EET 201811158036_866579163413641_491502118_n.jpg",
+        "description": "Second description",
+        "date": "2018-03-07 12:52:37.0"
+    }
+]
+```
+
+### GET /rest/{userUrl}/posts?postsBeforeId={id} -> Get 5 posts by the user given by userUrl ordered by date before the given id of other user's Post.
+For example if id = 11 :
+#### Response:
+```JavaScript
+[
+    {
+        "id": 10,
+        "title": "Title 5",
+        "icon": "Wed Mar 07 12:56:51 EET 201820180227_182216.jpg",
+        "description": "Desc 5",
+        "date": "2018-03-07 12:56:51.0"
+    },
+    {
+        "id": 9,
+        "title": "Fourth Title",
+        "icon": "no",
+        "description": "Fourth Descripttionnnnn.",
+        "date": "2018-03-07 12:56:26.0"
+    },
+    {
+        "id": 8,
+        "title": "Thrid title",
+        "icon": "Wed Mar 07 12:53:34 EET 201820180218_192757.jpg",
+        "description": "Third description.",
+        "date": "2018-03-07 12:53:35.0"
+    },
+    {
+        "id": 7,
+        "title": "Second title",
+        "icon": "Wed Mar 07 12:52:36 EET 201811158036_866579163413641_491502118_n.jpg",
+        "description": "Second description",
+        "date": "2018-03-07 12:52:37.0"
+    },
+    {
+        "id": 6,
+        "title": "Post title",
+        "icon": "Tue Mar 06 17:38:34 EET 2018Honda.jpg",
+        "description": "Post description",
+        "date": "2018-03-06 17:38:35.0"
+    }
+]
+```
+### GET /rest/account/latest-posts -> Get latest 5 posts for the authenticated user.
+
+#### Response:
+```JavaScript
+[
+    {
+        "id": 11,
+        "title": "Title 6",
+        "icon": "Wed Mar 07 12:57:25 EET 201820180209_125457.jpg",
+        "description": "Title 6",
+        "date": "2018-03-07 12:57:25.0"
+    },
+    {
+        "id": 10,
+        "title": "Title 5",
+        "icon": "Wed Mar 07 12:56:51 EET 201820180227_182216.jpg",
+        "description": "Desc 5",
+        "date": "2018-03-07 12:56:51.0"
+    },
+    {
+        "id": 9,
+        "title": "Fourth Title",
+        "icon": "no",
+        "description": "Fourth Descripttionnnnn.",
+        "date": "2018-03-07 12:56:26.0"
+    },
+    {
+        "id": 8,
+        "title": "Thrid title",
+        "icon": "Wed Mar 07 12:53:34 EET 201820180218_192757.jpg",
+        "description": "Third description.",
+        "date": "2018-03-07 12:53:35.0"
+    },
+    {
+        "id": 7,
+        "title": "Second title",
+        "icon": "Wed Mar 07 12:52:36 EET 201811158036_866579163413641_491502118_n.jpg",
+        "description": "Second description",
+        "date": "2018-03-07 12:52:37.0"
+    }
+]
+```
+
+### GET /rest/account/posts?postsBeforeId={id} -> Get 5 posts by authenticated user ordered by date before the given id of other post.
+For example if id = 11 :
+#### Response:
+```JavaScript
+[
+    {
+        "id": 10,
+        "title": "Title 5",
+        "icon": "Wed Mar 07 12:56:51 EET 201820180227_182216.jpg",
+        "description": "Desc 5",
+        "date": "2018-03-07 12:56:51.0"
+    },
+    {
+        "id": 9,
+        "title": "Fourth Title",
+        "icon": "no",
+        "description": "Fourth Descripttionnnnn.",
+        "date": "2018-03-07 12:56:26.0"
+    },
+    {
+        "id": 8,
+        "title": "Thrid title",
+        "icon": "Wed Mar 07 12:53:34 EET 201820180218_192757.jpg",
+        "description": "Third description.",
+        "date": "2018-03-07 12:53:35.0"
+    },
+    {
+        "id": 7,
+        "title": "Second title",
+        "icon": "Wed Mar 07 12:52:36 EET 201811158036_866579163413641_491502118_n.jpg",
+        "description": "Second description",
+        "date": "2018-03-07 12:52:37.0"
+    },
+    {
+        "id": 6,
+        "title": "Post title",
+        "icon": "Tue Mar 06 17:38:34 EET 2018Honda.jpg",
+        "description": "Post description",
+        "date": "2018-03-06 17:38:35.0"
+    }
+]
+```
+
+<br/>
+
+### GET /rest/posts/{id}/author -> Get author of post by post id.
+
+#### Response:
+```JavaScript
+{
+    "userUrl": "georgi.keranov",
+    "firstName": "Georgi",
+    "lastName": "Keranov",
+    "email": "georgy.keranov@gmail.com",
+    "profile_picture": "Tue Mar 06 17:38:12 EET 20182009-03-27-bikepics-1614374-full.jpg"
+}
+```
+
+<br/>
+
+### GET /rest/posts/{id}/comments -> Get comments and replies of post by post id.
+
+#### Response:
+```JavaScript
+[
+    {
+        "id": 9,
+        "comment": "first comment",
+        "author": {
+            "userUrl": "dimitur.ivanov",
+            "firstName": "Dimitur",
+            "lastName": "Ivanov",
+            "email": "dimitur.ivanov@abv.bg",
+            "profile_picture": "no"
+        },
+        "date": "2018-03-07 13:20:45.0",
+        "replies": [
+            {
+                "id": 15,
+                "reply": "first reply for first comment",
+                "author": {
+                    "userUrl": "dimitur.ivanov",
+                    "firstName": "Dimitur",
+                    "lastName": "Ivanov",
+                    "email": "dimitur.ivanov@abv.bg",
+                    "profile_picture": "no"
+                },
+                "date": "2018-03-07 13:21:04.0"
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "comment": "second comment",
+        "author": {
+            "userUrl": "dimitur.ivanov",
+            "firstName": "Dimitur",
+            "lastName": "Ivanov",
+            "email": "dimitur.ivanov@abv.bg",
+            "profile_picture": "no"
+        },
+        "date": "2018-03-07 13:20:51.0",
+        "replies": [
+            {
+                "id": 16,
+                "reply": "second reply for second comment",
+                "author": {
+                    "userUrl": "dimitur.ivanov",
+                    "firstName": "Dimitur",
+                    "lastName": "Ivanov",
+                    "email": "dimitur.ivanov@abv.bg",
+                    "profile_picture": "no"
+                },
+                "date": "2018-03-07 13:21:13.0"
+            }
+        ]
+    }
+]
+```
+
+<br/>
+
+### POST /rest/posts/{id} -> Edit 
+Required parameters -> title, description.\
+Not required parameters -> picture(image file).
+#### Successful created post response:
+```JavaScript
+{
+  "error": false
+}
+```
+#### Unsuccessful create post response:
+```JavaScript
+{
+  "error": true,
+  "error_msg": "Post cannot be found.(for example)"
+}
+```
+
+<br/>
+
+### POST /rest/posts/{id}/delete -> Delete post by id.
+#### Successful deleted:
+```JavaScript
+{
+  "error": false
+}
+```
+#### Unsuccessful deleted:
+```JavaScript
+{
+  "error": true,
+  "error_msg": "You are not the author of that post"
+}
+```
+
+<br/>
+
+### POST /rest/posts/delete-comment -> Delete comment by id.
+Required params: commentId.
+#### Successful deleted:
+```JavaScript
+{
+  "error": false
+}
+```
+#### Unsuccessful deleted:
+```JavaScript
+{
+  "error": true,
+  "error_msg": "You are not the author of the comment!"
+}
+```
+
+<br/>
+
+### POST /rest/posts/delete-reply -> Delete reply by id.
+Required params: replyId.
+#### Successful deleted:
+```JavaScript
+{
+  "error": false
+}
+```
+#### Unsuccessful deleted:
+```JavaScript
+{
+  "error": true,
+  "error_msg": "You are not the author of the comment!"
+}
+```
+
+
+
 
 
