@@ -124,7 +124,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4"><a class="user-name-comments" th:href="@{/} + ${com.author.userUrl}" th:text="${com.author.fullname}"></a></div>
+                                <div class="col-md-4"><a class="user-name-comments" th:href="@{/} + ${reply.author.userUrl}" th:text="${reply.author.fullname}"></a></div>
 
                                 <div class="col-md-4"><b>Date Commented : <span th:text="${reply.date}"></span></b></div>
 

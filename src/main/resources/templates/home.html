@@ -12,9 +12,9 @@
         <div class="container">
             <div class="postBorder" th:each="post : ${allPosts}">
                 <a th:href="@{/posts/} + ${post.id}">
+                    <h4 class="text-left" th:text="${post.summaryTitle}">Title</h4>
                     <img th:if="${post.icon}" th:src="@{/res/image-post/} + ${post.icon}"/>
                     <img th:unless="${post.icon}" src="/res/image-post/default-image.png"/>
-                    <h2 th:text="${post.summaryTitle}">Title</h2>
                 </a>
             </div>
         </div>

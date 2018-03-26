@@ -18,7 +18,7 @@ public class Post {
 
     private String icon = "no"; // This is default value if there is not icon.
 
-    @Column(length = 500)
+    @Column(columnDefinition = "text")
     private String description;
 
     @JsonIgnore
@@ -102,8 +102,8 @@ public class Post {
     @JsonIgnore
     @Transient
     public String getSummaryTitle(){
-        if(title.length() > 15) {
-            String summary = title.substring(0, 15);
+        if(title.length() > 37) {
+            String summary = title.substring(0, 34);
             return summary + "...";
         }
         return title;
