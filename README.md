@@ -8,7 +8,7 @@ It is written in Java with Spring Boot, Spring MVC, Spring Security, Spring Data
 ## Pictures -> https://georgikeranov.com/project/Blog
 ## Video -> https://www.youtube.com/watch?v=hClXpGD-3V0
 
-# Documentation
+# REST Documentation
 
 ### POST /rest/register -> Register new user.
 Required parameters -> firstName, lastName, username, email, password.
