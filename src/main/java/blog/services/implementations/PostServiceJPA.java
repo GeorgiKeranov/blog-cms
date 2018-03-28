@@ -33,23 +33,13 @@ public class PostServiceJPA implements PostService {
     private StorageService storageService;
 
     @Override
-    public List<Post> getLatest5Posts() {
-        return postRepo.findFirst5ByOrderByDateDesc();
+    public List<Post> getPostsOnPage(int page) {
+        return postRepo.findPostsOnPage(new PageRequest(page, 10));
     }
 
     @Override
-    public List<Post> getLatest5PostsUser(Long authorId) {
-        return postRepo.findByUserLatest5Posts(authorId, new PageRequest(0, 5));
-    }
-
-    @Override
-    public List<Post> find5BeforeId(Long id) {
-        return postRepo.find5BeforeId(id, new PageRequest(0, 5));
-    }
-
-    @Override
-    public List<Post> find5BeforeIdForUser(Long authorId, Long postsBeforeId) {
-        return postRepo.find5BeforeIdUser(authorId, postsBeforeId, new PageRequest(0, 5));
+    public List<Post> getPostsByAuthorOnPage(String userUrl, int page) {
+        return postRepo.findPostsByAuthorOnPage(userUrl, new PageRequest(page, 10));
     }
 
     @Override

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -26,9 +27,6 @@ public class PostRestCont {
 
     @Autowired
     private StorageService storageService;
-
-
-    // Methods that are saving in database.
 
     // This method is creating new post in the database.
     @RequestMapping(value = "/rest/create-post", method = RequestMethod.POST, produces = "application/json")
@@ -121,8 +119,6 @@ public class PostRestCont {
         return response.toString();
     }
 
-    // Methods that are loading from the database.
-
     // This method is getting the id of the requested post
     // in the url and returning it as JSON object.
     @RequestMapping(value = "/rest/posts/{id}", method = RequestMethod.GET)
@@ -130,49 +126,29 @@ public class PostRestCont {
         return postService.getPostById(id);
     }
 
-    // This method is returning latest 5 posts ordered
-    // by date from the database as JSON array.
-    @RequestMapping(value = "/rest/posts/latest", method = RequestMethod.GET)
-    public List<Post> getLatest5Posts(){
-        return postService.getLatest5Posts();
-    }
-
-    // This method is returning latest 5 posts for user given by userUrl.
-    @RequestMapping(value = "/rest/{userUrl:.+}/latest-posts", method = RequestMethod.GET)
-    public List<Post> getLatest5UserPosts(@PathVariable("userUrl") String userUrl) {
-        Long userId = userService.getUserByUrl(userUrl).getId();
-        return postService.getLatest5PostsUser(userId);
-    }
-
-    // This method is returning latest 5 posts for the authenticated user.
-    @RequestMapping(value = "/rest/account/latest-posts", method = RequestMethod.GET)
-    public List<Post> getLatest5AuthenticatedUserPosts() {
-        Long authUserId = userService.getAuthenticatedUser().getId();
-        return postService.getLatest5PostsUser(authUserId);
-    }
-
-    // This method is used to return 5 posts ordered by date before given id of other post.
+    // This method is used to get posts on given page ordered by date.
     @RequestMapping(value = "/rest/posts", method = RequestMethod.GET)
-    public List<Post> get5PostsBeforeId(@RequestParam("postsBeforeId") Long id) {
-        return postService.find5BeforeId(id);
+    public List<Post> getPostsByPage(@RequestParam(value = "page", defaultValue = "0") int page) {
+        return postService.getPostsOnPage(page);
     }
 
-    // This method is used to return 5 posts by the user given by userUrl
-    // ordered by date before the given id of other user's Post.
+    // This method is used to get posts on given page by author ordered by date.
     @RequestMapping(value = "/rest/{userUrl:.+}/posts", method = RequestMethod.GET)
-    public List<Post> get5UserPostsBeforeId(@PathVariable("userUrl") String userUrl,
-                                            @RequestParam("postsBeforeId") Long postsBeforeId) {
-
-        Long userId = userService.getUserByUrl(userUrl).getId();
-        return postService.find5BeforeIdForUser(userId, postsBeforeId);
+    public List<Post> getPostsByPage(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @PathVariable(value = "userUrl") String userUrl) {
+        return postService.getPostsByAuthorOnPage(userUrl, page);
     }
+
+    // This method is used to get posts on given page by author ordered by date.
 
     @RequestMapping(value = "/rest/account/posts", method = RequestMethod.GET)
-    public List<Post> get5AuthenticatedUserPostsBeforeId(
-            @RequestParam("postsBeforeId") Long postsBeforeId) {
+    public List<Post> getPostsByPage(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            Principal principal){
 
-        Long userId = userService.getAuthenticatedUser().getId();
-        return postService.find5BeforeIdForUser(userId, postsBeforeId);
+        User authenticatedUser = userService.getUserByUsername(principal.getName());
+        return postService.getPostsByAuthorOnPage(authenticatedUser.getUserUrl(), page);
     }
 
     // This method is getting id of post and return the author(as User object) of that post.
