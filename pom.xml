@@ -54,7 +54,6 @@
 
     </dependencies>
 
-
     <build>
         <finalName>Blog</finalName>
     </build>
