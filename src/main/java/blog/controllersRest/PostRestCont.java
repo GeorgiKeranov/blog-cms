@@ -29,7 +29,7 @@ public class PostRestCont {
     private StorageService storageService;
 
     // This method is creating new post in the database.
-    @RequestMapping(value = "/rest/create-post", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/rest/posts/create", method = RequestMethod.POST, produces = "application/json")
     public String createNewPost(PostForm postForm,
                                 @RequestParam(value="picture", required = false) MultipartFile picture){
 
@@ -229,7 +229,7 @@ public class PostRestCont {
     }
 
     // This method is deleting comment if the author of it is the authenticated user.
-    @RequestMapping(value = "/rest/posts/delete-comment", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/rest/comment/delete", method = RequestMethod.POST, produces = "application/json")
     public String deleteComment(@RequestParam("commentId") Long commentId) {
 
         Comment comment = postService.getCommentById(commentId);
@@ -256,7 +256,7 @@ public class PostRestCont {
     }
 
     // This method is deleting reply if the author of it is the authenticated user.
-    @RequestMapping(value = "/rest/posts/delete-reply", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/rest/reply/delete", method = RequestMethod.POST, produces = "application/json")
     public String deleteReply(@RequestParam(value = "replyId", required = false) Long replyId) {
 
         // That object is used to create JSON String more easily.
