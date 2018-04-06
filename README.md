@@ -193,7 +193,8 @@ Required parameters -> reply, commentIdToReply.
 
 <br/>
 
-### GET /rest/posts/latest -> Get latest 5 posts ordered by date.
+### GET /rest/posts?page=0 -> Get posts by page.
+Not required param -> page
 
 #### Response:
 ```JavaScript
@@ -235,53 +236,10 @@ Required parameters -> reply, commentIdToReply.
     }
 ]
 ```
-
-### GET /rest/posts?postsBeforeId={id} -> Get 5 Posts ordered by date before given id of other Post.
-For example if id = 11 :
-#### Response:
-```JavaScript
-[
-    {
-        "id": 10,
-        "title": "Title 5",
-        "icon": "Wed Mar 07 12:56:51 EET 201820180227_182216.jpg",
-        "description": "Desc 5",
-        "date": "2018-03-07 12:56:51.0"
-    },
-    {
-        "id": 9,
-        "title": "Fourth Title",
-        "icon": "no",
-        "description": "Fourth Descripttionnnnn.",
-        "date": "2018-03-07 12:56:26.0"
-    },
-    {
-        "id": 8,
-        "title": "Thrid title",
-        "icon": "Wed Mar 07 12:53:34 EET 201820180218_192757.jpg",
-        "description": "Third description.",
-        "date": "2018-03-07 12:53:35.0"
-    },
-    {
-        "id": 7,
-        "title": "Second title",
-        "icon": "Wed Mar 07 12:52:36 EET 201811158036_866579163413641_491502118_n.jpg",
-        "description": "Second description",
-        "date": "2018-03-07 12:52:37.0"
-    },
-    {
-        "id": 6,
-        "title": "Post title",
-        "icon": "Tue Mar 06 17:38:34 EET 2018Honda.jpg",
-        "description": "Post description",
-        "date": "2018-03-06 17:38:35.0"
-    }
-]
-```
-
 <br/>
 
-### GET /rest/{userUrl}/latest-posts -> Get latest 5 posts for user given by userUrl.
+### GET /rest/{userUrl}/posts?page=0 -> Get posts by page for user given by userUrl.
+Not required param -> page
 
 #### Response:
 ```JavaScript
@@ -323,50 +281,10 @@ For example if id = 11 :
     }
 ]
 ```
+<br/>
 
-### GET /rest/{userUrl}/posts?postsBeforeId={id} -> Get 5 posts by the user given by userUrl ordered by date before the given id of other user's Post.
-For example if id = 11 :
-#### Response:
-```JavaScript
-[
-    {
-        "id": 10,
-        "title": "Title 5",
-        "icon": "Wed Mar 07 12:56:51 EET 201820180227_182216.jpg",
-        "description": "Desc 5",
-        "date": "2018-03-07 12:56:51.0"
-    },
-    {
-        "id": 9,
-        "title": "Fourth Title",
-        "icon": "no",
-        "description": "Fourth Descripttionnnnn.",
-        "date": "2018-03-07 12:56:26.0"
-    },
-    {
-        "id": 8,
-        "title": "Thrid title",
-        "icon": "Wed Mar 07 12:53:34 EET 201820180218_192757.jpg",
-        "description": "Third description.",
-        "date": "2018-03-07 12:53:35.0"
-    },
-    {
-        "id": 7,
-        "title": "Second title",
-        "icon": "Wed Mar 07 12:52:36 EET 201811158036_866579163413641_491502118_n.jpg",
-        "description": "Second description",
-        "date": "2018-03-07 12:52:37.0"
-    },
-    {
-        "id": 6,
-        "title": "Post title",
-        "icon": "Tue Mar 06 17:38:34 EET 2018Honda.jpg",
-        "description": "Post description",
-        "date": "2018-03-06 17:38:35.0"
-    }
-]
-```
-### GET /rest/account/latest-posts -> Get latest 5 posts for the authenticated user.
+### GET /rest/account/posts?page=0 -> Get posts by page for the authenticated user.
+Not required param -> page
 
 #### Response:
 ```JavaScript
@@ -405,49 +323,6 @@ For example if id = 11 :
         "icon": "Wed Mar 07 12:52:36 EET 201811158036_866579163413641_491502118_n.jpg",
         "description": "Second description",
         "date": "2018-03-07 12:52:37.0"
-    }
-]
-```
-
-### GET /rest/account/posts?postsBeforeId={id} -> Get 5 posts by authenticated user ordered by date before the given id of other post.
-For example if id = 11 :
-#### Response:
-```JavaScript
-[
-    {
-        "id": 10,
-        "title": "Title 5",
-        "icon": "Wed Mar 07 12:56:51 EET 201820180227_182216.jpg",
-        "description": "Desc 5",
-        "date": "2018-03-07 12:56:51.0"
-    },
-    {
-        "id": 9,
-        "title": "Fourth Title",
-        "icon": "no",
-        "description": "Fourth Descripttionnnnn.",
-        "date": "2018-03-07 12:56:26.0"
-    },
-    {
-        "id": 8,
-        "title": "Thrid title",
-        "icon": "Wed Mar 07 12:53:34 EET 201820180218_192757.jpg",
-        "description": "Third description.",
-        "date": "2018-03-07 12:53:35.0"
-    },
-    {
-        "id": 7,
-        "title": "Second title",
-        "icon": "Wed Mar 07 12:52:36 EET 201811158036_866579163413641_491502118_n.jpg",
-        "description": "Second description",
-        "date": "2018-03-07 12:52:37.0"
-    },
-    {
-        "id": 6,
-        "title": "Post title",
-        "icon": "Tue Mar 06 17:38:34 EET 2018Honda.jpg",
-        "description": "Post description",
-        "date": "2018-03-06 17:38:35.0"
     }
 ]
 ```
@@ -567,7 +442,7 @@ Not required parameters -> picture(image file).
 
 <br/>
 
-### POST /rest/posts/delete-comment -> Delete comment by id.
+### POST /rest/comment/delete -> Delete comment by id.
 Required params: commentId.
 #### Successful deleted:
 ```JavaScript
@@ -585,7 +460,7 @@ Required params: commentId.
 
 <br/>
 
-### POST /rest/posts/delete-reply -> Delete reply by id.
+### POST /rest/reply/delete -> Delete reply by id.
 Required params: replyId.
 #### Successful deleted:
 ```JavaScript
