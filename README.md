@@ -1,6 +1,6 @@
 # Blog
 
-Blog MVC web application with REST API for android app bulit with Java and Spring.
+Blog MVC web application with extra REST API bulit with Java and Spring.
 
 You can check the android app that uses REST API from this project [here](https://github.com/GeorgiKeranov/BlogApp).
 
